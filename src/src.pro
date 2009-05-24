@@ -1,4 +1,4 @@
-TARGET = ../tux4kidsadmin
+TARGET = ../tux4kids-admin
 TEMPLATE = app
 INCLUDEPATH	+= ../plugins/
 
