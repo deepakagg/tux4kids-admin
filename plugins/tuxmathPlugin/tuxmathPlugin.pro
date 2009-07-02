@@ -2,11 +2,11 @@ TEMPLATE	= lib
 CONFIG		+= plugin
 INCLUDEPATH	+= ../
 
-HEADERS		= dummy.h \
+HEADERS		= tuxmathPlugin.h \
 
-SOURCES		= dummy.cpp \
+SOURCES		= tuxmathPlugin.cpp \
 
-TARGET		= $$qtLibraryTarget(DummyPlugin)
+TARGET		= $$qtLibraryTarget(TuxmathPlugin)
 DESTDIR		= ../
 
 # Uncomment to use GCOV

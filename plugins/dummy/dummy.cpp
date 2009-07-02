@@ -8,9 +8,14 @@ DummyPlugin::~DummyPlugin()
 {
 }
 
-QString DummyPlugin::name()
+QString DummyPlugin::name() const
 {
 	return tr("dummy plugin");
 }
 
-Q_EXPORT_PLUGIN2(dummyPlugin, DummyPlugin);
+QString DummyPlugin::version() const
+{
+	return "0.1";
+}
+
+Q_EXPORT_PLUGIN2(DummyPlugin, DummyPlugin);

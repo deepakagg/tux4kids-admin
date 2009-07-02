@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.6)
 
 add_subdirectory( src/ )
 add_subdirectory( plugins/dummy/ )
+add_subdirectory( plugins/tuxmathPlugin )
 
 find_package( Qt4 REQUIRED )
 

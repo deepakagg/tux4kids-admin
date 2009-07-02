@@ -1,21 +1,22 @@
-#ifndef DUMMY_PLUGIN_H
-#define DUMMY_PLUGIN_H
+#ifndef TUXMATH_PLUGIN_H
+#define TUXMATH_PLUGIN_H
 
 #include <QObject>
 
 #include "pluginInterface.h"
 
-class DummyPlugin : public QObject, PluginInterface
+class TuxmathPlugin : public QObject, PluginInterface
 {
 	Q_OBJECT
 	Q_INTERFACES(PluginInterface)
 
 public:
-	DummyPlugin(QObject *parent = 0);
-	~DummyPlugin();
+	TuxmathPlugin(QObject *parent = 0);
+	~TuxmathPlugin();
 
 	QString name() const;
 	QString version() const;
+
 
 };
 
