@@ -4,8 +4,11 @@ INCLUDEPATH += ../plugins/
 SOURCES += main.cpp \
     mainWindow.cpp \
     mainController.cpp \
-    pluginManager.cpp
+    pluginManager.cpp \
+    pluginManagerDialog.cpp
 HEADERS += mainWindow.h \
     mainController.h \
-    pluginManager.h
-FORMS += mainWindow.ui
+    pluginManager.h \
+    pluginManagerDialog.h
+FORMS += mainWindow.ui \
+    pluginManagerDialog.ui

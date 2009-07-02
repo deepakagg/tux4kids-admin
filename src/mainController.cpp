@@ -4,9 +4,9 @@
 
 MainController::MainController()
 {
-	pluginManager.loadPlugins();
+	m_pluginManager.loadPlugins();
 
-	if (pluginManager.empty()) {
+	if (m_pluginManager.empty()) {
 		qDebug() << tr("Failed to load plugins");
 	}
 }
@@ -14,4 +14,10 @@ MainController::MainController()
 MainController::~MainController()
 {
 }
+
+PluginManager *MainController::pluginManager()
+{
+	return &m_pluginManager;
+}
+
 

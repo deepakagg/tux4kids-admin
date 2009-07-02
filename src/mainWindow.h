@@ -22,6 +22,10 @@ private:
 	Ui::MainWindow *ui;
 
 	MainController *mainController;
+
+private slots:
+	void pluginsManagerClicked();
+
 };
 
 #endif // MAINWINDOW_H

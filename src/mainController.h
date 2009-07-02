@@ -14,9 +14,11 @@ public:
 	MainController();
 	~MainController();
 
+	PluginManager *pluginManager();
+
 private:
 
-	PluginManager pluginManager;
+	PluginManager m_pluginManager;
 };
 
 #endif // MAINCONTROLLER_H
