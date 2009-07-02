@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QList>
 
-#include "pluginInterface.h"
+#include "pluginManager.h"
 
 class MainController : public QObject
 {
@@ -15,9 +15,8 @@ public:
 	~MainController();
 
 private:
-	QList<PluginInterface *> plugins;
 
-	void loadPlugins();
+	PluginManager pluginManager;
 };
 
 #endif // MAINCONTROLLER_H

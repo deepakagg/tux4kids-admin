@@ -1,16 +1,11 @@
 TARGET = ../tux4kids-admin
 TEMPLATE = app
-INCLUDEPATH	+= ../plugins/
-
+INCLUDEPATH += ../plugins/
 SOURCES += main.cpp \
     mainWindow.cpp \
-    mainController.cpp
-
+    mainController.cpp \
+    pluginManager.cpp
 HEADERS += mainWindow.h \
-    mainController.h
-
+    mainController.h \
+    pluginManager.h
 FORMS += mainWindow.ui
-
-# Uncomment to use GCOV
-# QMAKE_CXXFLAGS+=-fprofile-arcs -ftest-coverage
-
