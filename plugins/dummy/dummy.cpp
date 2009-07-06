@@ -18,4 +18,9 @@ QString DummyPlugin::version() const
 	return "0.1";
 }
 
+QWidget *DummyPlugin::mainWidget()
+{
+	return m_mainWidget;
+}
+
 Q_EXPORT_PLUGIN2(DummyPlugin, DummyPlugin);

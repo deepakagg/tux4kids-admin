@@ -16,6 +16,7 @@ public:
 
 	QString name() const;
 	QString version() const;
+	QWidget *mainWidget();
 
 
 };

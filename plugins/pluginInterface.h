@@ -12,9 +12,13 @@ public:
 	virtual QString name() const = 0;
 	virtual QString version() const = 0;
 
-	//virtual QWidget *widget() = 0;
+	virtual QWidget *mainWidget() = 0;
+
+protected:
+
+	QWidget *m_mainWidget = 0;
 };
 
-Q_DECLARE_INTERFACE(PluginInterface, "org.Tux4Kids.Tux4KidsPluginInterface/0.0.1");
+Q_DECLARE_INTERFACE(PluginInterface, "org.Tux4Kids.Tux4KidsPluginInterface/0.0.2");
 
 #endif
