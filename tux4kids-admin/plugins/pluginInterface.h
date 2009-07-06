@@ -16,7 +16,7 @@ public:
 
 protected:
 
-	QWidget *m_mainWidget = 0;
+	QWidget *m_mainWidget;
 };
 
 Q_DECLARE_INTERFACE(PluginInterface, "org.Tux4Kids.Tux4KidsPluginInterface/0.0.2");

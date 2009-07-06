@@ -1,12 +1,11 @@
-#include <QPluginLoader>
 #include <QDir>
 #include <QDebug>
-#include <QApplication>
 
 #include "pluginManager.h"
 
-PluginManager::PluginManager()
+PluginManager::PluginManager(QString pluginsPath, QObject *parent) : QAbstractListModel(parent)
 {
+	m_pluginsPath = pluginsPath;
 }
 
 int PluginManager::rowCount(const QModelIndex &parent) const
@@ -23,7 +22,12 @@ QVariant PluginManager::data(const QModelIndex &index, int role) const
 		return QVariant();
 
 	if (role == Qt::DisplayRole) {
-		return plugins.at(index.row())->name();
+		QString result = pluginNames.at(index.row());
+		if (plugins.at(index.row())->isLoaded()) {
+			result += " (loaded)";
+		} else {
+			result += " (not loaded)";
+		}
 	}
 
 	return QVariant();
@@ -32,18 +36,22 @@ QVariant PluginManager::data(const QModelIndex &index, int role) const
 void PluginManager::loadPlugins()
 {
 	PluginInterface *pluginInterface;
-	QDir pluginsDir(qApp->applicationDirPath() + "/plugins");
+	QDir pluginsDir(m_pluginsPath);
 
 	foreach (QString fileName, pluginsDir.entryList(QDir::Files))
 	{
-		QPluginLoader pluginLoader(pluginsDir.absoluteFilePath(fileName));
-		QObject *plugin = pluginLoader.instance();
+		QPluginLoader *pluginLoader = new QPluginLoader(pluginsDir.absoluteFilePath(fileName));
+		QObject *plugin = pluginLoader->instance();
 		if (plugin)
 		{
 			pluginInterface = qobject_cast<PluginInterface *>(plugin);
 			if (pluginInterface)
 			{
-				plugins.append(pluginInterface);
+				pluginNames.append(pluginInterface->name());
+				plugins.append(pluginLoader);
+				delete pluginInterface;
+				pluginLoader->unload();
+				delete pluginLoader;
 			}
 		}
 	}
@@ -53,3 +61,19 @@ bool PluginManager::empty() const
 {
 	return plugins.empty();
 }
+
+void PluginManager::setPluginsPath(QString pluginsPath)
+{
+	m_pluginsPath = pluginsPath;
+}
+
+bool PluginManager::load(int index)
+{
+	return plugins.at(index)->load();
+}
+
+bool PluginManager::unload(int index)
+{
+	return plugins.at(index)->unload();
+}
+

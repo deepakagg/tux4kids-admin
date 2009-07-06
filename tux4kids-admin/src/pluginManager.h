@@ -2,6 +2,8 @@
 #define PLUGINMANAGER_H
 
 #include <QAbstractListModel>
+#include <QPluginLoader>
+#include <QStringList>
 
 #include "pluginInterface.h"
 
@@ -11,15 +13,21 @@ class PluginManager : public QAbstractListModel
 	Q_OBJECT
 
 public:
-	PluginManager();
+	PluginManager(QString pluginsPath = QString(), QObject *parent = 0);
 
 	int rowCount(const QModelIndex &parent = QModelIndex()) const;
 	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 	bool empty() const;
 	void loadPlugins();
+	void setPluginsPath(QString pluginsPath);
+	bool load(int index);
+	bool unload(int index);
 
 private:
-	QList<PluginInterface *> plugins;
+	QString m_pluginsPath;
+	QList<QPluginLoader *> plugins;
+	QStringList pluginNames;
+	//QList<PluginInterface *> loadedPlugins;
 
 
 };
