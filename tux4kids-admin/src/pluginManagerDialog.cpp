@@ -1,10 +1,16 @@
 #include "pluginManagerDialog.h"
 #include "ui_pluginManagerDialog.h"
 
-PluginManagerDialog::PluginManagerDialog(PluginManager *newPluginManager, QWidget *parent) : QDialog(parent), m_ui(new Ui::PluginManagerDialog)
+PluginManagerDialog::PluginManagerDialog(PluginManager *pluginManager, QWidget *parent) : QDialog(parent), m_ui(new Ui::PluginManagerDialog)
 {
 	m_ui->setupUi(this);
-	m_ui->pluginsList->setModel(newPluginManager);
+
+	m_pluginManager = pluginManager;
+
+	m_ui->pluginsList->setModel(m_pluginManager);
+
+	connect(m_ui->loadButton, SIGNAL(clicked()), this, SLOT(loadClicked()));
+	connect(m_ui->unloadButton, SIGNAL(clicked()), this, SLOT(unloadClicked()));
 }
 
 PluginManagerDialog::~PluginManagerDialog()
@@ -23,3 +29,20 @@ void PluginManagerDialog::changeEvent(QEvent *e)
 		break;
 	}
 }
+
+void PluginManagerDialog::loadClicked()
+{
+	int index = m_ui->pluginsList->selectionModel()->selectedIndexes().first().row();
+	if (!m_pluginManager->load(index)) {
+		//report error
+	}
+}
+
+void PluginManagerDialog::unloadClicked()
+{
+	int index = m_ui->pluginsList->selectionModel()->selectedIndexes().first().row();
+	if (!m_pluginManager->unload(index)) {
+		//report error
+	}
+}
+

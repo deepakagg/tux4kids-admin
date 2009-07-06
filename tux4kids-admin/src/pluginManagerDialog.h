@@ -22,6 +22,11 @@ protected:
 
 private:
 	Ui::PluginManagerDialog *m_ui;
+	PluginManager *m_pluginManager;
+
+private slots:
+	void loadClicked();
+	void unloadClicked();
 
 };
 

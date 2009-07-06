@@ -20,8 +20,8 @@ public:
 	bool empty() const;
 	void loadPlugins();
 	void setPluginsPath(QString pluginsPath);
-	bool load(int index);
-	bool unload(int index);
+	bool load(int pluginIndex);
+	bool unload(int pluginIndex);
 
 private:
 	QString m_pluginsPath;

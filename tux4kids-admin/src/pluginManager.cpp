@@ -28,6 +28,7 @@ QVariant PluginManager::data(const QModelIndex &index, int role) const
 		} else {
 			result += " (not loaded)";
 		}
+		return result;
 	}
 
 	return QVariant();
@@ -51,7 +52,6 @@ void PluginManager::loadPlugins()
 				plugins.append(pluginLoader);
 				delete pluginInterface;
 				pluginLoader->unload();
-				delete pluginLoader;
 			}
 		}
 	}
@@ -67,13 +67,17 @@ void PluginManager::setPluginsPath(QString pluginsPath)
 	m_pluginsPath = pluginsPath;
 }
 
-bool PluginManager::load(int index)
+bool PluginManager::load(int pluginIndex)
 {
-	return plugins.at(index)->load();
+	bool result = plugins.at(pluginIndex)->load();
+	emit dataChanged(index(pluginIndex, 0), index(pluginIndex, 0));
+	return result;
 }
 
-bool PluginManager::unload(int index)
+bool PluginManager::unload(int pluginIndex)
 {
-	return plugins.at(index)->unload();
+	bool result = plugins.at(pluginIndex)->unload();
+	emit dataChanged(index(pluginIndex, 0), index(pluginIndex, 0));
+	return result;
 }
 
