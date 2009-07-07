@@ -2,6 +2,7 @@
 #define PLUGINMANAGERDIALOG_H
 
 #include <QtGui/QDialog>
+#include <QItemSelection>
 
 #include "pluginManager.h"
 
@@ -24,10 +25,12 @@ private:
 	Ui::PluginManagerDialog *m_ui;
 	PluginManager *m_pluginManager;
 
+	void setButtons();
+
 private slots:
 	void loadClicked();
 	void unloadClicked();
-
+	void pluginSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
 };
 
 #endif // PLUGINMANAGERDIALOG_H

@@ -22,6 +22,7 @@ public:
 	void setPluginsPath(QString pluginsPath);
 	bool load(int pluginIndex);
 	bool unload(int pluginIndex);
+	QPluginLoader &operator[](int i);
 
 private:
 	QString m_pluginsPath;

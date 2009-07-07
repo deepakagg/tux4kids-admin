@@ -81,3 +81,8 @@ bool PluginManager::unload(int pluginIndex)
 	return result;
 }
 
+QPluginLoader &PluginManager::operator[](int i)
+{
+	return *plugins[i];
+}
+
