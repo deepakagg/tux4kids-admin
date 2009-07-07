@@ -1,5 +1,7 @@
 #include <QDebug>
 #include <QFile>
+#include <QDateTime>
+#include <QMessageBox>
 
 #include "errorLog.h"
 #include "applicationInfo.h"
@@ -17,7 +19,8 @@ public:
 
 ErrorLog::ErrorLog()
 {
-	logFile	= new QFile(ApplicationInfo::errorLogDir() + "/log.txt");
+	QString logFileName = "log-" + QDateTime::currentDateTime().toString(Qt::ISODate) + ".txt";
+	logFile	= new QFile(ApplicationInfo::errorLogDir() + "/" + logFileName);
 }
 
 ErrorLog* ErrorLog::Instance()
@@ -41,5 +44,19 @@ void ErrorLog::Destroy()
 void ErrorLog::log(QString message, QString userMessage)
 {
 	instance = ErrorLog::Instance();
-	qDebug() << message << " message for user: " << userMessage;
+
+	//qDebug() << message << " message for user: " << userMessage;
+	if (!userMessage.isEmpty()) {
+		QMessageBox *msgBox = new QMessageBox(QMessageBox::Warning, "Tux4kids-admin", userMessage, QMessageBox::Ok);
+		msgBox->setAttribute(Qt::WA_DeleteOnClose, true);
+		msgBox->show();
+	}
+
+	if(!instance->logFile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+		qDebug() << QObject::tr("Failed to open log file for writing");
+	} else {
+		QDataStream out(instance->logFile);
+		out << message;
+		instance->logFile->close();
+	}
 }
