@@ -5,10 +5,12 @@ SOURCES += main.cpp \
     mainWindow.cpp \
     mainController.cpp \
     pluginManager.cpp \
-    pluginManagerDialog.cpp
+    pluginManagerDialog.cpp \
+    applicationInfo.cpp
 HEADERS += mainWindow.h \
     mainController.h \
     pluginManager.h \
-    pluginManagerDialog.h
+    pluginManagerDialog.h \
+    applicationInfo.h
 FORMS += mainWindow.ui \
     pluginManagerDialog.ui
