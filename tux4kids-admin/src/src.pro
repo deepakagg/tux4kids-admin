@@ -6,11 +6,13 @@ SOURCES += main.cpp \
     mainController.cpp \
     pluginManager.cpp \
     pluginManagerDialog.cpp \
-    applicationInfo.cpp
+    applicationInfo.cpp \
+    errorLog.cpp
 HEADERS += mainWindow.h \
     mainController.h \
     pluginManager.h \
     pluginManagerDialog.h \
-    applicationInfo.h
+    applicationInfo.h \
+    errorLog.h
 FORMS += mainWindow.ui \
     pluginManagerDialog.ui
