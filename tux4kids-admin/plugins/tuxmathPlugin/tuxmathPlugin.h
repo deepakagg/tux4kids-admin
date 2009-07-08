@@ -18,7 +18,6 @@ public:
 	QString version() const;
 	QWidget *mainWidget();
 
-
 };
 
 #endif

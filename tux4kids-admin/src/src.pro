@@ -1,8 +1,6 @@
 TARGET = ../tux4kids-admin
 TEMPLATE = app
-INCLUDEPATH += ../plugins/ \
-	       ../../libtux4kidsadmin \
-	       ../../libtux4kidsadmin_tuxmath
+INCLUDEPATH += ../plugins/
 
 SOURCES += main.cpp \
     mainWindow.cpp \
@@ -19,6 +17,5 @@ HEADERS += mainWindow.h \
     errorLog.h
 FORMS += mainWindow.ui \
     pluginManagerDialog.ui
-LIBS += -ltux4kidsadmin -L../../libtux4kidsadmin
-LIBS += -ltux4kidsadmintuxmath -L../../libtux4kidsadmin_tuxmath
+
 
