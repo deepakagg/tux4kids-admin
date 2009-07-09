@@ -1,25 +1,31 @@
 PROJECT(tux4kids-admin)
 cmake_minimum_required(VERSION 2.6)
 
-SET ( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/../ )
+SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/../ )
 
 SET(TUX4KIDS-ADMIN_SOURCES 
 	main.cpp
 	mainWindow.cpp
-	mainController.cpp )
+	mainController.cpp
+	pluginManager.cpp 
+	pluginManagerDialog.cpp )
 
 SET(TUX4KIDS-ADMIN_MOC_HEADERS 
 	mainWindow.h
-	mainController.h )
+	mainController.h 
+	pluginManager.h 
+	pluginManagerDialog.h )
 
-SET(TUX4KIDS-ADMIN_UIS mainWindow.ui)
+SET(TUX4KIDS-ADMIN_UIS 
+	mainWindow.ui 
+	pluginManagerDialog.ui )
 
 # enable warnings
 ADD_DEFINITIONS( -Wall )
 
 FIND_PACKAGE( Qt4 REQUIRED )
 INCLUDE( ${QT_USE_FILE} )
-INCLUDE_DIRECTORIES( ../plugins/ ${CMAKE_CURRENT_BINARY_DIR} )
+INCLUDE_DIRECTORIES( ../plugins/ )
 
 QT4_WRAP_UI( TUX4KIDS-ADMIN_UI_HEADERS ${TUX4KIDS-ADMIN_UIS} )
 QT4_WRAP_CPP( TUX4KIDS-ADMIN_MOC_SOURCES ${TUX4KIDS-ADMIN_MOC_HEADERS} )

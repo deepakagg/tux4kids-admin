@@ -8,6 +8,7 @@
 
 class LIBTUX4KIDSADMIN_TUXMATHSHARED_EXPORT ApplicationDirTuxmath : public ApplicationDir
 {
+	Q_OBJECT
 public:
 	ApplicationDirTuxmath();
 	QString foo();

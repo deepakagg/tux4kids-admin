@@ -5,6 +5,7 @@ add_subdirectory( plugins/dummy/ )
 add_subdirectory( plugins/tuxmathPlugin )
 
 find_package( Qt4 REQUIRED )
+#INCLUDE_DIRECTORIES( tux4kids-admin/plugins ../libtux4kidsadmin_tuxmath ../libtux4kidsadmin )
 
 SET(TS_FILES translations/tux4kids-admin_pl.ts )
 

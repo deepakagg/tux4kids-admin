@@ -8,6 +8,7 @@
 
 class LIBTUX4KIDSADMINSHARED_EXPORT ApplicationDir : public QObject
 {
+	Q_OBJECT
 public:
 	ApplicationDir(QObject *parent = 0);
 	virtual QString foo();

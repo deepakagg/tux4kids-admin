@@ -19,3 +19,5 @@ FORMS += mainWindow.ui \
     pluginManagerDialog.ui
 
 
+
+
