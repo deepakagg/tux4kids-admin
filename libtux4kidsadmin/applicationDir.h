@@ -4,7 +4,9 @@
 #include <QObject>
 #include <QString>
 
-class ApplicationDir : public QObject
+#include "libtux4kidsadmin_global.h"
+
+class LIBTUX4KIDSADMINSHARED_EXPORT ApplicationDir : public QObject
 {
 public:
 	ApplicationDir(QObject *parent = 0);

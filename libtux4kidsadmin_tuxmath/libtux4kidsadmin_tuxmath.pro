@@ -8,3 +8,4 @@ HEADERS += libtux4kidsadmin_tuxmath.h \
     libtux4kidsadmin_tuxmath_global.h \
     applicationDirTuxmath.h
 INCLUDEPATH += ../libtux4kidsadmin
+LIBS += -ltux4kidsadmin -L../libtux4kidsadmin
