@@ -12,7 +12,7 @@ ADD_DEFINITIONS(-DQT_SHARED)
 
 SET(TUXMATH_PLUGIN_MOC_HEADERS 
 	tuxmathPlugin.h
-	tuxmathMainWidget.h )
+	tuxmathMainWidget.cpp )
 
 SET(TUXMATH_PLUGIN_SOURCES 
 	tuxmathPlugin.cpp 
