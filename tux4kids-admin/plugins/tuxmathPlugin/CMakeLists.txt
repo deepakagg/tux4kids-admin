@@ -1,22 +1,19 @@
 PROJECT(tuxmathPlugin)
 cmake_minimum_required(VERSION 2.6)
 
-SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/../ )
+SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/../ )
 
 # enable warnings
-ADD_DEFINITIONS( -Wall )
-ADD_DEFINITIONS(${QT_DEFINITIONS})
-ADD_DEFINITIONS(-DQT_PLUGIN)
+ADD_DEFINITIONS(-Wall -DQT_PLUGIN -DQT_SHARED)
 #ADD_DEFINITIONS(-DQT_NO_DEBUG)
-ADD_DEFINITIONS(-DQT_SHARED)
 
 SET(TUXMATH_PLUGIN_MOC_HEADERS 
 	tuxmathPlugin.h
-	tuxmathMainWidget.cpp )
+	tuxmathMainWidget.h )
 
 SET(TUXMATH_PLUGIN_SOURCES 
 	tuxmathPlugin.cpp 
-	tuxmathMainWidget.h )
+	tuxmathMainWidget.cpp )
 
 SET(TUXMATH_PLUGIN_UIS 
 	tuxmathMainWidget.ui )
