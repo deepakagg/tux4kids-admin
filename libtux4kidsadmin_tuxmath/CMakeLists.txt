@@ -3,10 +3,11 @@ cmake_minimum_required(VERSION 2.6)
 
 SET(LIBTUX4KIDSADMIN_TUXMATH_SOURCES 
 	libtux4kidsadmin_tuxmath.cpp
-	applicationDirTuxmath.cpp )
+	profileDirTuxmath.cpp 
+	profileDirTuxmathPrivate.cpp )
 
 SET(LIBTUX4KIDSADMIN_TUXMATH_MOC_HEADERS 
-	applicationDirTuxmath.h )
+	profileDirTuxmath.h )
 
 # enable warnings
 ADD_DEFINITIONS( -Wall -DLIBTUX4KIDSADMIN_TUXMATH_LIBRARY )
