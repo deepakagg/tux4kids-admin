@@ -1,5 +1,13 @@
-#include "profileDirTuxmathPrivate.h"
+#include "profileDirTuxmathPrivate_p.h"
 
-ProfileDirTuxmathPrivate::ProfileDirTuxmathPrivate()
+#include <QString>
+
+ProfileDirTuxmathPrivate::ProfileDirTuxmathPrivate(QString path)
+		: ProfileDirPrivate(path)
 {
 }
+
+ProfileDirTuxmathPrivate::~ProfileDirTuxmathPrivate()
+{
+}
+

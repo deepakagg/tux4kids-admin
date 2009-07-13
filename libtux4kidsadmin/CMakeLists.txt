@@ -4,10 +4,12 @@ cmake_minimum_required(VERSION 2.6)
 SET(LIBTUX4KIDSADMIN_SOURCES 
 	libtux4kidsadmin.cpp
 	profileDir.cpp 
-	profileDirPrivate.cpp )
+	profileDirPrivate.cpp
+	schoolData.cpp )
 
 SET(LIBTUX4KIDSADMIN_MOC_HEADERS 
-	profileDir.h )
+	profileDir.h 
+	schoolData.h )
 
 # enable warnings
 ADD_DEFINITIONS( -Wall -DLIBTUX4KIDSADMIN_LIBRARY )

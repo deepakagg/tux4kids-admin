@@ -7,7 +7,7 @@ SOURCES += libtux4kidsadmin_tuxmath.cpp \
     profileDirTuxmath.cpp
 HEADERS += libtux4kidsadmin_tuxmath.h \
     libtux4kidsadmin_tuxmath_global.h \
-    profileDirTuxmathPrivate.h \
+    profileDirTuxmathPrivate_p.h \
     profileDirTuxmath.h
 INCLUDEPATH += ../libtux4kidsadmin
 LIBS += -ltux4kidsadmin \

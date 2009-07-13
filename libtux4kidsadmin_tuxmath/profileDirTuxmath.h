@@ -2,16 +2,22 @@
 #define PROFILEDIRTUXMATH_H
 
 #include "profileDir.h"
-#include "profileDirTuxmathPrivate.h"
+#include "libtux4kidsadmin_tuxmath_global.h"
 
-class ProfileDirTuxmath : public ProfileDir
+class ProfileDirTuxmathPrivate;
+
+class LIBTUX4KIDSADMIN_TUXMATHSHARED_EXPORT ProfileDirTuxmath : public ProfileDir
 {
 	Q_OBJECT
 public:
-	ProfileDirTuxmath();
+	ProfileDirTuxmath(QString path, QObject *parent = 0);
 	~ProfileDirTuxmath();
+protected:
+	ProfileDirTuxmath(ProfileDirTuxmathPrivate &dd, QObject *parent);
+
 private:
-	ProfileDirTuxmathPrivate *d;
+	Q_DECLARE_PRIVATE(ProfileDirTuxmath)
+	Q_DISABLE_COPY(ProfileDirTuxmath)
 };
 
 #endif // PROFILEDIRTUXMATH_H

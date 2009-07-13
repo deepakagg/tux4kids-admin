@@ -1,12 +1,15 @@
 #ifndef PROFILEDIRTUXMATHPRIVATE_H
 #define PROFILEDIRTUXMATHPRIVATE_H
 
-#include "profileDirPrivate.h"
+#include "profileDirPrivate_p.h"
 
 class ProfileDirTuxmathPrivate : public ProfileDirPrivate
 {
 public:
-	ProfileDirTuxmathPrivate();
+	Q_DECLARE_PUBLIC(ProfileDir)
+
+	ProfileDirTuxmathPrivate(QString path);
+	virtual ~ProfileDirTuxmathPrivate();
 };
 
 #endif // PROFILEDIRTUXMATHPRIVATE_H

@@ -2,17 +2,32 @@
 #define PROFILEDIR_H
 
 #include <QObject>
+#include "libtux4kidsadmin_global.h"
 
 class ProfileDirPrivate;
 
-class ProfileDir : public QObject
+class LIBTUX4KIDSADMINSHARED_EXPORT ProfileDir : public QObject
 {
 	Q_OBJECT
+
 public:
-	ProfileDir();
+	ProfileDir(QString path, QObject *parent = 0);
 	~ProfileDir();
+
+	enum Status {
+		NoError = 0,
+		InitializationError = 1
+	};
+
+	Status status() const;
+
+protected:
+	ProfileDirPrivate * const d_ptr;
+	ProfileDir(ProfileDirPrivate &dd, QObject *parent = 0);
+
 private:
-	ProfileDirPrivate *d;
+	Q_DECLARE_PRIVATE(ProfileDir)
+	Q_DISABLE_COPY(ProfileDir)
 };
 
 #endif // PROFILEDIR_H

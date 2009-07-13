@@ -1,11 +1,18 @@
 #include "profileDirTuxmath.h"
 
-ProfileDirTuxmath::ProfileDirTuxmath()
+#include "profileDirTuxmathPrivate_p.h"
+
+
+ProfileDirTuxmath::ProfileDirTuxmath(QString path, QObject *parent)
+		: ProfileDir(*new ProfileDirTuxmathPrivate(path), parent)
 {
-	d = new ProfileDirTuxmathPrivate();
+}
+
+ProfileDirTuxmath::ProfileDirTuxmath(ProfileDirTuxmathPrivate &dd, QObject *parent)
+		: ProfileDir(dd, parent)
+{
 }
 
 ProfileDirTuxmath::~ProfileDirTuxmath()
 {
-	delete d;
 }
