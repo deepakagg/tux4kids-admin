@@ -5,6 +5,7 @@
 
 class QString;
 class SchoolDataPrivate;
+class StudentDir;
 
 class SchoolData : public QObject
 {
@@ -19,7 +20,7 @@ public:
 	};
 
 	Status status() const;
-	QString nextProfileDir() const;
+	StudentDir *addStudent();
 
 protected:
 	SchoolDataPrivate * const d_ptr;

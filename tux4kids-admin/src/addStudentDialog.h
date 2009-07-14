@@ -16,6 +16,10 @@ public:
 
 private:
 	Ui::AddStudentDialog *m_ui;
+
+private slots:
+	void addClicked();
+
 };
 
 #endif // ADDSTUDENTDIALOG_H

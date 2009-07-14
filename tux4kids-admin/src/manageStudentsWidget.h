@@ -4,7 +4,10 @@
 #include <QtGui/QWidget>
 #include <QPointer>
 
+//#include "mainController.h"
+
 class AddStudentDialog;
+class MainController;
 
 namespace Ui {
 	class ManageStudentsWidget;
@@ -14,16 +17,18 @@ class ManageStudentsWidget : public QWidget
 {
 	Q_OBJECT
 public:
-	ManageStudentsWidget(QWidget *parent = 0);
+	ManageStudentsWidget(MainController *mainController, QWidget *parent = 0);
 	~ManageStudentsWidget();
 
 private:
 	Ui::ManageStudentsWidget *m_ui;
-	QPointer<AddStudentDialog> addStudentDialog;
+	QPointer<AddStudentDialog> m_addStudentDialog;
+	QPointer<MainController> m_mainController;
 
 private slots:
 
 	void addStudentClicked();
+	void addStudent();
 };
 
 #endif // MANAGESTUDENTSWIDGET_H

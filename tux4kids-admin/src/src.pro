@@ -25,3 +25,5 @@ FORMS += mainWindow.ui \
     pluginManagerDialog.ui \
     manageStudentsWidget.ui \
     addStudentDialog.ui
+LIBS += -ltux4kidsadmin -L../../libtux4kidsadmin
+

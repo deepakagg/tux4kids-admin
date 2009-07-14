@@ -10,8 +10,8 @@ SET(TUX4KIDS-ADMIN_SOURCES
 	pluginManager.cpp 
 	pluginManagerDialog.cpp 
 	manageStudentsWidget.cpp
-    addStudentDialog.cpp
-    studentTableModel.cpp )
+	addStudentDialog.cpp
+	studentTableModel.cpp )
 
 SET(TUX4KIDS-ADMIN_MOC_HEADERS 
 	mainWindow.h
@@ -19,8 +19,8 @@ SET(TUX4KIDS-ADMIN_MOC_HEADERS
 	pluginManager.h 
 	pluginManagerDialog.h 
 	manageStudentsWidget.h
-    addStudentDialog.h
-    studentTableModel.h )
+	addStudentDialog.h
+	studentTableModel.h )
 
 SET(TUX4KIDS-ADMIN_UIS 
 	mainWindow.ui 
@@ -33,12 +33,10 @@ ADD_DEFINITIONS( -Wall )
 
 FIND_PACKAGE( Qt4 REQUIRED )
 INCLUDE( ${QT_USE_FILE} )
-INCLUDE_DIRECTORIES( ../plugins/ ../../libtux4kidsadmin/ ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
+INCLUDE_DIRECTORIES( ../plugins/ ../../libtux4kidsadmin/ ${CMAKE_CURRENT_BINARY_DIR} )
 
 QT4_WRAP_UI( TUX4KIDS-ADMIN_UI_HEADERS ${TUX4KIDS-ADMIN_UIS} )
 QT4_WRAP_CPP( TUX4KIDS-ADMIN_MOC_SOURCES ${TUX4KIDS-ADMIN_MOC_HEADERS} )
 
 ADD_EXECUTABLE( tux4kids-admin ${TUX4KIDS-ADMIN_SOURCES} ${TUX4KIDS-ADMIN_MOC_SOURCES} ${TUX4KIDS-ADMIN_UI_HEADERS} )
-TARGET_LINK_LIBRARIES( tux4kids-admin ${QT_LIBRARIES} )
-
-
+TARGET_LINK_LIBRARIES( tux4kids-admin ${QT_LIBRARIES} tux4kidsadmin)

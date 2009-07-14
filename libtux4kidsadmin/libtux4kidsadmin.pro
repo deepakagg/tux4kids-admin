@@ -4,10 +4,13 @@ TEMPLATE = lib
 DEFINES += LIBTUX4KIDSADMIN_LIBRARY
 SOURCES += libtux4kidsadmin.cpp \
     profileDir.cpp \
-    schoolData.cpp
+    schoolData.cpp \
+    studentDir.cpp
 HEADERS += libtux4kidsadmin.h \
     libtux4kidsadmin_global.h \
     profileDir.h \
     schoolData.h \
     schoolData_p.h \
-    profileDir_p.h
+    profileDir_p.h \
+    studentDir.h \
+    studentDir_p.h

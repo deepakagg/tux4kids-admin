@@ -41,6 +41,13 @@
    <item>
     <widget class="QListWidget" name="applicationList"/>
    </item>
+   <item>
+    <widget class="QPushButton" name="addButton">
+     <property name="text">
+      <string>Add</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>

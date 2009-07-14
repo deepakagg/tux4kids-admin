@@ -17,9 +17,12 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QTabWidget" name="tabWidget">
-      <widget class="ManageStudentsWidget" name="tab">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="Seite">
        <attribute name="title">
-        <string>Students</string>
+        <string>Seite</string>
        </attribute>
       </widget>
      </widget>
@@ -70,14 +73,6 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <customwidgets>
-  <customwidget>
-   <class>ManageStudentsWidget</class>
-   <extends>QWidget</extends>
-   <header>manageStudentsWidget.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

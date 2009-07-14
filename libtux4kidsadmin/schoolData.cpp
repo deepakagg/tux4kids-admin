@@ -1,7 +1,9 @@
 #include "schoolData.h"
 #include "schoolData_p.h"
+#include "studentDir.h"
 
 #include <QString>
+#include <QDebug>
 
 /****************** SchoolDataPrivate *******************/
 
@@ -21,6 +23,17 @@ SchoolDataPrivate::SchoolDataPrivate(QString path)
 SchoolDataPrivate::~SchoolDataPrivate()
 {
 }
+
+QString SchoolDataPrivate::nextStudentDir() const
+{
+	QString baseName = "student_";
+	int number = 1;
+	while(mainDir.exists(baseName + QString::number(number)))
+		++number;
+
+	return baseName + QString::number(number);
+}
+
 
 /****************** SchoolData *******************/
 
@@ -43,14 +56,13 @@ SchoolData::Status SchoolData::status() const
 	return d->status;
 }
 
-QString SchoolData::nextProfileDir() const
+StudentDir *SchoolData::addStudent()
 {
-	Q_D(const SchoolData);
-	QString baseName = "profile_";
-	int number = 1;
-	while(!d->mainDir.exists(baseName + QString::number(number)))
-		++number;
+	Q_D(SchoolData);
 
-	return baseName + QString::number(number);
+	StudentDir *studentDir = new StudentDir(d->mainDir.absoluteFilePath(d->nextStudentDir()));
+	d->students.append(studentDir);
+
+	return studentDir;
 }
 

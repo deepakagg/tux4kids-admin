@@ -10,6 +10,7 @@
 
 class QString;
 class ProfileDir;
+class StudentDir;
 
 class SchoolDataPrivate
 {
@@ -19,10 +20,13 @@ public:
 	SchoolDataPrivate(QString path);
 	virtual ~SchoolDataPrivate();
 
+	QString nextStudentDir() const;
+
 	SchoolData *q_ptr;
 
 	QDir mainDir;
 	SchoolData::Status status;
+	QList< QPointer<StudentDir> > students;
 	QList< QPointer<ProfileDir> > profiles;
 };
 

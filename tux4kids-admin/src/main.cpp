@@ -4,6 +4,7 @@
 #include <QDebug>
 
 #include "mainWindow.h"
+#include "mainController.h"
 
 int main(int argc, char *argv[])
 {

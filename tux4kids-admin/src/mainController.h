@@ -6,6 +6,8 @@
 
 #include "pluginManager.h"
 
+class SchoolData;
+
 class MainController : public QObject
 {
 	Q_OBJECT
@@ -15,10 +17,13 @@ public:
 	~MainController();
 
 	PluginManager *pluginManager();
+	SchoolData *schoolData();
 
 private:
 
 	PluginManager m_pluginManager;
+	QPointer<SchoolData> m_schoolData;
+
 };
 
 #endif // MAINCONTROLLER_H

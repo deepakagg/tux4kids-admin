@@ -2,8 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QtGui/QMainWindow>
+#include <QPointer>
 
-#include "mainController.h"
+class MainController;
 
 namespace Ui
 {
@@ -21,7 +22,7 @@ public:
 private:
 	Ui::MainWindow *m_ui;
 
-	MainController *mainController;
+	QPointer<MainController> m_mainController;
 
 private slots:
 	void pluginsManagerClicked();
