@@ -19,7 +19,7 @@ public:
 	~MainWindow();
 
 private:
-	Ui::MainWindow *ui;
+	Ui::MainWindow *m_ui;
 
 	MainController *mainController;
 
