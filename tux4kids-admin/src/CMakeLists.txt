@@ -8,24 +8,32 @@ SET(TUX4KIDS-ADMIN_SOURCES
 	mainWindow.cpp
 	mainController.cpp
 	pluginManager.cpp 
-	pluginManagerDialog.cpp )
+	pluginManagerDialog.cpp 
+	manageStudentsWidget.cpp
+    addStudentDialog.cpp
+    studentTableModel.cpp )
 
 SET(TUX4KIDS-ADMIN_MOC_HEADERS 
 	mainWindow.h
 	mainController.h 
 	pluginManager.h 
-	pluginManagerDialog.h )
+	pluginManagerDialog.h 
+	manageStudentsWidget.h
+    addStudentDialog.h
+    studentTableModel.h )
 
 SET(TUX4KIDS-ADMIN_UIS 
 	mainWindow.ui 
-	pluginManagerDialog.ui )
+	pluginManagerDialog.ui 
+	manageStudentsWidget.ui 
+	addStudentDialog.ui )
 
 # enable warnings
 ADD_DEFINITIONS( -Wall )
 
 FIND_PACKAGE( Qt4 REQUIRED )
 INCLUDE( ${QT_USE_FILE} )
-INCLUDE_DIRECTORIES( ../plugins/ ${CMAKE_CURRENT_BINARY_DIR} )
+INCLUDE_DIRECTORIES( ../plugins/ ../../libtux4kidsadmin/ ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
 
 QT4_WRAP_UI( TUX4KIDS-ADMIN_UI_HEADERS ${TUX4KIDS-ADMIN_UIS} )
 QT4_WRAP_CPP( TUX4KIDS-ADMIN_MOC_SOURCES ${TUX4KIDS-ADMIN_MOC_HEADERS} )
