@@ -4,11 +4,11 @@
 #include <QtGlobal>
 #include <QDir>
 #include <QSettings>
-#include "profileDir.h"
+#include "libtux4kidsadmin_global.h"
 
 class QString;
 
-class ProfileDirPrivate
+class LIBTUX4KIDSADMINSHARED_EXPORT ProfileDirPrivate
 {
 public:
 	Q_DECLARE_PUBLIC(ProfileDir)

@@ -3,8 +3,7 @@ cmake_minimum_required(VERSION 2.6)
 
 SET(LIBTUX4KIDSADMIN_TUXMATH_SOURCES 
 	libtux4kidsadmin_tuxmath.cpp
-	profileDirTuxmath.cpp 
-	profileDirTuxmathPrivate.cpp )
+	profileDirTuxmath.cpp )
 
 SET(LIBTUX4KIDSADMIN_TUXMATH_MOC_HEADERS 
 	profileDirTuxmath.h )

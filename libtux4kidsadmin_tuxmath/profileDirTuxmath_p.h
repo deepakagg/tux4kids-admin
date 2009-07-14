@@ -1,7 +1,7 @@
 #ifndef PROFILEDIRTUXMATHPRIVATE_H
 #define PROFILEDIRTUXMATHPRIVATE_H
 
-#include "profileDirPrivate_p.h"
+#include "profileDir_p.h"
 
 class ProfileDirTuxmathPrivate : public ProfileDirPrivate
 {
