@@ -6,7 +6,7 @@
 
 class ProfileDirPrivate;
 
-class LIBTUX4KIDSADMINSHARED_EXPORT ProfileDir : public QObject
+class LIBTUX4KIDSADMIN_SHARED_EXPORT ProfileDir : public QObject
 {
 	Q_OBJECT
 

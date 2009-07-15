@@ -8,7 +8,7 @@
 
 class QString;
 
-class LIBTUX4KIDSADMINSHARED_EXPORT ProfileDirPrivate
+class LIBTUX4KIDSADMIN_SHARED_EXPORT ProfileDirPrivate
 {
 public:
 	Q_DECLARE_PUBLIC(ProfileDir)

@@ -4,11 +4,13 @@
 #include <QObject>
 #include <QPointer>
 
+#include "libtux4kidsadmin_global.h"
+
 class QString;
 class SchoolDataPrivate;
 class StudentDir;
 
-class SchoolData : public QObject
+class LIBTUX4KIDSADMIN_SHARED_EXPORT SchoolData : public QObject
 {
 	Q_OBJECT
 public:

@@ -8,7 +8,7 @@
 class StudentDirPrivate;
 class QString;
 
-class LIBTUX4KIDSADMINSHARED_EXPORT StudentDir : public QObject
+class LIBTUX4KIDSADMIN_SHARED_EXPORT StudentDir : public QObject
 {
 	Q_OBJECT
 public:

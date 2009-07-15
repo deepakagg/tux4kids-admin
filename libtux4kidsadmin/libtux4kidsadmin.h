@@ -3,7 +3,7 @@
 
 #include "libtux4kidsadmin_global.h"
 
-class LIBTUX4KIDSADMINSHARED_EXPORT Libtux4kidsadmin
+class LIBTUX4KIDSADMIN_SHARED_EXPORT Libtux4kidsadmin
 {
 public:
 	Libtux4kidsadmin();
