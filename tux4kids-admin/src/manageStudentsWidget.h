@@ -4,6 +4,7 @@
 #include <QtGui/QWidget>
 #include <QPointer>
 
+#include "studentTableProxyModel.h"
 //#include "mainController.h"
 
 class AddStudentDialog;
@@ -24,6 +25,7 @@ private:
 	Ui::ManageStudentsWidget *m_ui;
 	QPointer<AddStudentDialog> m_addStudentDialog;
 	QPointer<MainController> m_mainController;
+	StudentTableProxyModel m_studentTableProxyModel;
 
 private slots:
 

@@ -14,7 +14,8 @@ ManageStudentsWidget::ManageStudentsWidget(MainController *mainController, QWidg
 {
 	m_ui->setupUi(this);
 
-	m_ui->studentsTable->setModel(mainController->studentTableModel());
+	m_studentTableProxyModel.setSourceModel(mainController->studentTableModel());
+	m_ui->studentsTable->setModel(&m_studentTableProxyModel);
 
 	m_mainController = mainController;
 	connect(m_ui->addStudentButton, SIGNAL(clicked()), this, SLOT(addStudentClicked()));
@@ -23,6 +24,7 @@ ManageStudentsWidget::ManageStudentsWidget(MainController *mainController, QWidg
 ManageStudentsWidget::~ManageStudentsWidget()
 {
 	delete m_ui;
+	delete m_addStudentDialog;
 }
 
 void ManageStudentsWidget::addStudentClicked()

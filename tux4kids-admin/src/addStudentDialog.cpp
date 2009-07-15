@@ -2,6 +2,7 @@
 #include "ui_addStudentDialog.h"
 
 #include <QListWidgetItem>
+#include <QDebug>
 
 AddStudentDialog::AddStudentDialog(QWidget *parent) :
 		QDialog(parent),
@@ -22,7 +23,11 @@ AddStudentDialog::AddStudentDialog(QWidget *parent) :
 	m_ui->applicationList->addItem(testListWidgetItem2);
 	testListWidgetItem2->setCheckState(Qt::Unchecked);
 
+	setInvalid();
+
 	connect(m_ui->addButton, SIGNAL(clicked()), this, SLOT(addClicked()));
+	connect(m_ui->firstNameEdit, SIGNAL(textEdited(QString)), this, SLOT(validate()));
+	connect(m_ui->lastNameEdit, SIGNAL(textEdited(QString)), this, SLOT(validate()));
 
 }
 
@@ -47,3 +52,25 @@ void AddStudentDialog::addClicked()
 	m_ui->firstNameEdit->clear();
 	m_ui->lastNameEdit->clear();
 }
+
+void AddStudentDialog::validate()
+{
+	if (m_ui->firstNameEdit->text().simplified().isEmpty()
+		|| m_ui->lastNameEdit->text().simplified().isEmpty()) {
+		setInvalid();
+		return;
+	}
+
+	setValid();
+}
+
+void AddStudentDialog::setValid()
+{
+	m_ui->addButton->setEnabled(true);
+}
+
+void AddStudentDialog::setInvalid()
+{
+	m_ui->addButton->setEnabled(false);
+}
+

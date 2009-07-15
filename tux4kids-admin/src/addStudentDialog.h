@@ -20,8 +20,12 @@ public:
 private:
 	Ui::AddStudentDialog *m_ui;
 
+	void setValid();
+	void setInvalid();
+
 private slots:
 	void addClicked();
+	void validate();
 
 };
 

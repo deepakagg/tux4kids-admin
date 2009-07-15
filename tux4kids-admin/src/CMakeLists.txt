@@ -11,7 +11,8 @@ SET(TUX4KIDS-ADMIN_SOURCES
 	pluginManagerDialog.cpp 
 	manageStudentsWidget.cpp
 	addStudentDialog.cpp
-	studentTableModel.cpp )
+	studentTableModel.cpp 
+	studentTableProxyModel.cpp )
 
 SET(TUX4KIDS-ADMIN_MOC_HEADERS 
 	mainWindow.h
@@ -20,7 +21,8 @@ SET(TUX4KIDS-ADMIN_MOC_HEADERS
 	pluginManagerDialog.h 
 	manageStudentsWidget.h
 	addStudentDialog.h
-	studentTableModel.h )
+	studentTableModel.h 
+	studentTableProxyModel.h )
 
 SET(TUX4KIDS-ADMIN_UIS 
 	mainWindow.ui 

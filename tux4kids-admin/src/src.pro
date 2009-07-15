@@ -11,7 +11,8 @@ SOURCES += main.cpp \
     errorLog.cpp \
     manageStudentsWidget.cpp \
     addStudentDialog.cpp \
-    studentTableModel.cpp
+    studentTableModel.cpp \
+    studentTableProxyModel.cpp
 HEADERS += mainWindow.h \
     mainController.h \
     pluginManager.h \
@@ -20,10 +21,11 @@ HEADERS += mainWindow.h \
     errorLog.h \
     manageStudentsWidget.h \
     addStudentDialog.h \
-    studentTableModel.h
+    studentTableModel.h \
+    studentTableProxyModel.h
 FORMS += mainWindow.ui \
     pluginManagerDialog.ui \
     manageStudentsWidget.ui \
     addStudentDialog.ui
-LIBS += -ltux4kidsadmin -L../../libtux4kidsadmin
-
+LIBS += -ltux4kidsadmin \
+    -L../../libtux4kidsadmin
