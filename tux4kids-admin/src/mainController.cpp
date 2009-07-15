@@ -15,10 +15,12 @@ MainController::MainController()
 	}
 
 	m_schoolData = new SchoolData(QDir::homePath() + "/school_data");
+	m_studentTableModel.setSchoolData(m_schoolData);
 }
 
 MainController::~MainController()
 {
+	delete m_schoolData;
 }
 
 PluginManager *MainController::pluginManager()
@@ -29,6 +31,11 @@ PluginManager *MainController::pluginManager()
 SchoolData *MainController::schoolData()
 {
 	return m_schoolData;
+}
+
+StudentTableModel *MainController::studentTableModel()
+{
+	return &m_studentTableModel;
 }
 
 

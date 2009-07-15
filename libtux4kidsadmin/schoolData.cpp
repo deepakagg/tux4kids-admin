@@ -8,6 +8,7 @@
 /****************** SchoolDataPrivate *******************/
 
 SchoolDataPrivate::SchoolDataPrivate(QString path)
+		: status(SchoolData::NoError)
 {
 	mainDir.setPath(path);
 	if (!mainDir.exists()) {
@@ -16,6 +17,8 @@ SchoolDataPrivate::SchoolDataPrivate(QString path)
 		}
 	}
 	mainDir.setPath(path);
+
+	loadStudentDirs();
 }
 
 
@@ -32,6 +35,20 @@ QString SchoolDataPrivate::nextStudentDir() const
 		++number;
 
 	return baseName + QString::number(number);
+}
+
+void SchoolDataPrivate::loadStudentDirs()
+{
+	foreach(QString dirName,
+		mainDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name)) {
+
+		StudentDir *studentDir = new StudentDir(mainDir.absoluteFilePath(dirName));
+		if (studentDir->status() == StudentDir::NoError) {
+			students.append(studentDir);
+		} else {
+			delete studentDir;
+		}
+	}
 }
 
 
@@ -62,7 +79,21 @@ StudentDir *SchoolData::addStudent()
 
 	StudentDir *studentDir = new StudentDir(d->mainDir.absoluteFilePath(d->nextStudentDir()));
 	d->students.append(studentDir);
+	emit studentAdded(studentDir);
 
 	return studentDir;
+}
+
+/*const StudentDir & SchoolData::studentDirAt(int index)
+{
+	Q_D(SchoolData);
+	return *(d->students.at(index));
+}
+*/
+
+QList< QPointer<StudentDir> > SchoolData::students() const
+{
+	Q_D(const SchoolData);
+	return d->students;
 }
 

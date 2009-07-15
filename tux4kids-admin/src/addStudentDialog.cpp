@@ -22,11 +22,23 @@ AddStudentDialog::AddStudentDialog(QWidget *parent) :
 	m_ui->applicationList->addItem(testListWidgetItem2);
 	testListWidgetItem2->setCheckState(Qt::Unchecked);
 
+	connect(m_ui->addButton, SIGNAL(clicked()), this, SLOT(addClicked()));
+
 }
 
 AddStudentDialog::~AddStudentDialog()
 {
 	delete m_ui;
+}
+
+QString AddStudentDialog::firstName() const
+{
+	return m_ui->firstNameEdit->text().simplified();
+}
+
+QString AddStudentDialog::lastName() const
+{
+	return m_ui->lastNameEdit->text().simplified();
 }
 
 void AddStudentDialog::addClicked()

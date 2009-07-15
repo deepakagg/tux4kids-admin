@@ -14,6 +14,9 @@ public:
 	AddStudentDialog(QWidget *parent = 0);
 	~AddStudentDialog();
 
+	QString firstName() const;
+	QString lastName() const;
+
 private:
 	Ui::AddStudentDialog *m_ui;
 

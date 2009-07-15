@@ -10,7 +10,7 @@ public:
 	static ErrorLog* Instance();
 	static void Destroy();
 
-	static void log(QString message, QString userMessage = QString());
+	static void log(const QString &message, const QString &userMessage = QString());
 private:
 	static ErrorLog* instance;
 

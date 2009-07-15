@@ -21,6 +21,7 @@ public:
 	virtual ~SchoolDataPrivate();
 
 	QString nextStudentDir() const;
+	void loadStudentDirs();
 
 	SchoolData *q_ptr;
 

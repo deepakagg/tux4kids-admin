@@ -5,6 +5,7 @@
 #include <QList>
 
 #include "pluginManager.h"
+#include "studentTableModel.h"
 
 class SchoolData;
 
@@ -18,10 +19,12 @@ public:
 
 	PluginManager *pluginManager();
 	SchoolData *schoolData();
+	StudentTableModel *studentTableModel();
 
 private:
 
 	PluginManager m_pluginManager;
+	StudentTableModel m_studentTableModel;
 	QPointer<SchoolData> m_schoolData;
 
 };

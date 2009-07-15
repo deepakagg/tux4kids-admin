@@ -2,6 +2,7 @@
 #define SCHOOLDATA_H
 
 #include <QObject>
+#include <QPointer>
 
 class QString;
 class SchoolDataPrivate;
@@ -21,10 +22,15 @@ public:
 
 	Status status() const;
 	StudentDir *addStudent();
+	//const StudentDir & studentDirAt(int index);
+	QList< QPointer<StudentDir> > students() const;
 
 protected:
 	SchoolDataPrivate * const d_ptr;
 	SchoolData(SchoolDataPrivate &dd, QObject *parent = 0);
+
+signals:
+	void studentAdded(StudentDir *newStudent);
 
 private:
 	Q_DECLARE_PRIVATE(SchoolData)

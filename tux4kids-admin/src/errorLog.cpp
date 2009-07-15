@@ -41,7 +41,7 @@ void ErrorLog::Destroy()
 	}
 }
 
-void ErrorLog::log(QString message, QString userMessage)
+void ErrorLog::log(const QString &message, const QString &userMessage)
 {
 	instance = ErrorLog::Instance();
 

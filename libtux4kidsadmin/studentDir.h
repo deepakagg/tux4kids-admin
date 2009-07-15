@@ -20,6 +20,8 @@ public:
 		InitializationError = 1
 	};
 
+	Status status() const;
+
 	QString firstName() const;
 	QString lastName() const;
 	void setFirstName(const QString &firstName);

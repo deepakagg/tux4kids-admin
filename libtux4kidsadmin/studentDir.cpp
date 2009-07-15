@@ -2,10 +2,12 @@
 #include "studentDir_p.h"
 
 #include <QString>
+#include <QDebug>
 
 /****************** StudentDirPrivate *******************/
 
-StudentDirPrivate::StudentDirPrivate(QString path)
+StudentDirPrivate::StudentDirPrivate(QString path) :
+		status(StudentDir::NoError)
 {
 	mainDir.setPath(path);
 	if (!mainDir.exists()) {
@@ -17,7 +19,7 @@ StudentDirPrivate::StudentDirPrivate(QString path)
 	mainDir.setPath(path);
 
 	attributes = new QSettings(path + "/attributes.ini", QSettings::IniFormat);
-	if (!attributes->status() != QSettings::NoError) {
+	if (attributes->status() != QSettings::NoError) {
 		status = StudentDir::InitializationError;
 		return;
 	}
@@ -42,6 +44,13 @@ StudentDir::~StudentDir()
 	Q_D(StudentDir);
 	delete d;
 }
+
+StudentDir::Status StudentDir::status() const
+{
+	Q_D(const StudentDir);
+	return d->status;
+}
+
 
 QString StudentDir::firstName() const
 {
