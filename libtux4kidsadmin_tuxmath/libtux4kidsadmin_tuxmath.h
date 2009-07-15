@@ -3,7 +3,7 @@
 
 #include "libtux4kidsadmin_tuxmath_global.h"
 
-class LIBTUX4KIDSADMIN_TUXMATHSHARED_EXPORT Libtux4kidsadminTuxmath {
+class LIBTUX4KIDSADMIN_TUXMATH_SHARED_EXPORT Libtux4kidsadminTuxmath {
 public:
     Libtux4kidsadminTuxmath();
 };

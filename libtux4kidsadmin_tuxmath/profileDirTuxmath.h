@@ -6,7 +6,7 @@
 
 class ProfileDirTuxmathPrivate;
 
-class LIBTUX4KIDSADMIN_TUXMATHSHARED_EXPORT ProfileDirTuxmath : public ProfileDir
+class LIBTUX4KIDSADMIN_TUXMATH_SHARED_EXPORT ProfileDirTuxmath : public ProfileDir
 {
 	Q_OBJECT
 public:
