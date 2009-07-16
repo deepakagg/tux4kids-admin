@@ -1,5 +1,6 @@
 #include "studentDir.h"
 #include "studentDir_p.h"
+#include "profileDir.h"
 
 #include <QString>
 #include <QDebug>
@@ -74,5 +75,11 @@ void StudentDir::setLastName(const QString &lastName)
 {
 	Q_D(const StudentDir);
 	d->attributes->setValue("last_name", lastName);
+}
+
+void StudentDir::addProfileDir(ProfileDir *profileDir)
+{
+	Q_D(StudentDir);
+	d->profiles.append(profileDir);
 }
 

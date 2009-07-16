@@ -31,6 +31,7 @@ void ManageStudentsWidget::addStudentClicked()
 {
 	if (m_addStudentDialog == 0) {
 		m_addStudentDialog = new AddStudentDialog();
+		m_addStudentDialog->setApplicationNames(m_mainController->pluginManager()->loadedPluginNames());
 		connect(m_addStudentDialog, SIGNAL(accepted()), this, SLOT(addStudent()));
 	}
 	m_addStudentDialog->showNormal();
@@ -41,5 +42,6 @@ void ManageStudentsWidget::addStudent()
 	StudentDir *studentDir = m_mainController->schoolData()->addStudent();
 	studentDir->setFirstName(m_addStudentDialog->firstName());
 	studentDir->setLastName(m_addStudentDialog->lastName());
+
 }
 

@@ -14,7 +14,7 @@ TuxmathPlugin::~TuxmathPlugin()
 
 QString TuxmathPlugin::name() const
 {
-	return tr("tuxmath plugin");
+	return "tuxmath";
 }
 
 QString TuxmathPlugin::version() const

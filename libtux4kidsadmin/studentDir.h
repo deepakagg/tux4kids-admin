@@ -6,6 +6,7 @@
 #include "libtux4kidsadmin_global.h"
 
 class StudentDirPrivate;
+class ProfileDir;
 class QString;
 
 class LIBTUX4KIDSADMIN_SHARED_EXPORT StudentDir : public QObject
@@ -26,6 +27,7 @@ public:
 	QString lastName() const;
 	void setFirstName(const QString &firstName);
 	void setLastName(const QString &lastName);
+	void addProfileDir(ProfileDir *profileDir);
 
 protected:
 	StudentDirPrivate * const d_ptr;

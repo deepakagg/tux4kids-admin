@@ -3,6 +3,8 @@
 
 #include <QtGui/QDialog>
 
+class QStringList;
+
 namespace Ui {
 	class AddStudentDialog;
 }
@@ -16,6 +18,8 @@ public:
 
 	QString firstName() const;
 	QString lastName() const;
+	QStringList checkedApplicationNames() const;
+	void setApplicationNames(QStringList applicationNames);
 
 private:
 	Ui::AddStudentDialog *m_ui;

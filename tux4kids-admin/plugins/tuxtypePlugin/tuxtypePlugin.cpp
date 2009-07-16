@@ -14,7 +14,7 @@ TuxtypePlugin::~TuxtypePlugin()
 
 QString TuxtypePlugin::name() const
 {
-	return tr("tuxtype plugin");
+	return "tuxtype";
 }
 
 QString TuxtypePlugin::version() const

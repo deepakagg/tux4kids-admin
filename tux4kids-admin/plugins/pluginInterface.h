@@ -4,6 +4,8 @@
 #include <QString>
 #include <QtPlugin>
 
+class ProfileDir;
+
 class PluginInterface
 {
 public:
@@ -11,6 +13,8 @@ public:
 
 	virtual QString name() const = 0;
 	virtual QString version() const = 0;
+
+	virtual ProfileDir *newProfileDir(QString path) const = 0;
 
 	virtual QWidget *mainWidget() = 0;
 

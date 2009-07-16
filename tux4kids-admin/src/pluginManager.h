@@ -23,11 +23,12 @@ public:
 	bool load(int pluginIndex);
 	bool unload(int pluginIndex);
 	QPluginLoader &operator[](int i);
+	QStringList loadedPluginNames() const;
 
 private:
 	QString m_pluginsPath;
-	QList<QPluginLoader *> plugins;
-	QStringList pluginNames;
+	QList<QPluginLoader *> m_plugins;
+	QStringList m_pluginNames;
 	//QList<PluginInterface *> loadedPlugins;
 
 

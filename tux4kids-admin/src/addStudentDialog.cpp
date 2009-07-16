@@ -53,6 +53,28 @@ void AddStudentDialog::addClicked()
 	m_ui->lastNameEdit->clear();
 }
 
+QStringList AddStudentDialog::checkedApplicationNames() const
+{
+	QStringList result;
+	foreach (QListWidgetItem *listItem, m_ui->applicationList->findItems(QString(), Qt::MatchContains)) {
+		if (listItem->checkState() == Qt::Checked) {
+			result.append(listItem->text());
+		}
+	}
+	return result;
+}
+
+void AddStudentDialog::setApplicationNames(QStringList applicationNames)
+{
+	m_ui->applicationList->clear();
+
+	foreach(QString name, applicationNames) {
+		QListWidgetItem *listWidgetItem = new QListWidgetItem(name, m_ui->applicationList);
+		listWidgetItem->setFlags(listWidgetItem->flags() | Qt::ItemIsUserCheckable);
+		listWidgetItem->setCheckState(Qt::Unchecked);
+	}
+}
+
 void AddStudentDialog::validate()
 {
 	if (m_ui->firstNameEdit->text().simplified().isEmpty()

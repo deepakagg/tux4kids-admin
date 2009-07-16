@@ -10,7 +10,7 @@ PluginManager::PluginManager(QString pluginsPath, QObject *parent) : QAbstractLi
 
 int PluginManager::rowCount(const QModelIndex &parent) const
 {
-	return plugins.size();
+	return m_plugins.size();
 }
 
 QVariant PluginManager::data(const QModelIndex &index, int role) const
@@ -22,8 +22,8 @@ QVariant PluginManager::data(const QModelIndex &index, int role) const
 		return QVariant();
 
 	if (role == Qt::DisplayRole) {
-		QString result = pluginNames.at(index.row());
-		if (plugins.at(index.row())->isLoaded()) {
+		QString result = m_pluginNames.at(index.row());
+		if (m_plugins.at(index.row())->isLoaded()) {
 			result += " (loaded)";
 		} else {
 			result += " (not loaded)";
@@ -48,10 +48,10 @@ void PluginManager::loadPlugins()
 			pluginInterface = qobject_cast<PluginInterface *>(plugin);
 			if (pluginInterface)
 			{
-				pluginNames.append(pluginInterface->name());
-				plugins.append(pluginLoader);
-				delete pluginInterface;
-				pluginLoader->unload();
+				m_pluginNames.append(pluginInterface->name());
+				m_plugins.append(pluginLoader);
+				//delete pluginInterface;
+				//pluginLoader->unload();
 			}
 		}
 	}
@@ -59,7 +59,7 @@ void PluginManager::loadPlugins()
 
 bool PluginManager::empty() const
 {
-	return plugins.empty();
+	return m_plugins.empty();
 }
 
 void PluginManager::setPluginsPath(QString pluginsPath)
@@ -69,20 +69,34 @@ void PluginManager::setPluginsPath(QString pluginsPath)
 
 bool PluginManager::load(int pluginIndex)
 {
-	bool result = plugins.at(pluginIndex)->load();
+	bool result = m_plugins.at(pluginIndex)->load();
 	emit dataChanged(index(pluginIndex, 0), index(pluginIndex, 0));
 	return result;
 }
 
 bool PluginManager::unload(int pluginIndex)
 {
-	bool result = plugins.at(pluginIndex)->unload();
+	bool result = m_plugins.at(pluginIndex)->unload();
 	emit dataChanged(index(pluginIndex, 0), index(pluginIndex, 0));
 	return result;
 }
 
 QPluginLoader &PluginManager::operator[](int i)
 {
-	return *plugins[i];
+	return *m_plugins[i];
+}
+
+QStringList PluginManager::loadedPluginNames() const
+{
+	QStringList result;
+	foreach (QPluginLoader *loader, m_plugins) {
+		if (loader->isLoaded()) {
+			PluginInterface * plugin = qobject_cast<PluginInterface *>(loader->instance());
+			if (plugin) {
+				result.append(plugin->name());
+			}
+		}
+	}
+	return result;
 }
 
