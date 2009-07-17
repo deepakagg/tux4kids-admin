@@ -40,6 +40,11 @@ StudentDir::StudentDir(QString path, QObject *parent) :
 	d->q_ptr = this;
 }
 
+StudentDir::StudentDir(StudentDirPrivate &dd, QObject *parent)
+		: QObject(parent), d_ptr(&dd)
+{
+}
+
 StudentDir::~StudentDir()
 {
 	Q_D(StudentDir);

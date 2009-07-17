@@ -61,6 +61,11 @@ SchoolData::SchoolData(QString path, QObject *parent)
 	d->q_ptr = this;
 }
 
+SchoolData::SchoolData(SchoolDataPrivate &dd, QObject *parent)
+		: QObject(parent), d_ptr(&dd)
+{
+}
+
 SchoolData::~SchoolData()
 {
 	Q_D(SchoolData);

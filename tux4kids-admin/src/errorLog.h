@@ -9,9 +9,9 @@ public:
 	ErrorLog();
 	static ErrorLog* Instance();
 	static void Destroy();
-
 	static void log(const QString &message, const QString &userMessage = QString());
-private:
+
+protected:
 	static ErrorLog* instance;
 
 	QFile *logFile;

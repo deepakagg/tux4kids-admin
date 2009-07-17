@@ -1,5 +1,6 @@
 #include "profileDir.h"
 #include "profileDir_p.h"
+#include "objectFactory.h"
 
 #include <QString>
 

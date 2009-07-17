@@ -5,7 +5,8 @@ SET(LIBTUX4KIDSADMIN_SOURCES
 	libtux4kidsadmin.cpp
 	profileDir.cpp 
 	schoolData.cpp
-	studentDir.cpp )
+	studentDir.cpp 
+	profileDirFactory.cpp )
 
 SET(LIBTUX4KIDSADMIN_MOC_HEADERS 
 	profileDir.h 
