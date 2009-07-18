@@ -3,8 +3,8 @@
 
 #include <QtGlobal>
 #include "objectFactory.h"
+#include "profileDir.h"
 
-class ProfileDir;
 class ProfileDirFactory;
 class QObject;
 class QString;
@@ -17,7 +17,7 @@ public:
 	virtual ~ProfileDirFactoryPrivate();
 
 	ProfileDirFactory *q_ptr;
-	ObjectFactory<ProfileDir (QString, QObject), QString> objectFactory;
+	ObjectFactory<ProfileDir (QString, QObject *), QString> objectFactory;
 
 };
 

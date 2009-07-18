@@ -3,7 +3,8 @@ TARGET = tux4kidsadmintuxtype
 TEMPLATE = lib
 DEFINES += LIBTUX4KIDSADMIN_TUXTYPE_LIBRARY
 SOURCES += libtux4kidsadmin_tuxtype.cpp \
-    profileDirTuxtype.cpp
+    profileDirTuxtype.cpp \
+    profileDirTuxtypeRegister.cpp
 HEADERS += libtux4kidsadmin_tuxtype.h \
     libtux4kidsadmin_tuxtype_global.h \
     profileDirTuxtype.h \

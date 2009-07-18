@@ -2,12 +2,14 @@
 #include "profileDirTuxmath_p.h"
 
 #include <QString>
+#include <QDebug>
 
 /************** ProfileDirTuxmathPrivate ****************/
 
 ProfileDirTuxmathPrivate::ProfileDirTuxmathPrivate(QString path)
 		: ProfileDirPrivate(path)
 {
+	attributes->setValue("profile_type", "tuxmath");
 }
 
 ProfileDirTuxmathPrivate::~ProfileDirTuxmathPrivate()

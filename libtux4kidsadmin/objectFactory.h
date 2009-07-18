@@ -29,13 +29,14 @@
 #define OBJECT_FACTORY_H
 
 #include <QMap>
+#include <QDebug>
 
 /****************************** 0 parameters *************************/
 
 template <typename CtorSignature, typename UniqueIdType> class ObjectFactory;
 
 template<typename BaseClassType, typename ClassType>
-BaseClassType createObject()
+BaseClassType *CreateObject()
 {
 	return new ClassType();
 }
@@ -44,7 +45,7 @@ template<typename BaseClassType, typename UniqueIdType>
 class ObjectFactory<BaseClassType (), UniqueIdType>
 {
 protected:
-	typedef BaseClassType (*CreateObjectFunc)();
+	typedef BaseClassType *(*CreateObjectFunc)();
 
 public:
 	template<typename ClassType>
@@ -52,7 +53,7 @@ public:
 	{
 		if (m_objectCreator.contains(uniqueId))
 			return false;
-		m_objectCreator[uniqueId] = &createObject<BaseClassType, ClassType>;
+		m_objectCreator[uniqueId] = &CreateObject<BaseClassType, ClassType>;
 			return true;
 	}
 
@@ -61,12 +62,12 @@ public:
 		return (m_objectCreator.remove(uniqueId) >= 1);
 	}
 
-	BaseClassType create(UniqueIdType uniqueId)
+	BaseClassType *create(UniqueIdType uniqueId)
 	{
 		if (!m_objectCreator.contains(uniqueId))
 			return 0;
 		else
-			return new BaseClassType();
+			return m_objectCreator[uniqueId]();
 	}
 
 protected:
@@ -76,7 +77,7 @@ protected:
 /****************************** 1 parameter *************************/
 
 template<typename BaseClassType, typename Param1Type, typename ClassType>
-BaseClassType createObject(Param1Type param1)
+BaseClassType *CreateObject(Param1Type param1)
 {
 	return new ClassType(param1);
 }
@@ -85,7 +86,7 @@ template<typename BaseClassType, typename Param1Type, typename UniqueIdType>
 class ObjectFactory<BaseClassType (Param1Type), UniqueIdType>
 {
 protected:
-	typedef BaseClassType (*CreateObjectFunc)(Param1Type);
+	typedef BaseClassType *(*CreateObjectFunc)(Param1Type);
 
 public:
 
@@ -94,7 +95,7 @@ public:
 	{
 		if (m_objectCreator.contains(uniqueId))
 			return false;
-		m_objectCreator[uniqueId] = &createObject<BaseClassType, Param1Type, ClassType>;
+		m_objectCreator[uniqueId] = &CreateObject<BaseClassType, Param1Type, ClassType>;
 			return true;
 	}
 
@@ -103,12 +104,12 @@ public:
 		return (m_objectCreator.remove(uniqueId) >= 1);
 	}
 
-	BaseClassType create(UniqueIdType uniqueId, Param1Type param1)
+	BaseClassType *create(UniqueIdType uniqueId, Param1Type param1)
 	{
 		if (!m_objectCreator.contains(uniqueId))
 			return 0;
 		else
-			return new BaseClassType(param1);
+			return m_objectCreator[uniqueId](param1);
 	}
 
 protected:
@@ -119,7 +120,7 @@ protected:
 /****************************** 2 parameters *************************/
 
 template<typename BaseClassType, typename Param1Type, typename Param2Type, typename ClassType>
-BaseClassType createObject(Param1Type param1, Param2Type param2)
+BaseClassType *CreateObject(Param1Type param1, Param2Type param2)
 {
 	return new ClassType(param1, param2);
 }
@@ -128,7 +129,7 @@ template<typename BaseClassType, typename Param1Type, typename Param2Type, typen
 class ObjectFactory<BaseClassType (Param1Type, Param2Type), UniqueIdType>
 {
 protected:
-	typedef BaseClassType (*CreateObjectFunc)(Param1Type);
+	typedef BaseClassType *(*CreateObjectFunc)(Param1Type, Param2Type);
 
 public:
 
@@ -137,7 +138,7 @@ public:
 	{
 		if (m_objectCreator.contains(uniqueId))
 			return false;
-		m_objectCreator[uniqueId] = &createObject<BaseClassType, Param1Type, ClassType>;
+		m_objectCreator[uniqueId] = &CreateObject<BaseClassType, Param1Type, Param2Type, ClassType>;
 			return true;
 	}
 
@@ -146,12 +147,14 @@ public:
 		return (m_objectCreator.remove(uniqueId) >= 1);
 	}
 
-	BaseClassType create(UniqueIdType uniqueId, Param1Type param1, Param2Type param2)
+	BaseClassType *create(UniqueIdType uniqueId, Param1Type param1, Param2Type param2)
 	{
-		if (!m_objectCreator.contains(uniqueId))
+		if (!m_objectCreator.contains(uniqueId)) {
 			return 0;
-		else
-			return new BaseClassType(param1, param2);
+		} else {
+			BaseClassType *tmp = (m_objectCreator[uniqueId])(param1, param2);
+			return tmp;
+		}
 	}
 
 protected:

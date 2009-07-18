@@ -3,7 +3,8 @@ cmake_minimum_required(VERSION 2.6)
 
 SET(LIBTUX4KIDSADMIN_TUXTYPE_SOURCES 
 	libtux4kidsadmin_tuxtype.cpp
-	profileDirTuxtype.cpp )
+	profileDirTuxtype.cpp 
+	profileDirTuxtypeRegister.cpp )
 
 SET(LIBTUX4KIDSADMIN_TUXTYPE_MOC_HEADERS 
 	profileDirTuxtype.h )

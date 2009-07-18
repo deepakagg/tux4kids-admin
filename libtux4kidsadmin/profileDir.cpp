@@ -18,14 +18,14 @@ ProfileDirPrivate::ProfileDirPrivate(QString path)
 	}
 	mainDir.setPath(path);
 
-	if (!mainDir.mkdir("data")) {
+	/*if (!mainDir.mkdir("data")) {
 		status = ProfileDir::InitializationError;
 		return;
-	}
+	}*/
 	dataDir = QDir(mainDir.absolutePath() + "/data");
 
-	attributes = new QSettings(path + "/attributes.ini", QSettings::IniFormat);
-	if (!attributes->status() != QSettings::NoError) {
+	attributes = new QSettings(mainDir.absolutePath() + "/attributes.ini", QSettings::IniFormat);
+	if (attributes->status() != QSettings::NoError) {
 		status = ProfileDir::InitializationError;
 		return;
 	}

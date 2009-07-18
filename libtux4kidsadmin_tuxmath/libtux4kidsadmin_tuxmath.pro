@@ -3,7 +3,8 @@ TARGET = tux4kidsadmintuxmath
 TEMPLATE = lib
 DEFINES += LIBTUX4KIDSADMIN_TUXMATH_LIBRARY
 SOURCES += libtux4kidsadmin_tuxmath.cpp \
-    profileDirTuxmath.cpp
+    profileDirTuxmath.cpp \
+    profileDirTuxmathRegister.cpp
 HEADERS += libtux4kidsadmin_tuxmath.h \
     libtux4kidsadmin_tuxmath_global.h \
     profileDirTuxmath.h \
