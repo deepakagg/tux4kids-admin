@@ -40,7 +40,8 @@ ProfileDirPrivate::~ProfileDirPrivate()
 /****************** ProfileDir *******************/
 
 ProfileDir::ProfileDir(QString path, QObject *parent) :
-		QObject(parent), d_ptr(new ProfileDirPrivate(path))
+		QObject(parent),
+		d_ptr(new ProfileDirPrivate(path))
 {
 	Q_D(ProfileDir);
 	d->q_ptr = this;
@@ -61,5 +62,17 @@ ProfileDir::Status ProfileDir::status() const
 {
 	Q_D(const ProfileDir);
 	return d->status;
+}
+
+QString ProfileDir::profileType(QString path)
+{
+	QSettings tmp(path + "/attributes.ini");
+	return tmp.value("profile_tmp", "unknown").toString();
+}
+
+QString ProfileDir::type() const
+{
+	Q_D(const ProfileDir);
+	//d->attributes
 }
 

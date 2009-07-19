@@ -1,6 +1,7 @@
 #include "studentDir.h"
 #include "studentDir_p.h"
 #include "profileDir.h"
+#include "profileDirFactory.h"
 
 #include <QString>
 #include <QDebug>
@@ -29,6 +30,29 @@ StudentDirPrivate::StudentDirPrivate(QString path) :
 StudentDirPrivate::~StudentDirPrivate()
 {
 	delete attributes;
+}
+
+void StudentDirPrivate::loadProfileDirs()
+{
+	Q_Q(StudentDir);
+
+	foreach(QString dirName,
+		mainDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name)) {
+
+		QString path = mainDir.filePath(dirName);
+		QString profileType = ProfileDir::profileType(path);
+		profiles.append(ProfileDirFactory::instance().create(profileType, path, q));
+	}
+}
+
+ProfileDir *StudentDirPrivate::findProfileDir(QString profileType)
+{
+	foreach (ProfileDir *profileDir, profiles) {
+		if (profileDir->type() == profileType)
+			return profileDir;
+	}
+
+	return 0;
 }
 
 /****************** StudentDir *******************/
@@ -85,6 +109,19 @@ void StudentDir::setLastName(const QString &lastName)
 void StudentDir::addProfileDir(ProfileDir *profileDir)
 {
 	Q_D(StudentDir);
+	profileDir->setParent(this);
 	d->profiles.append(profileDir);
 }
+
+ProfileDir *StudentDir::addProfileDir(QString profileType)
+{
+	Q_D(StudentDir);
+
+
+	ProfileDir *tmp = ProfileDirFactory::instance().create(profileType, profileType, this);
+	if (tmp != 0) {
+		d->profiles.append(tmp);
+	}
+}
+
 

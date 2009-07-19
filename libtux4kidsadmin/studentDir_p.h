@@ -19,6 +19,9 @@ public:
 	StudentDirPrivate(QString path);
 	virtual ~StudentDirPrivate();
 
+	void loadProfileDirs();
+	ProfileDir *findProfileDir(QString profileType);
+
 	StudentDir *q_ptr;
 
 	StudentDir::Status status;

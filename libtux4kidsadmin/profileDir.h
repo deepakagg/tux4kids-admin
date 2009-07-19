@@ -20,6 +20,8 @@ public:
 	};
 
 	Status status() const;
+	static QString profileType(QString dirPath);
+	QString type() const;
 
 protected:
 	ProfileDirPrivate * const d_ptr;

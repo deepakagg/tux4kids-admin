@@ -5,7 +5,7 @@
 
 class LIBTUX4KIDSADMIN_TUXTYPE_SHARED_EXPORT Libtux4kidsadminTuxtype {
 public:
-    Libtux4kidsadminTuxtype();
+	Libtux4kidsadminTuxtype();
 };
 
 #endif // LIBTUX4KIDSADMIN_TUXTYPE_H

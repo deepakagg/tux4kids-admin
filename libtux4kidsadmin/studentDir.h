@@ -28,6 +28,7 @@ public:
 	void setFirstName(const QString &firstName);
 	void setLastName(const QString &lastName);
 	void addProfileDir(ProfileDir *profileDir);
+	ProfileDir *addProfileDir(QString profileType);
 
 protected:
 	StudentDirPrivate * const d_ptr;

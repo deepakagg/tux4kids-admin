@@ -18,8 +18,6 @@ MainController::MainController()
 	m_schoolData = new SchoolData(QDir::homePath() + "/school_data");
 	m_studentTableModel.setSchoolData(m_schoolData);
 
-	//ProfileDirFactory::instance().create("tuxmath", "/home/swistak/lala");
-	//ProfileDirFactory::instance().create("tuxtype", "/home/swistak/lala2");
 }
 
 MainController::~MainController()
