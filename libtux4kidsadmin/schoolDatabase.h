@@ -14,6 +14,11 @@ public:
 	SchoolDatabase(QObject *parent = 0);
 	~SchoolDatabase();
 
+	bool open(QString dbFilePath);
+	void close();
+	bool error();
+	QString lastError();
+
 protected:
 	SchoolDatabasePrivate * const d_ptr;
 	SchoolDatabase(SchoolDatabasePrivate &dd, QObject *parent = 0);

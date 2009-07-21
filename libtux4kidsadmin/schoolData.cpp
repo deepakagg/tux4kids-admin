@@ -4,6 +4,7 @@
 
 #include <QString>
 #include <QDebug>
+#include <QSqlDatabase>
 
 /****************** SchoolDataPrivate *******************/
 
@@ -19,6 +20,8 @@ SchoolDataPrivate::SchoolDataPrivate(QString path)
 	mainDir.setPath(path);
 
 	loadStudentDirs();
+
+	//qDebug() << database.open("/home/swistak/test.db");
 }
 
 

@@ -17,7 +17,6 @@ MainController::MainController()
 
 	m_schoolData = new SchoolData(QDir::homePath() + "/school_data");
 	m_studentTableModel.setSchoolData(m_schoolData);
-
 }
 
 MainController::~MainController()
