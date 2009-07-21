@@ -1,4 +1,5 @@
 QT -= gui
+QT += sql
 TARGET = tux4kidsadmin
 TEMPLATE = lib
 DEFINES += LIBTUX4KIDSADMIN_LIBRARY
@@ -6,7 +7,8 @@ SOURCES += libtux4kidsadmin.cpp \
     profileDir.cpp \
     schoolData.cpp \
     studentDir.cpp \
-    profileDirFactory.cpp
+    profileDirFactory.cpp \
+    schoolDatabase.cpp
 HEADERS += libtux4kidsadmin.h \
     libtux4kidsadmin_global.h \
     profileDir.h \
@@ -16,4 +18,6 @@ HEADERS += libtux4kidsadmin.h \
     studentDir.h \
     studentDir_p.h \
     profileDirFactory.h \
-    profileDirFactory_p.h
+    profileDirFactory_p.h \
+    schoolDatabase.h \
+    schoolDatabase_p.h

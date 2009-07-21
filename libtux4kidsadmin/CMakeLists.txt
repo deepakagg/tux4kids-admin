@@ -6,12 +6,14 @@ SET(LIBTUX4KIDSADMIN_SOURCES
 	profileDir.cpp 
 	schoolData.cpp
 	studentDir.cpp 
-	profileDirFactory.cpp )
+	profileDirFactory.cpp 
+	schoolDatabase.cpp )
 
 SET(LIBTUX4KIDSADMIN_MOC_HEADERS 
 	profileDir.h 
 	schoolData.h
-	studentDir.h )
+	studentDir.h 
+	schoolDatabase.h )
 
 # enable warnings
 ADD_DEFINITIONS( -Wall -DLIBTUX4KIDSADMIN_LIBRARY )
@@ -19,6 +21,7 @@ ADD_DEFINITIONS( -Wall -DLIBTUX4KIDSADMIN_LIBRARY )
 
 FIND_PACKAGE( Qt4 REQUIRED )
 SET(QT_DONT_USE_QTGUI 1)
+SET(QT_USE_QTSQL 1)
 INCLUDE( ${QT_USE_FILE} )
 
 QT4_WRAP_CPP( LIBTUX4KIDSADMIN_MOC_SOURCES ${LIBTUX4KIDSADMIN_MOC_HEADERS} )

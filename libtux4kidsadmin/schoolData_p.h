@@ -5,6 +5,7 @@
 #include <QDir>
 #include <QList>
 #include <QPointer>
+#include <QSqlDatabase>
 
 #include "schoolData.h"
 
@@ -29,6 +30,8 @@ public:
 	SchoolData::Status status;
 	QList< QPointer<StudentDir> > students;
 	QList< QPointer<ProfileDir> > profiles;
+
+	QSqlDatabase schoolDb;
 };
 
 #endif // SCHOOLDATAPRIVATE_P_H
