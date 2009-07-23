@@ -12,7 +12,10 @@ SET(TUX4KIDS-ADMIN_SOURCES
 	manageStudentsWidget.cpp
 	addStudentDialog.cpp
 	studentTableModel.cpp 
-	studentTableProxyModel.cpp )
+	studentTableProxyModel.cpp 
+	manageClassesWidget.cpp 
+	classTableModel.cpp
+	manageClassDialog.cpp )
 
 SET(TUX4KIDS-ADMIN_MOC_HEADERS 
 	mainWindow.h
@@ -22,13 +25,18 @@ SET(TUX4KIDS-ADMIN_MOC_HEADERS
 	manageStudentsWidget.h
 	addStudentDialog.h
 	studentTableModel.h 
-	studentTableProxyModel.h )
+	studentTableProxyModel.h 
+	manageClassesWidget.h 
+	classTableModel.h 
+	manageClassDialog.h )
 
 SET(TUX4KIDS-ADMIN_UIS 
 	mainWindow.ui 
 	pluginManagerDialog.ui 
 	manageStudentsWidget.ui 
-	addStudentDialog.ui )
+	addStudentDialog.ui
+	manageClassesWidget.ui 
+	manageClassDialog.ui )
 
 # enable warnings
 ADD_DEFINITIONS( -Wall )

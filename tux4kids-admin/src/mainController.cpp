@@ -6,7 +6,8 @@
 #include "schoolData.h"
 #include "profileDirFactory.h"
 
-MainController::MainController()
+MainController::MainController(QObject *parent)
+		: QObject(parent)
 {
 	m_pluginManager.setPluginsPath(qApp->applicationDirPath() + "/plugins");
 	m_pluginManager.loadPlugins();

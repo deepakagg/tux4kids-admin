@@ -21,7 +21,7 @@ SchoolDataPrivate::SchoolDataPrivate(QString path)
 
 	loadStudentDirs();
 
-	//qDebug() << database.open("/home/swistak/test.db");
+	qDebug() << database.open("/home/swistak/test.db");
 }
 
 

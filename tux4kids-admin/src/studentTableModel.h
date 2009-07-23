@@ -19,17 +19,21 @@ public:
 	int columnCount(const QModelIndex &parent = QModelIndex()) const;
 	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+	Qt::ItemFlags flags(const QModelIndex &index) const;
+	bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
 
 	void setSchoolData(const SchoolData *schoolData);
 
 protected:
 
 	enum StudentField {
-		StudentFirstName = 0,
-		StudentLastName = 1
+		StudentSelected = 0,
+		StudentFirstName = 1,
+		StudentLastName = 2
 	};
 
 	QList< QPointer<StudentDir> > m_students;
+	QList<bool> m_studentsSelection;
 
 private slots:
 	void addStudent(StudentDir *newStudent);

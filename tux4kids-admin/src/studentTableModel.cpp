@@ -20,7 +20,7 @@ int StudentTableModel::rowCount(const QModelIndex &parent) const
 
 int StudentTableModel::columnCount(const QModelIndex &parent) const
 {
-	return 2;
+	return 3;
 }
 
 QVariant StudentTableModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -60,13 +60,46 @@ QVariant StudentTableModel::data(const QModelIndex &index, int role) const
 		case StudentLastName:
 			return m_students.at(index.row())->lastName();
 		}
+	} else if (role == Qt::CheckStateRole) {
+		if (index.column() == StudentSelected) {
+			if (m_studentsSelection[index.row()]) {
+				return Qt::Checked;
+			} else {
+				return Qt::Unchecked;
+			}
+		}
 	}
 	return QVariant();
+}
+
+Qt::ItemFlags StudentTableModel::flags(const QModelIndex &index) const
+{
+	Qt::ItemFlags result;
+	result = Qt::ItemIsEnabled
+			| Qt::ItemIsSelectable;
+	if (index.column() == StudentSelected) {
+		result |= (Qt::ItemIsUserCheckable | Qt::ItemIsEditable);
+	}
+	return result;
+}
+
+bool StudentTableModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+	if (role == Qt::CheckStateRole && index.column() == StudentSelected) {
+		m_studentsSelection[index.row()] = !m_studentsSelection[index.row()];
+		emit dataChanged(index, index);
+		return true;
+	}
+	return false;
 }
 
 void StudentTableModel::setSchoolData(const SchoolData *schoolData)
 {
 	m_students = schoolData->students();
+
+	for (int i = 0; i < m_students.size(); i++) {
+		m_studentsSelection.append(false);
+	}
 	connect(schoolData, SIGNAL(studentAdded(StudentDir*)), this,
 		SLOT(addStudent(StudentDir*)));
 	reset();

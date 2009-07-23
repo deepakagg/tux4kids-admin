@@ -14,7 +14,7 @@ class MainController : public QObject
 	Q_OBJECT
 
 public:
-	MainController();
+	MainController(QObject *parent = 0);
 	~MainController();
 
 	PluginManager *pluginManager();
