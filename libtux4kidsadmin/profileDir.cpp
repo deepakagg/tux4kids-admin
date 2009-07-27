@@ -73,6 +73,6 @@ QString ProfileDir::profileType(QString path)
 QString ProfileDir::type() const
 {
 	Q_D(const ProfileDir);
-	d->attributes->value("profile_type");
+	return d->attributes->value("profile_type").toString();
 }
 

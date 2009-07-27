@@ -4,6 +4,7 @@
 /***************************** ClassPrivate *********************/
 
 ClassPrivate::ClassPrivate()
+		: id(-1)
 {
 }
 
@@ -43,5 +44,16 @@ void Class::setName(QString name)
 	d->name = name;
 }
 
+int Class::id() const
+{
+	Q_D(const Class);
+	return d->id;
+}
+
+void Class::setId(int id)
+{
+	Q_D(Class);
+	d->id = id;
+}
 
 

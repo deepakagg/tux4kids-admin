@@ -14,6 +14,7 @@ public:
 
 	Class *q_ptr;
 
+	int id;
 	QString name;
 
 };

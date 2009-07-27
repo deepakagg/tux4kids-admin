@@ -17,12 +17,18 @@ public:
 	virtual ~SchoolDatabasePrivate();
 
 	void createTables();
+	void addClass(Class &newClass);
+	void updateClass(const Class &updatedClass);
+	void deleteClass(const Class &deletedClass);
+
+	void addTeacher(Teacher &newTeacher);
+	void updateTeacher(const Teacher &updatedTeacher);
+	void deleteTeacher(const Teacher &deletedTeacher);
 
 	SchoolDatabase *q_ptr;
 
 	QSqlDatabase db;
 
-	bool isOpen;
 	bool error;
 	QString lastError;
 

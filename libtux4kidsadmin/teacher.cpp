@@ -4,6 +4,7 @@
 /***************************** TeacherPrivate *********************/
 
 TeacherPrivate::TeacherPrivate()
+		: id(-1)
 {
 }
 
@@ -56,4 +57,15 @@ void Teacher::setLastName(QString lastName)
 	d->lastName = lastName;
 }
 
+int Teacher::id() const
+{
+	Q_D(const Teacher);
+	return d->id;
+}
+
+void Teacher::setId(int id)
+{
+	Q_D(Teacher);
+	d->id = id;
+}
 

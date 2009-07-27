@@ -14,6 +14,7 @@ public:
 
 	Teacher *q_ptr;
 
+	int id;
 	QString firstName;
 	QString lastName;
 

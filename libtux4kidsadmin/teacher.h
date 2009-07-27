@@ -16,8 +16,10 @@ public:
 
 	QString firstName() const;
 	QString lastName() const;
+	int id() const;
 	void setFirstName(QString firstName);
 	void setLastName(QString lastName);
+	void setId(int id);
 
 protected:
 
