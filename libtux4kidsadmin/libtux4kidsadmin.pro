@@ -9,7 +9,8 @@ SOURCES += libtux4kidsadmin.cpp \
     studentDir.cpp \
     profileDirFactory.cpp \
     schoolDatabase.cpp \
-    class.cpp
+    class.cpp \
+    teacher.cpp
 HEADERS += libtux4kidsadmin.h \
     libtux4kidsadmin_global.h \
     profileDir.h \
@@ -23,4 +24,6 @@ HEADERS += libtux4kidsadmin.h \
     schoolDatabase.h \
     schoolDatabase_p.h \
     class.h \
-    class_p.h
+    class_p.h \
+    teacher.h \
+    teacher_p.h
