@@ -1,5 +1,6 @@
 TARGET = ../tux4kids-admin
 TEMPLATE = app
+QT += sql
 INCLUDEPATH += ../plugins/ \
     ../../libtux4kidsadmin/
 SOURCES += main.cpp \
@@ -15,7 +16,8 @@ SOURCES += main.cpp \
     studentTableProxyModel.cpp \
     manageClassesWidget.cpp \
     classTableModel.cpp \
-    manageClassDialog.cpp
+    manageClassDialog.cpp \
+    class.cpp
 HEADERS += mainWindow.h \
     mainController.h \
     pluginManager.h \
@@ -28,7 +30,8 @@ HEADERS += mainWindow.h \
     studentTableProxyModel.h \
     manageClassesWidget.h \
     classTableModel.h \
-    manageClassDialog.h
+    manageClassDialog.h \
+    class.h
 FORMS += mainWindow.ui \
     pluginManagerDialog.ui \
     manageStudentsWidget.ui \

@@ -10,6 +10,8 @@ ManageClassesWidget::ManageClassesWidget(MainController *mainController, QWidget
 {
 	m_ui->setupUi(this);
 
+	m_ui->classesTable->setModel(m_mainController->classTableModel());
+
 	connect(m_ui->addClassButton, SIGNAL(clicked()), this, SLOT(addClicked()));
 }
 

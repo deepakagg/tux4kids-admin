@@ -40,4 +40,8 @@ StudentTableModel *MainController::studentTableModel()
 	return &m_studentTableModel;
 }
 
+ClassTableModel *MainController::classTableModel()
+{
+	return &m_classTableModel;
+}
 
