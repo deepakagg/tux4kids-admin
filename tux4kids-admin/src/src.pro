@@ -16,8 +16,7 @@ SOURCES += main.cpp \
     studentTableProxyModel.cpp \
     manageClassesWidget.cpp \
     classTableModel.cpp \
-    manageClassDialog.cpp \
-    class.cpp
+    manageClassDialog.cpp
 HEADERS += mainWindow.h \
     mainController.h \
     pluginManager.h \
@@ -30,8 +29,7 @@ HEADERS += mainWindow.h \
     studentTableProxyModel.h \
     manageClassesWidget.h \
     classTableModel.h \
-    manageClassDialog.h \
-    class.h
+    manageClassDialog.h
 FORMS += mainWindow.ui \
     pluginManagerDialog.ui \
     manageStudentsWidget.ui \

@@ -67,12 +67,12 @@ ProfileDir::Status ProfileDir::status() const
 QString ProfileDir::profileType(QString path)
 {
 	QSettings tmp(path + "/attributes.ini");
-	return tmp.value("profile_tmp", "unknown").toString();
+	return tmp.value("profile_type", "unknown").toString();
 }
 
 QString ProfileDir::type() const
 {
 	Q_D(const ProfileDir);
-	//d->attributes
+	d->attributes->value("profile_type");
 }
 
