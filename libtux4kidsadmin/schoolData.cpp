@@ -21,7 +21,9 @@ SchoolDataPrivate::SchoolDataPrivate(QString path)
 
 	loadStudentDirs();
 
-	qDebug() << database.open("/home/swistak/test.db");
+	if (!database.open(path + "/school_database.db")) {
+		status = SchoolData::InitializationError;
+	}
 }
 
 

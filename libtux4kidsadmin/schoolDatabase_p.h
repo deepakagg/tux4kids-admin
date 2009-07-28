@@ -25,12 +25,15 @@ public:
 	void updateTeacher(const Teacher &updatedTeacher);
 	void deleteTeacher(const Teacher &deletedTeacher);
 
+	QList<Class> classList() const;
+	QList<Teacher> teacherList() const;
+	void synchronizeStudents(const QList< QPointer<StudentDir> > &studentList);
 	SchoolDatabase *q_ptr;
 
 	QSqlDatabase db;
 
-	bool error;
-	QString lastError;
+	mutable bool error;
+	mutable QString lastError;
 
 };
 

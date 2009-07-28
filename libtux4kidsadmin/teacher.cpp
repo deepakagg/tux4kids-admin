@@ -69,3 +69,16 @@ void Teacher::setId(int id)
 	d->id = id;
 }
 
+Teacher &Teacher::operator=(const Teacher &other)
+{
+	if (this != &other) {
+		TeacherPrivate *tmp = new TeacherPrivate();
+		*tmp = *d_ptr;
+		tmp->q_ptr = this;
+		delete d_ptr;
+		d_ptr = tmp;
+	}
+
+	return *this;
+}
+

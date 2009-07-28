@@ -117,11 +117,18 @@ ProfileDir *StudentDir::addProfileDir(QString profileType)
 {
 	Q_D(StudentDir);
 
-
 	ProfileDir *tmp = ProfileDirFactory::instance().create(profileType, profileType, this);
 	if (tmp != 0) {
 		d->profiles.append(tmp);
+		return tmp;
 	}
+
+	return 0;
 }
 
+QString StudentDir::dirName() const
+{
+	Q_D(const StudentDir);
+	return d->mainDir.dirName();
+}
 

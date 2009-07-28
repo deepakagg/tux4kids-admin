@@ -2,8 +2,10 @@
 #define SCHOOLDATABASE_H
 
 #include <QObject>
+#include <QPointer>
 
 #include "libtux4kidsadmin_global.h"
+#include "studentDir.h"
 
 class SchoolDatabasePrivate;
 class Class;
@@ -27,6 +29,10 @@ public:
 	void addTeacher(Teacher &newTeacher);
 	void updateTeacher(const Teacher &updatedTeacher);
 	void deleteTeacher(const Teacher &deletedTeacher);
+
+	QList<Class> classList() const;
+	QList<Teacher> teacherList() const;
+	void synchronizeStudents(const QList< QPointer<StudentDir> > &studentList);
 
 protected:
 	SchoolDatabasePrivate * const d_ptr;

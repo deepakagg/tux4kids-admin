@@ -18,10 +18,11 @@ public:
 	void setName(QString name);
 	int id() const;
 	void setId(int id);
+	Class &operator=(const Class&);
 
 protected:
 
-	ClassPrivate * const d_ptr;
+	ClassPrivate * d_ptr;
 	Class(ClassPrivate &dd);
 
 private:

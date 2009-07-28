@@ -23,6 +23,7 @@ public:
 
 	Status status() const;
 
+	QString dirName() const;
 	QString firstName() const;
 	QString lastName() const;
 	void setFirstName(const QString &firstName);

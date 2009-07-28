@@ -4,10 +4,12 @@
 #include "teacher.h"
 
 #include <QSqlQuery>
+#include <QSqlRecord>
 #include <QSqlError>
 #include <QFile>
 #include <QDebug>
 #include <QVariant>
+#include <QStringList>
 
 /*********************** SchoolDatabasePrivate ***********************/
 
@@ -64,7 +66,6 @@ void SchoolDatabasePrivate::createTables()
 		lastError = createClassStudents.lastError().text();
 		return;
 	}
-
 }
 
 void SchoolDatabasePrivate::addClass(Class &newClass)
@@ -259,6 +260,92 @@ void SchoolDatabasePrivate::deleteTeacher(const Teacher &deletedTeacher)
 	emit q->teacherDeleted(deletedTeacher);
 }
 
+QList<Class> SchoolDatabasePrivate::classList() const
+{
+	QList<Class> result;
+
+	if (!db.isOpen()) {
+		error = true;
+		lastError = QObject::tr("Database is not open");
+		return result;
+	}
+
+	QSqlQuery classList;
+
+	error = false;
+
+	classList.prepare("SELECT name FROM classes;");
+	classList.exec();
+
+	if (!classList.isActive()) {
+		error = true;
+		lastError = classList.lastError().text();
+		return result;
+	}
+
+	QSqlRecord classRec = classList.record();
+
+	while (classList.next()) {
+		int id = classList.value(classRec.indexOf("id")).toInt();
+		QString name = classList.value(classRec.indexOf("name")).toString();
+		Class newClass;
+		newClass.setId(id);
+		newClass.setName(name);
+		result.append(newClass);
+	}
+	return result;
+}
+
+QList<Teacher> SchoolDatabasePrivate::teacherList() const
+{
+	QList<Teacher> result;
+
+	if (!db.isOpen()) {
+		error = true;
+		lastError = QObject::tr("Database is not open");
+		return result;
+	}
+
+	QSqlQuery teacherList;
+
+	error = false;
+
+	teacherList.prepare("SELECT first_name, last_name FROM teachers;");
+	teacherList.exec();
+
+	if (!teacherList.isActive()) {
+		error = true;
+		lastError = teacherList.lastError().text();
+		return result;
+	}
+
+	QSqlRecord teacherRec = teacherList.record();
+
+	while (teacherList.next()) {
+		int id = teacherList.value(teacherRec.indexOf("id")).toInt();
+		QString firstName = teacherList.value(teacherRec.indexOf("first_name")).toString();
+		QString lastName = teacherList.value(teacherRec.indexOf("last_name")).toString();
+		Teacher newTeacher(firstName, lastName);
+		newTeacher.setId(id);
+		//newTeacher.setFirstName(firstName);
+		//newTeacher.setLastName(lastName);
+		result.append(newTeacher);
+	}
+	return result;
+}
+
+void SchoolDatabasePrivate::synchronizeStudents(const QList< QPointer<StudentDir> > &studentList)
+{
+	QStringList existingStudents;
+
+	foreach(StudentDir *studentDir, studentList) {
+		existingStudents.append(studentDir->dirName());
+	}
+
+
+}
+
+
 /************************ SchoolDatabase **************************/
 
 SchoolDatabase::SchoolDatabase(QObject *parent)
@@ -351,5 +438,23 @@ void SchoolDatabase::deleteTeacher(const Teacher &deletedTeacher)
 {
 	Q_D(SchoolDatabase);
 	d->deleteTeacher(deletedTeacher);
+}
+
+QList<Class>SchoolDatabase::classList() const
+{
+	Q_D(const SchoolDatabase);
+	return d->classList();
+}
+
+QList<Teacher>SchoolDatabase::teacherList() const
+{
+	Q_D(const SchoolDatabase);
+	return d->teacherList();
+}
+
+void SchoolDatabase::synchronizeStudents(const QList< QPointer<StudentDir> > &studentList)
+{
+	Q_D(SchoolDatabase);
+	d->synchronizeStudents(studentList);
 }
 

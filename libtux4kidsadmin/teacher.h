@@ -20,10 +20,11 @@ public:
 	void setFirstName(QString firstName);
 	void setLastName(QString lastName);
 	void setId(int id);
+	Teacher &operator=(const Teacher &other);
 
 protected:
 
-	TeacherPrivate * const d_ptr;
+	TeacherPrivate * d_ptr;
 	Teacher(TeacherPrivate &dd);
 
 private:

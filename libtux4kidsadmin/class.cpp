@@ -19,6 +19,7 @@ Class::Class(QString name)
 {
 	Q_D(Class);
 	d->name = name;
+	d->q_ptr = this;
 }
 
 Class::Class(ClassPrivate &dd)
@@ -56,4 +57,16 @@ void Class::setId(int id)
 	d->id = id;
 }
 
+Class &Class::operator=(const Class &other)
+{
+	if (this != &other) {
+		ClassPrivate *tmp = new ClassPrivate();
+		*tmp = *d_ptr;
+		tmp->q_ptr = this;
+		delete d_ptr;
+		d_ptr = tmp;
+	}
+
+	return *this;
+}
 
