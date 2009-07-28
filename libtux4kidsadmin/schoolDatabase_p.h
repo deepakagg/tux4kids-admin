@@ -28,6 +28,8 @@ public:
 	QList<Class> classList() const;
 	QList<Teacher> teacherList() const;
 	void synchronizeStudents(const QList< QPointer<StudentDir> > &studentList);
+	QStringList studentList() const;
+
 	SchoolDatabase *q_ptr;
 
 	QSqlDatabase db;

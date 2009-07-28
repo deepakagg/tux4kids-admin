@@ -23,6 +23,8 @@ SchoolDataPrivate::SchoolDataPrivate(QString path)
 
 	if (!database.open(path + "/school_database.db")) {
 		status = SchoolData::InitializationError;
+	} else {
+		database.synchronizeStudents(students);
 	}
 }
 

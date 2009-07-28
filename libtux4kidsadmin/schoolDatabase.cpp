@@ -334,15 +334,87 @@ QList<Teacher> SchoolDatabasePrivate::teacherList() const
 	return result;
 }
 
-void SchoolDatabasePrivate::synchronizeStudents(const QList< QPointer<StudentDir> > &studentList)
+void SchoolDatabasePrivate::synchronizeStudents(const QList< QPointer<StudentDir> > &studentsList)
 {
 	QStringList existingStudents;
 
-	foreach(StudentDir *studentDir, studentList) {
+	foreach(StudentDir *studentDir, studentsList) {
 		existingStudents.append(studentDir->dirName());
 	}
 
+	QStringList databaseStudents = studentList();
 
+	QStringList toAddStudents = existingStudents;
+	foreach(QString profileName, databaseStudents) {
+		toAddStudents.removeOne(profileName);
+	}
+	qDebug() << toAddStudents;
+	QStringList toDeleteStudents = databaseStudents;
+	foreach(QString profileName, existingStudents) {
+		toDeleteStudents.removeOne(profileName);
+	}
+
+	db.transaction();
+
+	foreach(QString profileName, toAddStudents) {
+		QSqlQuery addStudent;
+		addStudent.prepare("INSERT INTO students(profile_name) VALUES(:profile_name);");
+		addStudent.bindValue(":profile_name", profileName);
+		addStudent.exec();
+		if (!addStudent.isActive()) {
+			error = true;
+			lastError = addStudent.lastError().text();
+			return;
+		}
+	}
+
+	foreach(QString profileName, toDeleteStudents) {
+		QSqlQuery deleteStudent;
+		deleteStudent.prepare("DELETE FROM students WHERE profile_name = :profile_name;");
+		deleteStudent.bindValue(":profile_name", profileName);
+		deleteStudent.exec();
+
+		if (!deleteStudent.isActive()) {
+			error = true;
+			lastError = deleteStudent.lastError().text();
+			return;
+		}
+	}
+
+	db.commit();
+
+}
+
+QStringList SchoolDatabasePrivate::studentList() const
+{
+	QStringList result;
+
+	if (!db.isOpen()) {
+		error = true;
+		lastError = QObject::tr("Database is not open");
+		return result;
+	}
+
+	QSqlQuery studentList;
+
+	error = false;
+
+	studentList.prepare("SELECT profile_name FROM students;");
+	studentList.exec();
+
+	if (!studentList.isActive()) {
+		error = true;
+		lastError = studentList.lastError().text();
+		return result;
+	}
+
+	QSqlRecord studentRec = studentList.record();
+
+	while (studentList.next()) {
+		QString profileName = studentList.value(studentRec.indexOf("profile_name")).toString();
+		result.append(profileName);
+	}
+	return result;
 }
 
 
