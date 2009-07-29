@@ -17,6 +17,7 @@ public:
 	virtual ~SchoolDatabasePrivate();
 
 	void createTables();
+	void createTriggers();
 	void addClass(Class &newClass);
 	void updateClass(const Class &updatedClass);
 	void deleteClass(const Class &deletedClass);

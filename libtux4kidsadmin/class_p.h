@@ -3,6 +3,9 @@
 
 #include <QtGlobal>
 #include <QString>
+#include <QStringList>
+
+class Teacher;
 
 class  ClassPrivate
 {
@@ -16,6 +19,8 @@ public:
 
 	int id;
 	QString name;
+	QStringList students;
+	QList<Teacher> teachers;
 
 };
 

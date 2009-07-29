@@ -57,6 +57,30 @@ void Class::setId(int id)
 	d->id = id;
 }
 
+QStringList Class::students() const
+{
+	Q_D(const Class);
+	return d->students;
+}
+
+void Class::setStudents(const QStringList &students)
+{
+	Q_D(Class);
+	d->students = students;
+}
+
+QList<Teacher> Class::teachers() const
+{
+	Q_D(const Class);
+	return d->teachers;
+}
+
+void Class::setTeachers(const QList<Teacher> &teachers)
+{
+	Q_D(Class);
+	d->teachers = teachers;
+}
+
 Class &Class::operator=(const Class &other)
 {
 	if (this != &other) {
