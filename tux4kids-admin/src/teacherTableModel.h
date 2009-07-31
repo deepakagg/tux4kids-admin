@@ -21,13 +21,13 @@ public:
 	Qt::ItemFlags flags(const QModelIndex &index) const;
 	bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::DisplayRole);
 
-protected:
-
 	enum TeacherField {
 		TeacherSelected = 0,
 		TeacherFirstName = 1,
 		TeacherLastName = 2
 	};
+
+protected:
 
 	QPointer<SchoolDatabase> m_schoolDatabase;
 	QList<Teacher> m_teachers;

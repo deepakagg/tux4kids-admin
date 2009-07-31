@@ -10,7 +10,8 @@ ManageTeachersWidget::ManageTeachersWidget(MainController *mainController, QWidg
 {
 	m_ui->setupUi(this);
 
-	m_ui->teachersTable->setModel(m_mainController->teacherTableModel());
+	m_teacherTableProxyModel.setSourceModel(m_mainController->teacherTableModel());
+	m_ui->teachersTable->setModel(&m_teacherTableProxyModel);
 }
 
 ManageTeachersWidget::~ManageTeachersWidget()

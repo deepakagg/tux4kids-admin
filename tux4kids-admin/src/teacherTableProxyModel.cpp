@@ -1,15 +1,14 @@
-#include "studentTableProxyModel.h"
-#include "studentTableModel.h"
-#include "studentDir.h"
+#include "teacherTableProxyModel.h"
+#include "teacherTableModel.h"
 
-StudentTableProxyModel::StudentTableProxyModel(QObject *parent)
+TeacherTableProxyModel::TeacherTableProxyModel(QObject *parent)
 		: QSortFilterProxyModel(parent)
 {
 }
 
-bool StudentTableProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
+bool TeacherTableProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
-	if (left.column() == StudentTableModel::StudentSelected) {
+	if (left.column() ==TeacherTableModel::TeacherSelected) {
 		if ((sourceModel()->data(left, Qt::CheckStateRole).toInt() == Qt::Checked) && (sourceModel()->data(right, Qt::CheckStateRole).toInt() == Qt::Unchecked)) {
 			return true;
 		} else {

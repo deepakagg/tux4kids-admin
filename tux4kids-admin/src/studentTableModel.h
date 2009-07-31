@@ -24,13 +24,13 @@ public:
 
 	void setSchoolData(const SchoolData *schoolData);
 
-protected:
-
 	enum StudentField {
 		StudentSelected = 0,
 		StudentFirstName = 1,
 		StudentLastName = 2
 	};
+
+protected:
 
 	QList< QPointer<StudentDir> > m_students;
 	QList<bool> m_studentsSelection;

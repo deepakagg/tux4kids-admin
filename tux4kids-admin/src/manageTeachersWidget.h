@@ -4,6 +4,8 @@
 #include <QtGui/QWidget>
 #include <QPointer>
 
+#include "teacherTableProxyModel.h"
+
 namespace Ui {
 	class ManageTeachersWidget;
 }
@@ -20,6 +22,7 @@ public:
 private:
 	Ui::ManageTeachersWidget *m_ui;
 	QPointer<MainController> m_mainController;
+	TeacherTableProxyModel m_teacherTableProxyModel;
 };
 
 #endif // MANAGETEACHERSWIDGET_H
