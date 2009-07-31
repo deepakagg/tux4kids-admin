@@ -46,6 +46,25 @@ QVariant TeacherTableModel::data(const QModelIndex &index, int role) const
 	return QVariant();
 }
 
+QVariant TeacherTableModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+	if (role != Qt::DisplayRole)
+		return QVariant();
+
+	if (orientation == Qt::Vertical) {
+		return section + 1;
+	} else if (orientation == Qt::Horizontal) {
+		switch (section) {
+		case TeacherFirstName:
+			return tr("First name");
+		case TeacherLastName:
+			return tr("Last name");
+		}
+	}
+
+	return QVariant();
+}
+
 Qt::ItemFlags TeacherTableModel::flags(const QModelIndex &index) const
 {
 	Qt::ItemFlags result;

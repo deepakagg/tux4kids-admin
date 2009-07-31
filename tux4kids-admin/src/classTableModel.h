@@ -18,6 +18,7 @@ public:
 	int rowCount(const QModelIndex &parent = QModelIndex()) const;
 	Qt::ItemFlags flags(const QModelIndex &index) const;
 	bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::DisplayRole);
+	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
 	void setSchoolDatabase(SchoolDatabase *schoolDatabase);
 private:

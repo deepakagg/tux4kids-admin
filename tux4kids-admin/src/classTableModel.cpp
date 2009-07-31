@@ -44,6 +44,23 @@ QVariant ClassTableModel::data(const QModelIndex &index, int role) const
 	return QVariant();
 }
 
+QVariant ClassTableModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+	if (role != Qt::DisplayRole)
+		return QVariant();
+
+	if (orientation == Qt::Vertical) {
+		return section + 1;
+	} else if (orientation == Qt::Horizontal) {
+		switch (section) {
+		case ClassName:
+			return tr("Class name");
+		}
+	}
+
+	return QVariant();
+}
+
 Qt::ItemFlags ClassTableModel::flags(const QModelIndex &index) const
 {
 	Qt::ItemFlags result;
