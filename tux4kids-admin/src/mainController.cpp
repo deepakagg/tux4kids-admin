@@ -18,6 +18,8 @@ MainController::MainController(QObject *parent)
 
 	m_schoolData = new SchoolData(QDir::homePath() + "/school_data");
 	m_studentTableModel.setSchoolData(m_schoolData);
+	m_classTableModel.setSchoolDatabase(m_schoolData->schoolDatabase());
+	m_teacherTableModel.setSchoolDatabase(m_schoolData->schoolDatabase());
 }
 
 MainController::~MainController()
@@ -43,5 +45,10 @@ StudentTableModel *MainController::studentTableModel()
 ClassTableModel *MainController::classTableModel()
 {
 	return &m_classTableModel;
+}
+
+TeacherTableModel *MainController::teacherTableModel()
+{
+	return &m_teacherTableModel;
 }
 

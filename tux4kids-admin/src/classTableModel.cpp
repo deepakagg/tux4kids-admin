@@ -34,7 +34,7 @@ QVariant ClassTableModel::data(const QModelIndex &index, int role) const
 		}
 	} else if (role == Qt::CheckStateRole) {
 		if (index.column() == ClassSelected) {
-			if (m_classesSelection[index.row()]) {
+			if (m_classesSelection.at(index.row())) {
 				return Qt::Checked;
 			} else {
 				return Qt::Unchecked;
@@ -86,8 +86,10 @@ void ClassTableModel::setSchoolDatabase(SchoolDatabase *schoolDatabase)
 {
 	m_schoolDatabase = schoolDatabase;
 	m_classes = m_schoolDatabase->classList();
-
-
+	m_classesSelection.clear();
+	for (int i = 0; i < m_classes.size(); i++) {
+		m_classesSelection.append(false);
+	}
 	reset();
 }
 

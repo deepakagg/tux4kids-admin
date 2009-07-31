@@ -14,6 +14,7 @@ class LIBTUX4KIDSADMIN_SHARED_EXPORT Class
 {
 public:
 	Class(QString name = QString());
+	Class(const Class& other);
 	~Class();
 
 	QString name() const;

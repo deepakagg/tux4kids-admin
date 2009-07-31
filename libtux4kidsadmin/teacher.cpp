@@ -27,6 +27,12 @@ Teacher::Teacher(TeacherPrivate &dd)
 {
 }
 
+Teacher::Teacher(const Teacher& other)
+		: d_ptr(new TeacherPrivate())
+{
+	*d_ptr = *other.d_ptr;
+}
+
 Teacher::~Teacher()
 {
 	Q_D(Teacher);

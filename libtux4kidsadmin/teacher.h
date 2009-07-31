@@ -12,6 +12,7 @@ class LIBTUX4KIDSADMIN_SHARED_EXPORT Teacher
 {
 public:
 	Teacher(QString firstName, QString lastName);
+	Teacher(const Teacher &other);
 	~Teacher();
 
 	QString firstName() const;

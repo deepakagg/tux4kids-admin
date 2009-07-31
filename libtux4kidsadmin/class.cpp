@@ -1,5 +1,6 @@
 #include "class.h"
 #include "class_p.h"
+#include <QDebug>
 
 /***************************** ClassPrivate *********************/
 
@@ -25,6 +26,12 @@ Class::Class(QString name)
 Class::Class(ClassPrivate &dd)
 		: d_ptr(&dd)
 {
+}
+
+Class::Class(const Class& other)
+		: d_ptr(new ClassPrivate())
+{
+	*d_ptr = *other.d_ptr;
 }
 
 Class::~Class()

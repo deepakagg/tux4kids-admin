@@ -9,6 +9,7 @@
 class QString;
 class SchoolDataPrivate;
 class StudentDir;
+class SchoolDatabase;
 
 class LIBTUX4KIDSADMIN_SHARED_EXPORT SchoolData : public QObject
 {
@@ -26,6 +27,7 @@ public:
 	StudentDir *addStudent();
 	//const StudentDir & studentDirAt(int index);
 	QList< QPointer<StudentDir> > students() const;
+	SchoolDatabase *schoolDatabase();
 
 protected:
 	SchoolDataPrivate * const d_ptr;

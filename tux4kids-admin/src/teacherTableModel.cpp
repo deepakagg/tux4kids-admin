@@ -1,5 +1,6 @@
 #include "teacherTableModel.h"
 #include "schoolDatabase.h"
+#include <QDebug>
 
 TeacherTableModel::TeacherTableModel(QObject *parent)
 		: QAbstractTableModel(parent)
@@ -8,12 +9,12 @@ TeacherTableModel::TeacherTableModel(QObject *parent)
 
 int TeacherTableModel::columnCount(const QModelIndex &parent) const
 {
-	return m_teachers.size();
+	return 3;
 }
 
 int TeacherTableModel::rowCount(const QModelIndex &parent) const
 {
-	return 3;
+	return m_teachers.size();
 }
 
 QVariant TeacherTableModel::data(const QModelIndex &index, int role) const
@@ -91,11 +92,11 @@ void TeacherTableModel::setSchoolDatabase(SchoolDatabase *schoolDatabase)
 	m_schoolDatabase = schoolDatabase;
 	m_teachers = m_schoolDatabase->teacherList();
 	m_teachersSelection.clear();
-	for (int i = 0; i< m_teachers.size(); i++) {
+	for (int i = 0; i < m_teachers.size(); ++i) {
 		m_teachersSelection.append(false);
 	}
 	connect(m_schoolDatabase, SIGNAL(teacherAdded(const Teacher &)),
-		this, SLOT(teacherAdded(const Teacher &)));
+		this, SLOT(addTeacher(const Teacher &)));
 	connect(m_schoolDatabase, SIGNAL(teacherUpdated(const Teacher &)),
 		this, SLOT(updateTeacher(const Teacher &)));
 	connect(m_schoolDatabase, SIGNAL(teacherDeleted(const Teacher &)),

@@ -7,6 +7,7 @@
 #include "pluginManager.h"
 #include "studentTableModel.h"
 #include "classTableModel.h"
+#include "teacherTableModel.h"
 
 class SchoolData;
 
@@ -22,12 +23,14 @@ public:
 	SchoolData *schoolData();
 	StudentTableModel *studentTableModel();
 	ClassTableModel *classTableModel();
+	TeacherTableModel *teacherTableModel();
 
 private:
 
 	PluginManager m_pluginManager;
 	StudentTableModel m_studentTableModel;
 	ClassTableModel m_classTableModel;
+	TeacherTableModel m_teacherTableModel;
 	QPointer<SchoolData> m_schoolData;
 
 };
