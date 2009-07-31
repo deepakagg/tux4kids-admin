@@ -17,8 +17,8 @@ SOURCES += main.cpp \
     manageClassesWidget.cpp \
     classTableModel.cpp \
     manageClassDialog.cpp \
-    ../manageTeachersWidget.cpp \
-    ../teacherTableModel.cpp
+    manageTeachersWidget.cpp \
+    teacherTableModel.cpp
 HEADERS += mainWindow.h \
     mainController.h \
     pluginManager.h \
@@ -32,14 +32,14 @@ HEADERS += mainWindow.h \
     manageClassesWidget.h \
     classTableModel.h \
     manageClassDialog.h \
-    ../manageTeachersWidget.h \
-    ../teacherTableModel.h
+    manageTeachersWidget.h \
+    teacherTableModel.h
 FORMS += mainWindow.ui \
     pluginManagerDialog.ui \
     manageStudentsWidget.ui \
     addStudentDialog.ui \
     manageClassesWidget.ui \
     manageClassDialog.ui \
-    ../manageTeachersWidget.ui
+    manageTeachersWidget.ui
 LIBS += -ltux4kidsadmin \
     -L../../libtux4kidsadmin
