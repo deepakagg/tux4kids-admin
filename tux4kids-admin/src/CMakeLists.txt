@@ -17,7 +17,8 @@ SET(TUX4KIDS-ADMIN_SOURCES
 	classTableModel.cpp
 	manageClassDialog.cpp
 	manageTeachersWidget.cpp 
-	teacherTableModel.cpp )
+	teacherTableModel.cpp 
+	../classTableProxyModel.cpp )
 
 SET(TUX4KIDS-ADMIN_MOC_HEADERS 
 	mainWindow.h
@@ -32,7 +33,8 @@ SET(TUX4KIDS-ADMIN_MOC_HEADERS
 	classTableModel.h 
 	manageClassDialog.h 
 	manageTeachersWidget.h
-	teacherTableModel.h )
+	teacherTableModel.h 
+	../classTableProxyModel.h )
 
 SET(TUX4KIDS-ADMIN_UIS 
 	mainWindow.ui 

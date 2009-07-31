@@ -4,6 +4,8 @@
 #include <QtGui/QWidget>
 #include <QPointer>
 
+#include "classTableProxyModel.h"
+
 namespace Ui {
 	class ManageClassesWidget;
 }
@@ -23,6 +25,7 @@ private:
 
 	QPointer<MainController> m_mainController;
 	QPointer<ManageClassDialog> m_addClassDialog;
+	ClassTableProxyModel m_classTableProxyModel;
 
 private slots:
 	void addClicked();

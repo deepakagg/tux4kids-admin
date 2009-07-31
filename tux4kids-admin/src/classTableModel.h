@@ -21,12 +21,13 @@ public:
 	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
 	void setSchoolDatabase(SchoolDatabase *schoolDatabase);
-private:
 
 	enum ClassField {
 		ClassSelected = 0,
 		ClassName = 1,
 	};
+private:
+
 	QPointer<SchoolDatabase> m_schoolDatabase;
 	QList<Class> m_classes;
 	QList<bool> m_classesSelection;
