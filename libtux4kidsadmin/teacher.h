@@ -21,6 +21,7 @@ public:
 	void setLastName(QString lastName);
 	void setId(int id);
 	Teacher &operator=(const Teacher &other);
+	bool operator==(const Teacher &other) const;
 
 protected:
 

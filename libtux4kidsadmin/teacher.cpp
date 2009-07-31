@@ -82,3 +82,16 @@ Teacher &Teacher::operator=(const Teacher &other)
 	return *this;
 }
 
+bool Teacher::operator==(const Teacher &other) const
+{
+	Q_D(const Teacher);
+
+	if (d->id >= 0 && other.d_ptr->id >= 0) {
+		return d->id == other.d_ptr->id;
+	} else {
+		return d->firstName == other.d_ptr->firstName
+			&& d->lastName == other.d_ptr->lastName;
+	}
+}
+
+
