@@ -27,10 +27,14 @@ public:
 		ClassName = 1,
 	};
 private:
-
 	QPointer<SchoolDatabase> m_schoolDatabase;
 	QList<Class> m_classes;
 	QList<bool> m_classesSelection;
+
+private slots:
+	void addClass(const Class & newClass);
+	void updateClass(const Class &updatedClass);
+	void deleteClass(const Class &deletedClass);
 };
 
 #endif // CLASSTABLEMODEL_H

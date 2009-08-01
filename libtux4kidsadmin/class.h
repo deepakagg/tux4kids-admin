@@ -26,6 +26,7 @@ public:
 	QList<Teacher> teachers() const;
 	void setTeachers(const QList<Teacher> &teachers);
 	Class &operator=(const Class&);
+	bool operator==(const Class &other) const;
 
 protected:
 

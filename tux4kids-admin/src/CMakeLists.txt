@@ -19,7 +19,9 @@ SET(TUX4KIDS-ADMIN_SOURCES
 	manageTeachersWidget.cpp 
 	teacherTableModel.cpp 
 	classTableProxyModel.cpp 
-	teacherTableProxyModel.cpp )
+	teacherTableProxyModel.cpp 
+	editClassDialog.cpp 
+	editTeacherDialog.cpp )
 
 SET(TUX4KIDS-ADMIN_MOC_HEADERS 
 	mainWindow.h
@@ -36,7 +38,9 @@ SET(TUX4KIDS-ADMIN_MOC_HEADERS
 	manageTeachersWidget.h
 	teacherTableModel.h 
 	classTableProxyModel.h 
-	teacherTableProxyModel.h )
+	teacherTableProxyModel.h 
+	editClassDialog.h 
+	editTeacherDialog.h )
 
 SET(TUX4KIDS-ADMIN_UIS 
 	mainWindow.ui 
@@ -45,7 +49,9 @@ SET(TUX4KIDS-ADMIN_UIS
 	addStudentDialog.ui
 	manageClassesWidget.ui 
 	manageClassDialog.ui 
-	manageTeachersWidget.ui )
+	manageTeachersWidget.ui 
+	editClassDialog.ui 
+	editTeacherDialog.ui )
 
 # enable warnings
 ADD_DEFINITIONS( -Wall )

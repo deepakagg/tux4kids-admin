@@ -116,15 +116,19 @@ void TeacherTableModel::addTeacher(const Teacher &teacher)
 void TeacherTableModel::updateTeacher(const Teacher &teacher)
 {
 	int pos = m_teachers.indexOf(teacher);
-	m_teachers[pos] = teacher;
-	emit dataChanged(index(pos, 0), index(pos, columnCount() - 1));
+	if (pos != -1) {
+		m_teachers[pos] = teacher;
+		emit dataChanged(index(pos, 0), index(pos, columnCount() - 1));
+	}
 }
 
 void TeacherTableModel::deleteTeacher(const Teacher &teacher)
 {
 	int pos = m_teachers.indexOf(teacher);
-	beginRemoveRows(QModelIndex(), pos, pos);
-	m_teachers.removeAt(pos);
-	m_teachersSelection.removeAt(pos);
-	endRemoveRows();
+	if (pos != -1) {
+		beginRemoveRows(QModelIndex(), pos, pos);
+		m_teachers.removeAt(pos);
+		m_teachersSelection.removeAt(pos);
+		endRemoveRows();
+	}
 }

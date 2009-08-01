@@ -90,6 +90,43 @@ void ClassTableModel::setSchoolDatabase(SchoolDatabase *schoolDatabase)
 	for (int i = 0; i < m_classes.size(); i++) {
 		m_classesSelection.append(false);
 	}
+
+	void classAdded(const Class &newClass);
+	void classUpdated(const Class &updatedClass);
+	void classDeleted(const Class &deletedClass);
+
+	connect(m_schoolDatabase, SIGNAL(classAdded(const Class &)), this, SLOT(addClass(const Class &)));
+	connect(m_schoolDatabase, SIGNAL(classUpdated(const Class &)), this, SLOT(updateClass(const Class &)));
+	connect(m_schoolDatabase, SIGNAL(classDeleted(const Class &)), this, SLOT(deleteClass(const Class &)));
+
 	reset();
+}
+
+void ClassTableModel::addClass(const Class & newClass)
+{
+	beginInsertRows(QModelIndex(), m_classes.size(), m_classes.size());
+	m_classes.append(newClass);
+	m_classesSelection.append(false);
+	endInsertRows();
+}
+
+void ClassTableModel::updateClass(const Class &updatedClass)
+{
+	int pos = m_classes.indexOf(updatedClass);
+	if (pos != -1) {
+		m_classes[pos] = updatedClass;
+		emit dataChanged(index(pos, 0) , index(pos, columnCount() - 1));
+	}
+}
+
+void ClassTableModel::deleteClass(const Class &deletedClass)
+{
+	int pos = m_classes.indexOf(deletedClass);
+	if (pos != -1) {
+		beginRemoveRows(QModelIndex(), pos, pos);
+		m_classes.removeAt(pos);
+		m_classesSelection.removeAt(pos);
+		endRemoveRows();
+	}
 }
 

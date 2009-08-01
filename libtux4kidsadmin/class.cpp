@@ -101,3 +101,16 @@ Class &Class::operator=(const Class &other)
 	return *this;
 }
 
+bool Class::operator==(const Class &other) const
+{
+	Q_D(const Class);
+
+	if (d->id >= 0 && other.d_ptr->id >= 0) {
+		return d->id == other.d_ptr->id;
+	} else {
+		return d->name == other.d_ptr->name
+			&& d->students == other.d_ptr->students
+			&& d->teachers == other.d_ptr->teachers;
+	}
+}
+
