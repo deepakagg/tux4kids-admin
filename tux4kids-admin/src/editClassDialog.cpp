@@ -10,6 +10,10 @@ EditClassDialog::EditClassDialog(QWidget *parent) :
 	m_ui->setupUi(this);
 
 	connect(m_ui->nameEdit, SIGNAL(textEdited(QString)), this, SLOT(validate()));
+	connect(m_ui->buttonBox->button(QDialogButtonBox::Ok), SIGNAL(clicked()), this, SLOT(accept()));
+	connect(m_ui->buttonBox->button(QDialogButtonBox::Cancel), SIGNAL(clicked()), this, SLOT(reject()));
+
+	validate();
 }
 
 EditClassDialog::~EditClassDialog()
@@ -26,10 +30,8 @@ void EditClassDialog::validate()
 {
 	if (isValid()) {
 		m_ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
-		m_ui->buttonBox->button(QDialogButtonBox::Cancel)->setEnabled(true);
 	} else {
 		m_ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
-		m_ui->buttonBox->button(QDialogButtonBox::Cancel)->setEnabled(false);
 	}
 }
 

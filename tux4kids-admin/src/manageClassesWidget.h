@@ -11,7 +11,7 @@ namespace Ui {
 }
 
 class MainController;
-class ManageClassDialog;
+class EditClassDialog;
 
 class ManageClassesWidget : public QWidget
 {
@@ -24,11 +24,18 @@ private:
 	Ui::ManageClassesWidget *m_ui;
 
 	QPointer<MainController> m_mainController;
-	QPointer<ManageClassDialog> m_addClassDialog;
+	QPointer<EditClassDialog> m_addClassDialog;
+	QPointer<EditClassDialog> m_editClassDialog;
 	ClassTableProxyModel m_classTableProxyModel;
 
 private slots:
 	void addClicked();
+	void editClicked();
+	void deleteClicked();
+	void addAccepted();
+	void addRejected();
+	void editAccepted();
+	void editRejected();
 };
 
 #endif // MANAGECLASSESWIDGET_H

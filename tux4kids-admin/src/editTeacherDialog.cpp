@@ -11,6 +11,10 @@ EditTeacherDialog::EditTeacherDialog(QWidget *parent) :
 
 	connect(m_ui->firstNameEdit, SIGNAL(textEdited(QString)), this, SLOT(validate()));
 	connect(m_ui->lastNameEdit, SIGNAL(textEdited(QString)), this, SLOT(validate()));
+	connect(m_ui->buttonBox->button(QDialogButtonBox::Ok), SIGNAL(clicked()), this, SLOT(accept()));
+	connect(m_ui->buttonBox->button(QDialogButtonBox::Cancel), SIGNAL(clicked()), this, SLOT(reject()));
+
+	validate();
 }
 
 EditTeacherDialog::~EditTeacherDialog()
@@ -27,9 +31,7 @@ void EditTeacherDialog::validate()
 {
 	if (isValid()) {
 		m_ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
-		m_ui->buttonBox->button(QDialogButtonBox::Cancel)->setEnabled(true);
 	} else {
 		m_ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
-		m_ui->buttonBox->button(QDialogButtonBox::Cancel)->setEnabled(false);
 	}
 }
