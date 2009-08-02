@@ -16,6 +16,12 @@ public:
 
 private:
 	Ui::EditClassDialog *m_ui;
+
+	bool isValid() const;
+
+private slots:
+	void validate();
+
 };
 
 #endif // EDITCLASSDIALOG_H

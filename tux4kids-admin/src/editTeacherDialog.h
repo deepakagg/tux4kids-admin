@@ -16,6 +16,11 @@ public:
 
 private:
 	Ui::EditTeacherDialog *m_ui;
+
+	bool isValid() const;
+
+private slots:
+	void validate();
 };
 
 #endif // EDITTEACHERDIALOG_H
