@@ -19,6 +19,9 @@ ManageStudentsWidget::ManageStudentsWidget(MainController *mainController, QWidg
 
 	m_mainController = mainController;
 	connect(m_ui->addStudentButton, SIGNAL(clicked()), this, SLOT(addStudentClicked()));
+	connect(m_ui->studentsTable->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(setEditButtons()));
+
+	setEditButtons();
 }
 
 ManageStudentsWidget::~ManageStudentsWidget()
@@ -44,4 +47,20 @@ void ManageStudentsWidget::addStudent()
 	studentDir->setLastName(m_addStudentDialog->lastName());
 
 }
+
+void ManageStudentsWidget::setEditButtons()
+{
+	if (m_ui->studentsTable->selectionModel()->selectedIndexes().isEmpty()) {
+		setEditButtonsEnabled(false);
+	} else {
+		setEditButtonsEnabled(true);
+	}
+}
+
+void ManageStudentsWidget::setEditButtonsEnabled(bool enable)
+{
+	m_ui->editStudentButton->setEnabled(enable);
+	m_ui->deleteStudentButton->setEnabled(enable);
+}
+
 

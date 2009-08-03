@@ -26,6 +26,7 @@ private:
 	TeacherTableProxyModel m_teacherTableProxyModel;
 	QPointer<EditTeacherDialog> m_addTeacherDialog;
 	QPointer<EditTeacherDialog> m_editTeacherDialog;
+	void setEditButtonsEnabled(bool enable);
 
 private slots:
 	void addClicked();
@@ -35,6 +36,7 @@ private slots:
 	void addRejected();
 	void editAccepted();
 	void editRejected();
+	void setEditButtons();
 
 };
 

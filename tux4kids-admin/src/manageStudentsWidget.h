@@ -27,10 +27,13 @@ private:
 	QPointer<MainController> m_mainController;
 	StudentTableProxyModel m_studentTableProxyModel;
 
+	void setEditButtonsEnabled(bool enable);
+
 private slots:
 
 	void addStudentClicked();
 	void addStudent();
+	void setEditButtons();
 };
 
 #endif // MANAGESTUDENTSWIDGET_H

@@ -19,6 +19,9 @@ ManageTeachersWidget::ManageTeachersWidget(MainController *mainController, QWidg
 	connect(m_ui->addTeacherButton, SIGNAL(clicked()), this, SLOT(addClicked()));
 	connect(m_ui->editTeacherButton, SIGNAL(clicked()), this, SLOT(editClicked()));
 	connect(m_ui->deleteTeacherButton, SIGNAL(clicked()), this, SLOT(deleteClicked()));
+	connect(m_ui->teachersTable->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(setEditButtons()));
+
+	setEditButtons();
 }
 
 ManageTeachersWidget::~ManageTeachersWidget()
@@ -43,7 +46,7 @@ void ManageTeachersWidget::editClicked()
 		connect(m_editTeacherDialog, SIGNAL(accepted()), this, SLOT(editAccepted()));
 		connect(m_editTeacherDialog, SIGNAL(rejected()), this, SLOT(editRejected()));
 	}
-	m_editTeacherDialog->showNormal();;
+	m_editTeacherDialog->showNormal();
 }
 
 void ManageTeachersWidget::deleteClicked()
@@ -69,5 +72,20 @@ void ManageTeachersWidget::editAccepted()
 void ManageTeachersWidget::editRejected()
 {
 	qDebug() << "edit rejected";
+}
+
+void ManageTeachersWidget::setEditButtons()
+{
+	if (m_ui->teachersTable->selectionModel()->selectedIndexes().isEmpty()) {
+		setEditButtonsEnabled(false);
+	} else {
+		setEditButtonsEnabled(true);
+	}
+}
+
+void ManageTeachersWidget::setEditButtonsEnabled(bool enable)
+{
+	m_ui->editTeacherButton->setEnabled(enable);
+	m_ui->deleteTeacherButton->setEnabled(enable);
 }
 

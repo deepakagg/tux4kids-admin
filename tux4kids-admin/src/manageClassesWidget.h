@@ -28,6 +28,8 @@ private:
 	QPointer<EditClassDialog> m_editClassDialog;
 	ClassTableProxyModel m_classTableProxyModel;
 
+	void setEditButtonsEnabled(bool enable);
+
 private slots:
 	void addClicked();
 	void editClicked();
@@ -36,6 +38,7 @@ private slots:
 	void addRejected();
 	void editAccepted();
 	void editRejected();
+	void setEditButtons();
 };
 
 #endif // MANAGECLASSESWIDGET_H

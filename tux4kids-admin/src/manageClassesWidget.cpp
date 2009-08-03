@@ -17,6 +17,9 @@ ManageClassesWidget::ManageClassesWidget(MainController *mainController, QWidget
 
 	connect(m_ui->addClassButton, SIGNAL(clicked()), this, SLOT(addClicked()));
 	connect(m_ui->editClassButton, SIGNAL(clicked()), this, SLOT(editClicked()));
+	connect(m_ui->classesTable->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(setEditButtons()));
+
+	setEditButtons();
 }
 
 ManageClassesWidget::~ManageClassesWidget()
@@ -67,5 +70,20 @@ void ManageClassesWidget::editAccepted()
 void ManageClassesWidget::editRejected()
 {
 	qDebug() << "edit rejected";
+}
+
+void ManageClassesWidget::setEditButtons()
+{
+	if (m_ui->classesTable->selectionModel()->selectedIndexes().isEmpty()) {
+		setEditButtonsEnabled(false);
+	} else {
+		setEditButtonsEnabled(true);
+	}
+}
+
+void ManageClassesWidget::setEditButtonsEnabled(bool enable)
+{
+	m_ui->editClassButton->setEnabled(enable);
+	m_ui->deleteClassButton->setEnabled(enable);
 }
 
