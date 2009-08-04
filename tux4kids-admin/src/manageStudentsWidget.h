@@ -33,6 +33,8 @@ private slots:
 
 	void addStudentClicked();
 	void addStudent();
+	void editStudentClicked();
+	void deleteStudentClicked();
 	void setEditButtons();
 };
 

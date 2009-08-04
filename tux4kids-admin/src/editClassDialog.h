@@ -3,6 +3,9 @@
 
 #include <QtGui/QDialog>
 
+#include "studentTableModel.h"
+
+
 namespace Ui {
 	class EditClassDialog;
 }
@@ -25,3 +28,4 @@ private slots:
 };
 
 #endif // EDITCLASSDIALOG_H
+

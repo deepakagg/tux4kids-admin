@@ -19,6 +19,8 @@ ManageStudentsWidget::ManageStudentsWidget(MainController *mainController, QWidg
 
 	m_mainController = mainController;
 	connect(m_ui->addStudentButton, SIGNAL(clicked()), this, SLOT(addStudentClicked()));
+	connect(m_ui->editStudentButton, SIGNAL(clicked()), this, SLOT(editStudentClicked()));
+	connect(m_ui->deleteStudentButton, SIGNAL(clicked()), this, SLOT(deleteStudentClicked()));
 	connect(m_ui->studentsTable->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(setEditButtons()));
 
 	setEditButtons();
@@ -38,6 +40,16 @@ void ManageStudentsWidget::addStudentClicked()
 		connect(m_addStudentDialog, SIGNAL(accepted()), this, SLOT(addStudent()));
 	}
 	m_addStudentDialog->showNormal();
+}
+
+void ManageStudentsWidget::editStudentClicked()
+{
+
+}
+
+void ManageStudentsWidget::deleteStudentClicked()
+{
+
 }
 
 void ManageStudentsWidget::addStudent()
