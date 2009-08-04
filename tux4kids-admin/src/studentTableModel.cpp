@@ -1,7 +1,9 @@
 #include "studentTableModel.h"
 #include "schoolData.h"
 #include "studentDir.h"
+
 #include <QDebug>
+#include <QStringList>
 
 StudentTableModel::StudentTableModel(QObject *parent)
 		: QAbstractTableModel(parent)
@@ -111,3 +113,15 @@ void StudentTableModel::addStudent(StudentDir *newStudent)
 	m_students.append(newStudent);
 	endInsertRows();
 }
+
+QStringList StudentTableModel::selectedStudentsDirNames() const
+{
+	QStringList result;
+	for(int i = 0; i < m_studentsSelection.size(); i++) {
+		if (m_studentsSelection.at(i)) {
+			result.append(m_students.at(i)->dirName());
+		}
+	}
+	return result;
+}
+

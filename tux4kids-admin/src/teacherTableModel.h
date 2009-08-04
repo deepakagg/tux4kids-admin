@@ -20,6 +20,8 @@ public:
 	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 	Qt::ItemFlags flags(const QModelIndex &index) const;
 	bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::DisplayRole);
+	QList<Teacher> selectedTeachers() const;
+	void setSelectedTeachers(const QList<Teacher> &selectedTeachers);
 
 	enum TeacherField {
 		TeacherSelected = 0,

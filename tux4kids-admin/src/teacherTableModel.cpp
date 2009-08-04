@@ -132,3 +132,27 @@ void TeacherTableModel::deleteTeacher(const Teacher &teacher)
 		endRemoveRows();
 	}
 }
+
+QList<Teacher> TeacherTableModel::selectedTeachers() const
+{
+	QList<Teacher> result;
+	for (int i = 0; i < m_teachersSelection.size(); ++i) {
+		if (m_teachersSelection.at(i)) {
+			result.append(m_teachers.at(i));
+		}
+	}
+	return result;
+}
+
+void TeacherTableModel::setSelectedTeachers(const QList<Teacher> &selectedTeachers)
+{
+	for (int i = 0; i < m_teachers.size(); ++i) {
+		if (selectedTeachers.contains(m_teachers.at(i))) {
+			m_teachersSelection[i] = true;
+		} else {
+			m_teachersSelection[i] = false;
+		}
+	}
+	emit dataChanged(index(0, TeacherSelected), index(rowCount() - 1, TeacherSelected));
+}
+
