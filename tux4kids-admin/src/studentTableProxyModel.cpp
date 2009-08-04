@@ -23,3 +23,13 @@ bool StudentTableProxyModel::lessThan(const QModelIndex &left, const QModelIndex
 	}
 }
 
+bool StudentTableProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
+{
+	QModelIndex indexFirstName = sourceModel()->index(sourceRow, StudentTableModel::StudentFirstName, sourceParent);
+	QModelIndex indexLastName = sourceModel()->index(sourceRow, StudentTableModel::StudentLastName, sourceParent);
+
+	return sourceModel()->data(indexFirstName).toString().contains(filterRegExp())
+			|| sourceModel()->data(indexLastName).toString().contains(filterRegExp());
+
+}
+

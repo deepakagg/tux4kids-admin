@@ -23,3 +23,12 @@ bool ClassTableProxyModel::lessThan(const QModelIndex &left, const QModelIndex &
 					   rightData.toString()) < 0;
 	}
 }
+
+bool ClassTableProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
+{
+	QModelIndex indexName = sourceModel()->index(sourceRow, ClassTableModel::ClassName, sourceParent);
+
+	return sourceModel()->data(indexName).toString().contains(filterRegExp());
+
+}
+
