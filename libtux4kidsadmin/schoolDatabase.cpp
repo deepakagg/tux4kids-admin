@@ -258,6 +258,8 @@ void SchoolDatabasePrivate::addClass(Class &newClass)
 		lastError = insertClass.lastError().text();
 		return;
 	} else {
+		db.transaction();
+
 		QSqlQuery getClassId;
 		getClassId.prepare("SELECT MAX(id) FROM classes;");
 		getClassId.exec();
@@ -277,7 +279,67 @@ void SchoolDatabasePrivate::addClass(Class &newClass)
 			Q_Q(SchoolDatabase);
 			emit q->classAdded(newClass);
 		}
+
+		if (addClassStudents(newClass)) {
+			addClassTeachers(newClass);
+		}
+		db.commit();
 	}
+}
+
+bool SchoolDatabasePrivate::addClassTeachers(const Class &newClass)
+{
+	foreach (Teacher teacher, newClass.teachers()) {
+
+		QSqlQuery addTeacher;
+		addTeacher.prepare("INSERT INTO class_teachers(id_class, id_teacher) VALUES(:id_class, :id_teacher);");
+		addTeacher.bindValue(":id_class", newClass.id());
+		addTeacher.bindValue(":id_teacher", teacher.id());
+		addTeacher.exec();
+		if (!addTeacher.isActive()) {
+			error = true;
+			lastError = addTeacher.lastError().text();
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool SchoolDatabasePrivate::addClassStudents(const Class &newClass)
+{
+	foreach (QString studentDirName, newClass.students()) {
+		QSqlQuery findStudentId;
+		findStudentId.prepare("SELECT id FROM students WHERE profile_name = :profile_name;");
+		findStudentId.bindValue(":profileName", studentDirName);
+		findStudentId.exec();
+		if (!findStudentId.isActive()) {
+			error = true;
+			lastError = findStudentId.lastError().text();
+			return false;
+		}
+		if (!findStudentId.first()) {
+			error = true;
+			lastError = "Multiple profile_name-s in database";
+			return false;
+		}
+
+
+		int studentId = findStudentId.value(0).toInt();
+
+		QSqlQuery addStudent;
+		addStudent.prepare("INSERT INTO class_students(id_class, id_student) VALUES(:id_class, :id_student);");
+		addStudent.bindValue(":id_class", newClass.id());
+		addStudent.bindValue(":id_student", studentId);
+		addStudent.exec();
+		if (!addStudent.isActive()) {
+			error = true;
+			lastError = addStudent.lastError().text();
+			return false;
+		}
+	}
+
+	return true;
 }
 
 void SchoolDatabasePrivate::updateClass(const Class &updatedClass)
@@ -594,6 +656,7 @@ SchoolDatabase::SchoolDatabase(QObject *parent)
 		: QObject(parent),
 		d_ptr(new SchoolDatabasePrivate())
 {
+	d_ptr->q_ptr = this;
 }
 
 SchoolDatabase::SchoolDatabase(SchoolDatabasePrivate &dd, QObject *parent)

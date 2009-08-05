@@ -12,12 +12,14 @@ namespace Ui {
 
 class Class;
 class SelectStudentWidget;
+class SchoolData;
+class SelectTeacherWidget;
 
 class EditClassDialog : public QDialog
 {
 	Q_OBJECT
 public:
-	EditClassDialog(QWidget *parent = 0);
+	EditClassDialog(SchoolData *schoolData, QWidget *parent = 0);
 	~EditClassDialog();
 
 	Class getClass() const;
@@ -26,6 +28,8 @@ public:
 private:
 	Ui::EditClassDialog *m_ui;
 	SelectStudentWidget *m_selectStudentWidget;
+	SelectTeacherWidget *m_selectTeacherWidget;
+	SchoolData *m_schoolData;
 
 	bool isValid() const;
 

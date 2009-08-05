@@ -112,6 +112,6 @@ QList< QPointer<StudentDir> > SchoolData::students() const
 SchoolDatabase *SchoolData::schoolDatabase()
 {
 	Q_D(SchoolData);
-	return &d->database;
+	return &(d->database);
 }
 

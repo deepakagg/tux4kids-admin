@@ -19,7 +19,7 @@ SelectTeacherWidget::~SelectTeacherWidget()
 	delete m_ui;
 }
 
-TeacherTableModel *SelectTeacherWidget::studentTableModel()
+TeacherTableModel *SelectTeacherWidget::teacherTableModel()
 {
 	return &m_teacherTableModel;
 }

@@ -17,7 +17,7 @@ class SelectTeacherWidget : public QWidget
 public:
 	SelectTeacherWidget(QWidget *parent = 0);
 	~SelectTeacherWidget();
-	TeacherTableModel *studentTableModel();
+	TeacherTableModel *teacherTableModel();
 
 private:
 	Ui::SelectTeacherWidget *m_ui;

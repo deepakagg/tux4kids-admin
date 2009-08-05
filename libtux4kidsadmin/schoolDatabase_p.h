@@ -26,6 +26,9 @@ public:
 	void updateTeacher(const Teacher &updatedTeacher);
 	void deleteTeacher(const Teacher &deletedTeacher);
 
+	bool addClassTeachers(const Class &newClass);
+	bool addClassStudents(const Class &newClass);
+
 	QList<Class> classList() const;
 	QList<Teacher> teacherList() const;
 	void synchronizeStudents(const QList< QPointer<StudentDir> > &studentList);

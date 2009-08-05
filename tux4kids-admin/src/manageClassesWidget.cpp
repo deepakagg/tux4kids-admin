@@ -2,13 +2,16 @@
 #include "ui_manageClassesWidget.h"
 #include "editClassDialog.h"
 #include "mainController.h"
+#include "schoolData.h"
+#include "schoolDatabase.h"
 
 #include <QDebug>
 
 ManageClassesWidget::ManageClassesWidget(MainController *mainController, QWidget *parent) :
 		QWidget(parent),
 		m_ui(new Ui::ManageClassesWidget),
-		m_mainController(mainController)
+		m_mainController(mainController),
+		m_schoolDatabase(mainController->schoolData()->schoolDatabase())
 {
 	m_ui->setupUi(this);
 
@@ -30,7 +33,7 @@ ManageClassesWidget::~ManageClassesWidget()
 void ManageClassesWidget::addClicked()
 {
 	if (m_addClassDialog == 0) {
-		m_addClassDialog = new EditClassDialog(this);
+		m_addClassDialog = new EditClassDialog(m_mainController->schoolData(), this);
 		connect(m_addClassDialog, SIGNAL(accepted()), this, SLOT(addAccepted()));
 		connect(m_addClassDialog, SIGNAL(rejected()), this, SLOT(addRejected()));
 	}
@@ -40,7 +43,7 @@ void ManageClassesWidget::addClicked()
 void ManageClassesWidget::editClicked()
 {
 	if (m_editClassDialog == 0) {
-		m_editClassDialog = new EditClassDialog(this);
+		m_editClassDialog = new EditClassDialog(m_mainController->schoolData(), this);
 		connect(m_editClassDialog, SIGNAL(accepted()), this, SLOT(editAccepted()));
 		connect(m_editClassDialog, SIGNAL(rejected()), this, SLOT(editRejected()));
 	}
@@ -55,6 +58,11 @@ void ManageClassesWidget::deleteClicked()
 void ManageClassesWidget::addAccepted()
 {
 	qDebug() << "add accepted";
+	Class newClass = m_addClassDialog->getClass();
+	m_schoolDatabase->addClass(newClass);
+	if (m_schoolDatabase->error()) {
+		qDebug() << m_schoolDatabase->lastError();
+	}
 }
 
 void ManageClassesWidget::addRejected()

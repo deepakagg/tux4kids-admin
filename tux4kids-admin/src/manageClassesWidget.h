@@ -12,6 +12,7 @@ namespace Ui {
 
 class MainController;
 class EditClassDialog;
+class SchoolDatabase;
 
 class ManageClassesWidget : public QWidget
 {
@@ -24,6 +25,7 @@ private:
 	Ui::ManageClassesWidget *m_ui;
 
 	QPointer<MainController> m_mainController;
+	QPointer<SchoolDatabase> m_schoolDatabase;
 	QPointer<EditClassDialog> m_addClassDialog;
 	QPointer<EditClassDialog> m_editClassDialog;
 	ClassTableProxyModel m_classTableProxyModel;
