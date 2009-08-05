@@ -130,3 +130,34 @@ void ClassTableModel::deleteClass(const Class &deletedClass)
 	}
 }
 
+QList<Class> ClassTableModel::selectedClasses() const
+{
+	QList<Class> result;
+	for (int i = 0; i < m_classesSelection.size(); ++i) {
+		if (m_classesSelection.at(i)) {
+			result.append(m_classes.at(i));
+		}
+	}
+	return result;
+}
+
+void ClassTableModel::setSelectedClasses(const QList<Class> &selectedClasses)
+{
+	for (int i = 0; i < m_classes.size(); ++i) {
+		if (selectedClasses.contains(m_classes.at(i))) {
+			m_classesSelection[i] = true;
+		} else {
+			m_classesSelection[i] = false;
+		}
+	}
+	emit dataChanged(index(0, ClassSelected), index(rowCount() - 1, ClassSelected));
+}
+
+void ClassTableModel::clearSelection()
+{
+	for (int i = 0; i < m_classesSelection.size(); ++i) {
+		m_classesSelection[i] = false;
+	}
+	emit dataChanged(index(0, ClassSelected), index(rowCount() - 1, ClassSelected));
+}
+

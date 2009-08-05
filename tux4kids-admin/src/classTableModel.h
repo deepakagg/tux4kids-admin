@@ -19,6 +19,9 @@ public:
 	Qt::ItemFlags flags(const QModelIndex &index) const;
 	bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::DisplayRole);
 	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+	QList<Class> selectedClasses() const;
+	void setSelectedClasses(const QList<Class> &selectedClasses);
+	void clearSelection();
 
 	void setSchoolDatabase(SchoolDatabase *schoolDatabase);
 

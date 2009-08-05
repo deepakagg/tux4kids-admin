@@ -156,3 +156,11 @@ void TeacherTableModel::setSelectedTeachers(const QList<Teacher> &selectedTeache
 	emit dataChanged(index(0, TeacherSelected), index(rowCount() - 1, TeacherSelected));
 }
 
+void TeacherTableModel::clearSelection()
+{
+	for (int i = 0; i < m_teachersSelection.size(); ++i) {
+		m_teachersSelection[i] = false;
+	}
+	emit dataChanged(index(0, TeacherSelected), index(rowCount() - 1, TeacherSelected));
+}
+

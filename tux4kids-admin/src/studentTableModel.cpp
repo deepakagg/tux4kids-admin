@@ -125,3 +125,24 @@ QStringList StudentTableModel::selectedStudentsDirNames() const
 	return result;
 }
 
+void StudentTableModel::setSelectedStudents(const QStringList &selectedStudentsDirNames)
+{
+	for (int i = 0; i < m_students.size(); ++i) {
+		if (selectedStudentsDirNames.contains(m_students.at(i)->dirName())) {
+			m_studentsSelection[i] = true;
+		} else {
+			m_studentsSelection[i] = false;
+		}
+	}
+	emit dataChanged(index(0, StudentSelected), index(rowCount() - 1, StudentSelected));
+}
+
+void StudentTableModel::clearSelection()
+{
+	for (int i = 0; i < m_studentsSelection.size(); ++i) {
+		m_studentsSelection[i] = false;
+	}
+
+	emit dataChanged(index(0, StudentSelected), index(rowCount() - 1, StudentSelected));
+}
+

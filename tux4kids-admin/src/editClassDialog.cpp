@@ -63,5 +63,7 @@ Class EditClassDialog::getClass() const
 void EditClassDialog::setClass(const Class & newClass)
 {
 	m_ui->nameEdit->setText(newClass.name());
+	m_selectTeacherWidget->teacherTableModel()->setSelectedTeachers(newClass.teachers());
+	m_selectStudentWidget->studentTableModel()->setSelectedStudents(newClass.students());
 }
 
