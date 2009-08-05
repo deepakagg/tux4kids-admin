@@ -258,7 +258,7 @@ void SchoolDatabasePrivate::addClass(Class &newClass)
 		lastError = insertClass.lastError().text();
 		return;
 	} else {
-		db.transaction();
+
 
 		QSqlQuery getClassId;
 		getClassId.prepare("SELECT MAX(id) FROM classes;");
@@ -279,18 +279,17 @@ void SchoolDatabasePrivate::addClass(Class &newClass)
 			Q_Q(SchoolDatabase);
 			emit q->classAdded(newClass);
 		}
-
-		if (addClassStudents(newClass)) {
-			addClassTeachers(newClass);
+		//db.transaction();
+		if (addClassTeachers(newClass)) {
+			addClassStudents(newClass);
 		}
-		db.commit();
+		//db.commit();
 	}
 }
 
 bool SchoolDatabasePrivate::addClassTeachers(const Class &newClass)
 {
 	foreach (Teacher teacher, newClass.teachers()) {
-
 		QSqlQuery addTeacher;
 		addTeacher.prepare("INSERT INTO class_teachers(id_class, id_teacher) VALUES(:id_class, :id_teacher);");
 		addTeacher.bindValue(":id_class", newClass.id());
@@ -542,7 +541,7 @@ QList<Teacher> SchoolDatabasePrivate::teacherList() const
 
 	error = false;
 
-	teacherList.prepare("SELECT first_name, last_name FROM teachers;");
+	teacherList.prepare("SELECT id, first_name, last_name FROM teachers;");
 	teacherList.exec();
 
 	if (!teacherList.isActive()) {
