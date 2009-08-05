@@ -279,11 +279,13 @@ void SchoolDatabasePrivate::addClass(Class &newClass)
 			Q_Q(SchoolDatabase);
 			emit q->classAdded(newClass);
 		}
-		//db.transaction();
+		getClassId.finish();
+
+		db.transaction();
 		if (addClassTeachers(newClass)) {
 			addClassStudents(newClass);
+			db.commit();
 		}
-		//db.commit();
 	}
 }
 
@@ -322,9 +324,8 @@ bool SchoolDatabasePrivate::addClassStudents(const Class &newClass)
 			lastError = "Multiple profile_name-s in database";
 			return false;
 		}
-
-
 		int studentId = findStudentId.value(0).toInt();
+		findStudentId.finish();
 
 		QSqlQuery addStudent;
 		addStudent.prepare("INSERT INTO class_students(id_class, id_student) VALUES(:id_class, :id_student);");
