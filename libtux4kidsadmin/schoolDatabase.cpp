@@ -307,6 +307,34 @@ bool SchoolDatabasePrivate::addClassTeachers(Class &newClass)
 	return true;
 }
 
+bool SchoolDatabasePrivate::deleteClassStudents(int classId)
+{
+	QSqlQuery deleteStudents;
+	deleteStudents.prepare("DELETE FROM class_students WHERE id_class = :id_class;");
+	deleteStudents.bindValue(":id_class", classId);
+	deleteStudents.exec();
+	if (!deleteStudents.isActive()) {
+		error = true;
+		lastError = deleteStudents.lastError().text();
+		return false;
+	}
+	return true;
+}
+
+bool SchoolDatabasePrivate::deleteClassTeachers(int classId)
+{
+	QSqlQuery deleteTeachers;
+	deleteTeachers.prepare("DELETE FROM class_teachers WHERE id_class = :id_class;");
+	deleteTeachers.bindValue(":id_class", classId);
+	deleteTeachers.exec();
+	if (!deleteTeachers.isActive()) {
+		error = true;
+		lastError = deleteTeachers.lastError().text();
+		return false;
+	}
+	return true;
+}
+
 bool SchoolDatabasePrivate::addClassStudents(Class &newClass)
 {
 	foreach (QString studentDirName, *newClass.students()) {
@@ -502,11 +530,105 @@ QList<Class> SchoolDatabasePrivate::classList() const
 		return result;
 	}
 
+	result = classListNoJoin();
+	QList<Teacher> teachers = teacherListNoJoin();
+	if (error) {
+		return QList<Class>();
+	}
+
+	QSqlQuery classTeachers;
+	classTeachers.prepare("SELECT id_class, id_teacher FROM class_teachers ORDER BY id_class ASC;");
+	classTeachers.exec();
+	if (!classTeachers.isActive()) {
+		error = true;
+		lastError = classTeachers.lastError().text();
+		return QList<Class>();
+	}
+
+	QSqlRecord classTeachersRecord = classTeachers.record();
+	int oldClassId = -1;
+	int classIndex = 0;
+	while(classTeachers.next()) {
+		int classId = classTeachers.value(classTeachersRecord.indexOf("id_class")).toInt();
+		if (oldClassId != classId) {
+			oldClassId = classId;
+			while(result.at(classIndex).id() != classId
+			      && classIndex < result.size() - 1) {
+				++classIndex;
+			}
+			if (result.at(classIndex).id() != classId) {
+				break;
+			}
+		} else {
+			int teacherId = classTeachers.value(classTeachersRecord.indexOf("id_teacher")).toInt();
+			int teacherIndex = 0;
+			while (teachers[teacherIndex].id() != teacherId) {
+				++teacherIndex;
+			}
+			if (teachers[teacherIndex].id() == teacherId) {
+				result[classIndex].teachers()->append(teachers.at(teacherIndex));
+			}
+		}
+	}
+
+	QSqlQuery students;
+	students.prepare("SELECT id, profile_name;");
+	students.exec();
+	if (!students.isActive()) {
+		error = true;
+		lastError = students.lastError().text();
+		return QList<Class>();
+	}
+
+	QSqlQuery classStudents;
+	classStudents.prepare("SELECT id_class, id_student FROM class_students ORDER BY id_class ASC;");
+	classStudents.exec();
+	if (!classStudents.isActive()) {
+		error = true;
+		lastError = classStudents.lastError().text();
+		return QList<Class>();
+	}
+
+	QSqlRecord classStudentsRecord = classStudents.record();
+	QSqlRecord studentsRecord = students.record();
+	oldClassId = -1;
+	classIndex = 0;
+	while(classStudents.next()) {
+		int classId = classStudents.value(classStudentsRecord.indexOf("id_class")).toInt();
+		if (oldClassId != classId) {
+			oldClassId = classId;
+			while(result.at(classIndex).id() != classId
+			      && classIndex < result.size() - 1) {
+				++classIndex;
+			}
+			if (result.at(classIndex).id() != classId) {
+				break;
+			}
+		} else {
+			int studentId = classStudents.value(classStudentsRecord.indexOf("id_student")).toInt();
+
+			students.seek(-1);
+			while (students.next()) {
+				if (students.value(studentsRecord.indexOf("id")).toInt()
+					== studentId) {
+					result[classIndex].students()->append(
+				students.value(studentsRecord.indexOf("profile_name")).toString());
+				}
+			}
+		}
+	}
+
+	return result;
+}
+
+QList<Class> SchoolDatabasePrivate::classListNoJoin() const
+{
+	QList<Class> result;
 	QSqlQuery classList;
 
 	error = false;
 
-	classList.prepare("SELECT name FROM classes;");
+	classList.prepare("SELECT id, name FROM classes ORDER BY id ASC;");
 	classList.exec();
 
 	if (!classList.isActive()) {
@@ -538,11 +660,60 @@ QList<Teacher> SchoolDatabasePrivate::teacherList() const
 		return result;
 	}
 
+	result = teacherListNoJoin();
+	QList<Class> classes = classListNoJoin();
+	if (error) {
+		return QList<Teacher>();
+	}
+
+	QSqlQuery classTeachers;
+	classTeachers.prepare("SELECT id_class, id_teacher FROM class_teachers ORDER BY id_teachers ASC;");
+	classTeachers.exec();
+	if (!classTeachers.isActive()) {
+		error = true;
+		lastError = classTeachers.lastError().text();
+		return QList<Teacher>();
+	}
+
+	QSqlRecord classTeachersRecord = classTeachers.record();
+
+	int oldTeacherId = -1;
+	int teacherIndex = 0;
+	while(classTeachers.next()) {
+		int teacherId = classTeachers.value(classTeachersRecord.indexOf("id_teacher")).toInt();
+		if (oldTeacherId != teacherId) {
+			oldTeacherId = teacherId;
+			while(result.at(teacherIndex).id() != teacherId
+			      && teacherIndex < result.size() - 1) {
+				++teacherIndex;
+			}
+			if (result.at(teacherIndex).id() != teacherId) {
+				break;
+			}
+		} else {
+
+			int classId = classTeachers.value(classTeachersRecord.indexOf("id_class")).toInt();
+			int classIndex = 0;
+			while (classes[classIndex].id() != classId) {
+				++classIndex;
+			}
+			if (classes[classIndex].id() == classId) {
+				result[teacherIndex].classes()->append(classes.at(classIndex));
+			}
+		}
+	}
+
+	return result;
+}
+
+QList<Teacher> SchoolDatabasePrivate::teacherListNoJoin() const
+{
+	QList<Teacher> result;
 	QSqlQuery teacherList;
 
 	error = false;
 
-	teacherList.prepare("SELECT id, first_name, last_name FROM teachers;");
+	teacherList.prepare("SELECT id, first_name, last_name FROM teachers ORDER by id ASC;");
 	teacherList.exec();
 
 	if (!teacherList.isActive()) {
@@ -627,6 +798,14 @@ QStringList SchoolDatabasePrivate::studentList() const
 		return result;
 	}
 
+	result = studentList();
+
+	return result;
+}
+
+QStringList SchoolDatabasePrivate::studentListNoJoin() const
+{
+	QStringList result;
 	QSqlQuery studentList;
 
 	error = false;

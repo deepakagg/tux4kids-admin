@@ -28,11 +28,16 @@ public:
 
 	bool addClassTeachers(Class &newClass);
 	bool addClassStudents(Class &newClass);
+	bool deleteClassStudents(int classId);
+	bool deleteClassTeachers(int classId);
 
 	QList<Class> classList() const;
+	QList<Class> classListNoJoin() const;
 	QList<Teacher> teacherList() const;
+	QList<Teacher> teacherListNoJoin() const;
 	void synchronizeStudents(const QList< QPointer<StudentDir> > &studentList);
 	QStringList studentList() const;
+	QStringList studentListNoJoin() const;
 
 	SchoolDatabase *q_ptr;
 
