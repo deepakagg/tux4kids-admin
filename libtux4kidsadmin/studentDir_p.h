@@ -7,6 +7,7 @@
 #include <QList>
 #include <QPointer>
 #include "libtux4kidsadmin_global.h"
+#include "class.h"
 
 class QString;
 class ProfileDir;
@@ -28,6 +29,7 @@ public:
 	QSettings *attributes;
 	QDir mainDir;
 	QList< QPointer<ProfileDir> > profiles;
+	QList<Class> classes;
 };
 
 #endif // STUDENTDIR_P_H

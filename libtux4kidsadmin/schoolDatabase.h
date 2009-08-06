@@ -23,12 +23,12 @@ public:
 	bool error();
 	QString lastError();
 	void addClass(Class &newClass);
-	void updateClass(const Class &updatedClass);
-	void deleteClass(const Class &deletedClass);
+	void updateClass(Class &updatedClass);
+	void deleteClass(Class &deletedClass);
 
 	void addTeacher(Teacher &newTeacher);
-	void updateTeacher(const Teacher &updatedTeacher);
-	void deleteTeacher(const Teacher &deletedTeacher);
+	void updateTeacher(Teacher &updatedTeacher);
+	void deleteTeacher(Teacher &deletedTeacher);
 
 	QList<Class> classList() const;
 	QList<Teacher> teacherList() const;
@@ -39,13 +39,13 @@ protected:
 	SchoolDatabase(SchoolDatabasePrivate &dd, QObject *parent = 0);
 
 signals:
-	void classAdded(const Class &newClass);
-	void classUpdated(const Class &updatedClass);
-	void classDeleted(const Class &deletedClass);
+	void classAdded(Class &newClass);
+	void classUpdated(Class &updatedClass);
+	void classDeleted(Class &deletedClass);
 
-	void teacherAdded(const Teacher &newTeacher);
-	void teacherUpdated(const Teacher &updatedTeacher);
-	void teacherDeleted(const Teacher &deletedTeacher);
+	void teacherAdded(Teacher &newTeacher);
+	void teacherUpdated(Teacher &updatedTeacher);
+	void teacherDeleted(Teacher &deletedTeacher);
 
 private:
 	Q_DECLARE_PRIVATE(SchoolDatabase)

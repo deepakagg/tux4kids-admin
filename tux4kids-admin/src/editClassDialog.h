@@ -23,7 +23,7 @@ public:
 	~EditClassDialog();
 
 	Class getClass() const;
-	void setClass(const Class & newClass);
+	void setClass(Class & newClass);
 
 private:
 	Ui::EditClassDialog *m_ui;

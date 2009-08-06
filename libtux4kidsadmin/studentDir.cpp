@@ -132,3 +132,15 @@ QString StudentDir::dirName() const
 	return d->mainDir.dirName();
 }
 
+QList<Class> *StudentDir::classes()
+{
+	Q_D(StudentDir);
+	return &d->classes;
+}
+
+/*void StudentDir::setClasses(const QList<Class> &classes)
+{
+	Q_D(StudentDir);
+	d->classes = classes;
+}*/
+

@@ -19,15 +19,15 @@ public:
 	void createTables();
 	void createTriggers();
 	void addClass(Class &newClass);
-	void updateClass(const Class &updatedClass);
-	void deleteClass(const Class &deletedClass);
+	void updateClass(Class &updatedClass);
+	void deleteClass(Class &deletedClass);
 
 	void addTeacher(Teacher &newTeacher);
-	void updateTeacher(const Teacher &updatedTeacher);
-	void deleteTeacher(const Teacher &deletedTeacher);
+	void updateTeacher(Teacher &updatedTeacher);
+	void deleteTeacher(Teacher &deletedTeacher);
 
-	bool addClassTeachers(const Class &newClass);
-	bool addClassStudents(const Class &newClass);
+	bool addClassTeachers(Class &newClass);
+	bool addClassStudents(Class &newClass);
 
 	QList<Class> classList() const;
 	QList<Teacher> teacherList() const;

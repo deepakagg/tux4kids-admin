@@ -1,6 +1,8 @@
 #include "studentTableModel.h"
 #include "schoolData.h"
 #include "studentDir.h"
+#include "schoolDatabase.h"
+#include "class.h"
 
 #include <QDebug>
 #include <QStringList>
@@ -95,7 +97,7 @@ bool StudentTableModel::setData(const QModelIndex &index, const QVariant &value,
 	return false;
 }
 
-void StudentTableModel::setSchoolData(const SchoolData *schoolData)
+void StudentTableModel::setSchoolData(SchoolData *schoolData)
 {
 	m_students = schoolData->students();
 
@@ -104,6 +106,10 @@ void StudentTableModel::setSchoolData(const SchoolData *schoolData)
 	}
 	connect(schoolData, SIGNAL(studentAdded(StudentDir*)), this,
 		SLOT(addStudent(StudentDir*)));
+	connect(schoolData->schoolDatabase(), SIGNAL(classAdded()), this, SLOT(addClass(const Class &)));
+	connect(schoolData->schoolDatabase(), SIGNAL(classUpdated(const Class &)), this, SLOT(updateClass(const Class &)));
+	connect(schoolData->schoolDatabase(), SIGNAL(classDeleted(const Class &)), this, SLOT(deleteClass(const Class &)));
+
 	reset();
 }
 
@@ -144,5 +150,31 @@ void StudentTableModel::clearSelection()
 	}
 
 	emit dataChanged(index(0, StudentSelected), index(rowCount() - 1, StudentSelected));
+}
+
+void StudentTableModel::addClass(Class &newClass)
+{
+	foreach (StudentDir * student, m_students) {
+		if (newClass.students()->contains(student->dirName())) {
+			student->classes()->append(newClass);
+		}
+	}
+}
+
+void StudentTableModel::updateClass(Class &updatedClass)
+{
+	foreach (StudentDir *student, m_students) {
+		student->classes()->removeOne(updatedClass);
+		if (updatedClass.students()->contains(student->dirName())) {
+			student->classes()->append(updatedClass);
+		}
+	}
+}
+
+void StudentTableModel::deleteClass(Class &deletedClass)
+{
+	foreach (StudentDir *student, m_students) {
+		student->classes()->removeOne(deletedClass);
+	}
 }
 

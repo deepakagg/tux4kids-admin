@@ -17,7 +17,7 @@ public:
 	int id;
 	QString firstName;
 	QString lastName;
-
+	QList<Class> classes;
 };
 
 #endif // TEACHER_P_H

@@ -1,6 +1,9 @@
 #include "teacherTableModel.h"
 #include "schoolDatabase.h"
+#include "class.h"
+
 #include <QDebug>
+#include <QStringList>
 
 TeacherTableModel::TeacherTableModel(QObject *parent)
 		: QAbstractTableModel(parent)
@@ -101,11 +104,17 @@ void TeacherTableModel::setSchoolDatabase(SchoolDatabase *schoolDatabase)
 		this, SLOT(updateTeacher(const Teacher &)));
 	connect(m_schoolDatabase, SIGNAL(teacherDeleted(const Teacher &)),
 		this, SLOT(deleteTeacher(const Teacher &)));
+	connect(schoolDatabase, SIGNAL(classAdded()),
+		this, SLOT(addClass(const Class &)));
+	connect(schoolDatabase, SIGNAL(classUpdated(const Class &)),
+		this, SLOT(updateClass(const Class &)));
+	connect(schoolDatabase, SIGNAL(classDeleted(const Class &)),
+		this, SLOT(deleteClass(const Class &)));
 	reset();
 
 }
 
-void TeacherTableModel::addTeacher(const Teacher &teacher)
+void TeacherTableModel::addTeacher(Teacher &teacher)
 {
 	beginInsertRows(QModelIndex(), m_teachers.size(), m_teachers.size());
 	m_teachers.append(teacher);
@@ -113,7 +122,7 @@ void TeacherTableModel::addTeacher(const Teacher &teacher)
 	endInsertRows();
 }
 
-void TeacherTableModel::updateTeacher(const Teacher &teacher)
+void TeacherTableModel::updateTeacher(Teacher &teacher)
 {
 	int pos = m_teachers.indexOf(teacher);
 	if (pos != -1) {
@@ -122,7 +131,7 @@ void TeacherTableModel::updateTeacher(const Teacher &teacher)
 	}
 }
 
-void TeacherTableModel::deleteTeacher(const Teacher &teacher)
+void TeacherTableModel::deleteTeacher(Teacher &teacher)
 {
 	int pos = m_teachers.indexOf(teacher);
 	if (pos != -1) {
@@ -162,5 +171,31 @@ void TeacherTableModel::clearSelection()
 		m_teachersSelection[i] = false;
 	}
 	emit dataChanged(index(0, TeacherSelected), index(rowCount() - 1, TeacherSelected));
+}
+
+void TeacherTableModel::addClass(Class &newClass)
+{
+	for (int i = 0; i < m_teachers.size(); ++i) {
+		if (newClass.teachers()->contains(m_teachers.at(i))) {
+			m_teachers[i].classes()->append(newClass);
+		}
+	}
+}
+
+void TeacherTableModel::updateClass(Class &updatedClass)
+{
+	for(int i = 0; i < m_teachers.size(); ++i) {
+		m_teachers[i].classes()->removeOne(updatedClass);
+		if (updatedClass.teachers()->contains(m_teachers.at(i))) {
+			m_teachers[i].classes()->append(updatedClass);
+		}
+	}
+}
+
+void TeacherTableModel::deleteClass(Class &deletedClass)
+{
+	for (int i = 0; i < m_teachers.size(); ++i) {
+		m_teachers[i].classes()->removeOne(deletedClass);
+	}
 }
 

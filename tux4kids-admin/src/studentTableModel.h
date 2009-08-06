@@ -7,6 +7,7 @@
 
 class StudentDir;
 class SchoolData;
+class Class;
 
 class StudentTableModel : public QAbstractTableModel
 {
@@ -25,7 +26,7 @@ public:
 	void setSelectedStudents(const QStringList &selectedStudentsDirNames);
 	void clearSelection();
 
-	void setSchoolData(const SchoolData *schoolData);
+	void setSchoolData(SchoolData *schoolData);
 
 	enum StudentField {
 		StudentSelected = 0,
@@ -40,6 +41,9 @@ protected:
 
 private slots:
 	void addStudent(StudentDir *newStudent);
+	void addClass(Class &newClass);
+	void updateClass(Class &updatedClass);
+	void deleteClass(Class &deletedClass);
 };
 
 #endif // STUDENTTABLEMODEL_H

@@ -4,6 +4,7 @@
 #include <QObject>
 
 #include "libtux4kidsadmin_global.h"
+#include "class.h"
 
 class StudentDirPrivate;
 class ProfileDir;
@@ -30,6 +31,8 @@ public:
 	void setLastName(const QString &lastName);
 	void addProfileDir(ProfileDir *profileDir);
 	ProfileDir *addProfileDir(QString profileType);
+	QList<Class> *classes();
+	//void setClasses(const QList<Class>& classes);
 
 protected:
 	StudentDirPrivate * const d_ptr;

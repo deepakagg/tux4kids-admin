@@ -100,4 +100,10 @@ bool Teacher::operator==(const Teacher &other) const
 	}
 }
 
+QList<Class> *Teacher::classes()
+{
+	Q_D(Teacher);
+	return &d->classes;
+}
+
 

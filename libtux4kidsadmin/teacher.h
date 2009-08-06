@@ -3,8 +3,10 @@
 
 #include <QtGlobal>
 #include <QString>
+#include <QList>
 
 #include "libtux4kidsadmin_global.h"
+#include "class.h"
 
 class TeacherPrivate;
 
@@ -23,6 +25,7 @@ public:
 	void setId(int id);
 	Teacher &operator=(const Teacher &other);
 	bool operator==(const Teacher &other) const;
+	QList<Class> *classes();
 
 protected:
 

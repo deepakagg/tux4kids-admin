@@ -7,6 +7,7 @@
 #include "teacher.h"
 
 class SchoolDatabase;
+class Class;
 
 class TeacherTableModel : public QAbstractTableModel
 {
@@ -37,9 +38,12 @@ protected:
 	QList<bool> m_teachersSelection;
 
 private slots:
-	void addTeacher(const Teacher &teacher);
-	void updateTeacher(const Teacher &teacher);
-	void deleteTeacher(const Teacher &teacher);
+	void addTeacher(Teacher &teacher);
+	void updateTeacher(Teacher &teacher);
+	void deleteTeacher(Teacher &teacher);
+	void addClass(Class &newClass);
+	void updateClass(Class &updatedClass);
+	void deleteClass(Class &deletedClass);
 
 };
 

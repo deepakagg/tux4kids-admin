@@ -1,5 +1,7 @@
 #include "class.h"
 #include "class_p.h"
+#include "teacher.h"
+
 #include <QDebug>
 
 /***************************** ClassPrivate *********************/
@@ -64,29 +66,29 @@ void Class::setId(int id)
 	d->id = id;
 }
 
-QStringList Class::students() const
+QStringList *Class::students()
 {
-	Q_D(const Class);
-	return d->students;
+	Q_D(Class);
+	return &d->students;
 }
 
-void Class::setStudents(const QStringList &students)
+/*void Class::setStudents(const QStringList &students)
 {
 	Q_D(Class);
 	d->students = students;
-}
+}*/
 
-QList<Teacher> Class::teachers() const
+QList<Teacher> *Class::teachers()
 {
-	Q_D(const Class);
-	return d->teachers;
+	Q_D(Class);
+	return &d->teachers;
 }
 
-void Class::setTeachers(const QList<Teacher> &teachers)
+/*void Class::setTeachers(const QList<Teacher> &teachers)
 {
 	Q_D(Class);
 	d->teachers = teachers;
-}
+}*/
 
 Class &Class::operator=(const Class &other)
 {

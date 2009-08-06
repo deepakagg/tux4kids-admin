@@ -289,9 +289,9 @@ void SchoolDatabasePrivate::addClass(Class &newClass)
 	}
 }
 
-bool SchoolDatabasePrivate::addClassTeachers(const Class &newClass)
+bool SchoolDatabasePrivate::addClassTeachers(Class &newClass)
 {
-	foreach (Teacher teacher, newClass.teachers()) {
+	foreach (Teacher teacher, *newClass.teachers()) {
 		QSqlQuery addTeacher;
 		addTeacher.prepare("INSERT INTO class_teachers(id_class, id_teacher) VALUES(:id_class, :id_teacher);");
 		addTeacher.bindValue(":id_class", newClass.id());
@@ -307,9 +307,9 @@ bool SchoolDatabasePrivate::addClassTeachers(const Class &newClass)
 	return true;
 }
 
-bool SchoolDatabasePrivate::addClassStudents(const Class &newClass)
+bool SchoolDatabasePrivate::addClassStudents(Class &newClass)
 {
-	foreach (QString studentDirName, newClass.students()) {
+	foreach (QString studentDirName, *newClass.students()) {
 		QSqlQuery findStudentId;
 		findStudentId.prepare("SELECT id FROM students WHERE profile_name = :profile_name;");
 		findStudentId.bindValue(":profileName", studentDirName);
@@ -342,7 +342,7 @@ bool SchoolDatabasePrivate::addClassStudents(const Class &newClass)
 	return true;
 }
 
-void SchoolDatabasePrivate::updateClass(const Class &updatedClass)
+void SchoolDatabasePrivate::updateClass(Class &updatedClass)
 {
 	if (!db.isOpen()) {
 		error = true;
@@ -369,7 +369,7 @@ void SchoolDatabasePrivate::updateClass(const Class &updatedClass)
 	emit q->classUpdated(updatedClass);
 }
 
-void SchoolDatabasePrivate::deleteClass(const Class &deletedClass)
+void SchoolDatabasePrivate::deleteClass(Class &deletedClass)
 {
 	if (!db.isOpen()) {
 		error = true;
@@ -438,7 +438,7 @@ void SchoolDatabasePrivate::addTeacher(Teacher &newTeacher)
 	}
 }
 
-void SchoolDatabasePrivate::updateTeacher(const Teacher &updatedTeacher)
+void SchoolDatabasePrivate::updateTeacher(Teacher &updatedTeacher)
 {
 	if (!db.isOpen()) {
 		error = true;
@@ -466,7 +466,7 @@ void SchoolDatabasePrivate::updateTeacher(const Teacher &updatedTeacher)
 	emit q->teacherUpdated(updatedTeacher);
 }
 
-void SchoolDatabasePrivate::deleteTeacher(const Teacher &deletedTeacher)
+void SchoolDatabasePrivate::deleteTeacher(Teacher &deletedTeacher)
 {
 	if (!db.isOpen()) {
 		error = true;
@@ -717,13 +717,13 @@ void SchoolDatabase::addClass(Class &newClass)
 	d->addClass(newClass);
 }
 
-void SchoolDatabase::updateClass(const Class &updatedClass)
+void SchoolDatabase::updateClass(Class &updatedClass)
 {
 	Q_D(SchoolDatabase);
 	d->updateClass(updatedClass);
 }
 
-void SchoolDatabase::deleteClass(const Class &deletedClass)
+void SchoolDatabase::deleteClass(Class &deletedClass)
 {
 	Q_D(SchoolDatabase);
 	d->deleteClass(deletedClass);
@@ -735,13 +735,13 @@ void SchoolDatabase::addTeacher(Teacher &newTeacher)
 	d->addTeacher(newTeacher);
 }
 
-void SchoolDatabase::updateTeacher(const Teacher &updatedTeacher)
+void SchoolDatabase::updateTeacher(Teacher &updatedTeacher)
 {
 	Q_D(SchoolDatabase);
 	d->updateTeacher(updatedTeacher);
 }
 
-void SchoolDatabase::deleteTeacher(const Teacher &deletedTeacher)
+void SchoolDatabase::deleteTeacher(Teacher &deletedTeacher)
 {
 	Q_D(SchoolDatabase);
 	d->deleteTeacher(deletedTeacher);

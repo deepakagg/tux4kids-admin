@@ -54,16 +54,16 @@ Class EditClassDialog::getClass() const
 	Class result;
 
 	result.setName(m_ui->nameEdit->text());
-	result.setStudents(m_selectStudentWidget->studentTableModel()->selectedStudentsDirNames());
-	result.setTeachers(m_selectTeacherWidget->teacherTableModel()->selectedTeachers());
+	*result.students() = m_selectStudentWidget->studentTableModel()->selectedStudentsDirNames();
+	*result.teachers() = m_selectTeacherWidget->teacherTableModel()->selectedTeachers();
 
 	return result;
 }
 
-void EditClassDialog::setClass(const Class & newClass)
+void EditClassDialog::setClass(Class & newClass)
 {
 	m_ui->nameEdit->setText(newClass.name());
-	m_selectTeacherWidget->teacherTableModel()->setSelectedTeachers(newClass.teachers());
-	m_selectStudentWidget->studentTableModel()->setSelectedStudents(newClass.students());
+	m_selectTeacherWidget->teacherTableModel()->setSelectedTeachers(*newClass.teachers());
+	m_selectStudentWidget->studentTableModel()->setSelectedStudents(*newClass.students());
 }
 

@@ -5,10 +5,10 @@
 #include <QString>
 
 #include "libtux4kidsadmin_global.h"
-#include "teacher.h"
 
 class ClassPrivate;
 class QStringList;
+class Teacher;
 
 class LIBTUX4KIDSADMIN_SHARED_EXPORT Class
 {
@@ -21,10 +21,10 @@ public:
 	void setName(QString name);
 	int id() const;
 	void setId(int id);
-	QStringList students() const;
-	void setStudents(const QStringList &students);
-	QList<Teacher> teachers() const;
-	void setTeachers(const QList<Teacher> &teachers);
+	QStringList *students();
+	//void setStudents(const QStringList &students);
+	QList<Teacher> *teachers();
+	//void setTeachers(const QList<Teacher> &teachers);
 	Class &operator=(const Class&);
 	bool operator==(const Class &other) const;
 
