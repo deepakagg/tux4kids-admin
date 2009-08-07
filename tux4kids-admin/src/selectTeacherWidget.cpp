@@ -23,6 +23,11 @@ void SelectTeacherWidget::setTeacherTableModel(TeacherTableModel *teacherTableMo
 	m_teacherTableProxyModel.setSourceModel(teacherTableModel);
 }
 
+QTableView *SelectTeacherWidget::teacherTable()
+{
+	return m_ui->teacherTable;
+}
+
 void SelectTeacherWidget::searchEdited()
 {
 	m_searchTimer.start(250);

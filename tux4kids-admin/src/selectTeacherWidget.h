@@ -11,6 +11,8 @@ namespace Ui {
 	class SelectTeacherWidget;
 }
 
+class QTableView;
+
 class SelectTeacherWidget : public QWidget
 {
 	Q_OBJECT
@@ -18,6 +20,7 @@ public:
 	SelectTeacherWidget(QWidget *parent = 0);
 	~SelectTeacherWidget();
 	void setTeacherTableModel(TeacherTableModel *teacherTableModel);
+	QTableView *teacherTable();
 
 private:
 	Ui::SelectTeacherWidget *m_ui;

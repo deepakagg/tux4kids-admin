@@ -2,8 +2,10 @@
 #include "ui_manageTeachersWidget.h"
 #include "mainController.h"
 #include "editTeacherDialog.h"
+#include "selectTeacherWidget.h"
 
 #include <QDebug>
+#include <QTableView>
 
 ManageTeachersWidget::ManageTeachersWidget(MainController *mainController, QWidget *parent) :
 		QWidget(parent),
@@ -13,13 +15,16 @@ ManageTeachersWidget::ManageTeachersWidget(MainController *mainController, QWidg
 {
 	m_ui->setupUi(this);
 
-	m_teacherTableProxyModel.setSourceModel(m_mainController->teacherTableModel());
-	m_ui->teachersTable->setModel(&m_teacherTableProxyModel);
+	m_selectTeacherWidget = new SelectTeacherWidget(this);
+	m_ui->verticalLayout->insertWidget(0, m_selectTeacherWidget);
+	m_selectTeacherWidget->setTeacherTableModel(m_mainController->teacherTableModel());
+	m_selectTeacherWidget->teacherTable()->
+			hideColumn(TeacherTableModel::TeacherSelected);
 
 	connect(m_ui->addTeacherButton, SIGNAL(clicked()), this, SLOT(addClicked()));
 	connect(m_ui->editTeacherButton, SIGNAL(clicked()), this, SLOT(editClicked()));
 	connect(m_ui->deleteTeacherButton, SIGNAL(clicked()), this, SLOT(deleteClicked()));
-	connect(m_ui->teachersTable->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(setEditButtons()));
+	connect(m_selectTeacherWidget->teacherTable()->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(setEditButtons()));
 
 	setEditButtons();
 }
@@ -76,7 +81,7 @@ void ManageTeachersWidget::editRejected()
 
 void ManageTeachersWidget::setEditButtons()
 {
-	if (m_ui->teachersTable->selectionModel()->selectedIndexes().isEmpty()) {
+	if (m_selectTeacherWidget->teacherTable()->selectionModel()->selectedIndexes().isEmpty()) {
 		setEditButtonsEnabled(false);
 	} else {
 		setEditButtonsEnabled(true);

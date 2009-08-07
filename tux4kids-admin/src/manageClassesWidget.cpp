@@ -20,6 +20,7 @@ ManageClassesWidget::ManageClassesWidget(MainController *mainController, QWidget
 	m_selectClassWidget = new SelectClassWidget(this);
 	m_ui->verticalLayout->insertWidget(0, m_selectClassWidget);
 	m_selectClassWidget->setClassTableModel(m_mainController->classTableModel());
+	m_selectClassWidget->classTable()->hideColumn(ClassTableModel::ClassSelected);
 
 	connect(m_ui->addClassButton, SIGNAL(clicked()), this, SLOT(addClicked()));
 	connect(m_ui->editClassButton, SIGNAL(clicked()), this, SLOT(editClicked()));
