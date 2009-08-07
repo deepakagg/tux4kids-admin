@@ -9,18 +9,20 @@
 
 EditClassDialog::EditClassDialog(SchoolData *schoolData, QWidget *parent) :
 		QDialog(parent),
-		m_ui(new Ui::EditClassDialog)
+		m_ui(new Ui::EditClassDialog),
+		m_schoolData(schoolData)
 {
 	m_ui->setupUi(this);
 
-	m_schoolData = schoolData;
+	m_studentTableModel.setSchoolData(m_schoolData);
+	m_teacherTableModel.setSchoolDatabase(m_schoolData->schoolDatabase());
 
 	m_selectStudentWidget = new SelectStudentWidget(this);
-	m_selectStudentWidget->studentTableModel()->setSchoolData(m_schoolData);
+	m_selectStudentWidget->setStudentTableModel(&m_studentTableModel);
 	m_ui->verticalLayout->insertWidget(1, m_selectStudentWidget);
 
 	m_selectTeacherWidget = new SelectTeacherWidget(this);
-	m_selectTeacherWidget->teacherTableModel()->setSchoolDatabase(m_schoolData->schoolDatabase());
+	m_selectTeacherWidget->setTeacherTableModel(&m_teacherTableModel);
 	m_ui->verticalLayout->insertWidget(2, m_selectTeacherWidget);
 
 	connect(m_ui->nameEdit, SIGNAL(textEdited(QString)), this, SLOT(validate()));
@@ -54,8 +56,8 @@ Class EditClassDialog::getClass() const
 	Class result;
 
 	result.setName(m_ui->nameEdit->text());
-	*result.students() = m_selectStudentWidget->studentTableModel()->selectedStudentsDirNames();
-	*result.teachers() = m_selectTeacherWidget->teacherTableModel()->selectedTeachers();
+	*result.students() = m_studentTableModel.selectedStudentsDirNames();
+	*result.teachers() = m_teacherTableModel.selectedTeachers();
 
 	return result;
 }
@@ -63,7 +65,7 @@ Class EditClassDialog::getClass() const
 void EditClassDialog::setClass(Class & newClass)
 {
 	m_ui->nameEdit->setText(newClass.name());
-	m_selectTeacherWidget->teacherTableModel()->setSelectedTeachers(*newClass.teachers());
-	m_selectStudentWidget->studentTableModel()->setSelectedStudents(*newClass.students());
+	m_teacherTableModel.setSelectedTeachers(*newClass.teachers());
+	m_studentTableModel.setSelectedStudents(*newClass.students());
 }
 

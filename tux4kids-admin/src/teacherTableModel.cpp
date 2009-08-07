@@ -98,18 +98,18 @@ void TeacherTableModel::setSchoolDatabase(SchoolDatabase *schoolDatabase)
 	for (int i = 0; i < m_teachers.size(); ++i) {
 		m_teachersSelection.append(false);
 	}
-	connect(m_schoolDatabase, SIGNAL(teacherAdded(const Teacher &)),
-		this, SLOT(addTeacher(const Teacher &)));
-	connect(m_schoolDatabase, SIGNAL(teacherUpdated(const Teacher &)),
-		this, SLOT(updateTeacher(const Teacher &)));
-	connect(m_schoolDatabase, SIGNAL(teacherDeleted(const Teacher &)),
-		this, SLOT(deleteTeacher(const Teacher &)));
-	connect(schoolDatabase, SIGNAL(classAdded()),
-		this, SLOT(addClass(const Class &)));
-	connect(schoolDatabase, SIGNAL(classUpdated(const Class &)),
-		this, SLOT(updateClass(const Class &)));
-	connect(schoolDatabase, SIGNAL(classDeleted(const Class &)),
-		this, SLOT(deleteClass(const Class &)));
+	connect(m_schoolDatabase, SIGNAL(teacherAdded(Teacher &)),
+		this, SLOT(addTeacher(Teacher &)));
+	connect(m_schoolDatabase, SIGNAL(teacherUpdated(Teacher &)),
+		this, SLOT(updateTeacher(Teacher &)));
+	connect(m_schoolDatabase, SIGNAL(teacherDeleted(Teacher &)),
+		this, SLOT(deleteTeacher(Teacher &)));
+	connect(schoolDatabase, SIGNAL(classAdded(Class &)),
+		this, SLOT(addClass(Class &)));
+	connect(schoolDatabase, SIGNAL(classUpdated(Class &)),
+		this, SLOT(updateClass(Class &)));
+	connect(schoolDatabase, SIGNAL(classDeleted(Class &)),
+		this, SLOT(deleteClass(Class &)));
 	reset();
 
 }

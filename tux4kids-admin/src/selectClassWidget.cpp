@@ -7,7 +7,6 @@ SelectClassWidget::SelectClassWidget(QWidget *parent)
 {
 	m_ui->setupUi(this);
 
-	m_classTableProxyModel.setSourceModel(&m_classTableModel);
 	m_ui->classTable->setModel(&m_classTableProxyModel);
 	connect(m_ui->clearButton, SIGNAL(clicked()), m_ui->searchEdit, SLOT(clear()));
 	connect(m_ui->searchEdit, SIGNAL(textEdited(QString)), this, SLOT(searchEdited()));
@@ -19,9 +18,9 @@ SelectClassWidget::~SelectClassWidget()
 	delete m_ui;
 }
 
-ClassTableModel *SelectClassWidget::classTableModel()
+void SelectClassWidget::setClassTableModel(ClassTableModel *classTableModel)
 {
-	return &m_classTableModel;
+	m_classTableProxyModel.setSourceModel(classTableModel);
 }
 
 QTableView *SelectClassWidget::classTable()

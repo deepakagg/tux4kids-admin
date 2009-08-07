@@ -95,14 +95,14 @@ void ClassTableModel::setSchoolDatabase(SchoolDatabase *schoolDatabase)
 	void classUpdated(const Class &updatedClass);
 	void classDeleted(const Class &deletedClass);
 
-	connect(m_schoolDatabase, SIGNAL(classAdded(const Class &)), this, SLOT(addClass(const Class &)));
-	connect(m_schoolDatabase, SIGNAL(classUpdated(const Class &)), this, SLOT(updateClass(const Class &)));
-	connect(m_schoolDatabase, SIGNAL(classDeleted(const Class &)), this, SLOT(deleteClass(const Class &)));
+	connect(m_schoolDatabase, SIGNAL(classAdded(Class &)), this, SLOT(addClass(Class &)));
+	connect(m_schoolDatabase, SIGNAL(classUpdated(Class &)), this, SLOT(updateClass(Class &)));
+	connect(m_schoolDatabase, SIGNAL(classDeleted(Class &)), this, SLOT(deleteClass(Class &)));
 
 	reset();
 }
 
-void ClassTableModel::addClass(const Class & newClass)
+void ClassTableModel::addClass(Class & newClass)
 {
 	beginInsertRows(QModelIndex(), m_classes.size(), m_classes.size());
 	m_classes.append(newClass);
@@ -110,7 +110,7 @@ void ClassTableModel::addClass(const Class & newClass)
 	endInsertRows();
 }
 
-void ClassTableModel::updateClass(const Class &updatedClass)
+void ClassTableModel::updateClass(Class &updatedClass)
 {
 	int pos = m_classes.indexOf(updatedClass);
 	if (pos != -1) {
@@ -119,7 +119,7 @@ void ClassTableModel::updateClass(const Class &updatedClass)
 	}
 }
 
-void ClassTableModel::deleteClass(const Class &deletedClass)
+void ClassTableModel::deleteClass(Class &deletedClass)
 {
 	int pos = m_classes.indexOf(deletedClass);
 	if (pos != -1) {

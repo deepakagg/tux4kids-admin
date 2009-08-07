@@ -106,9 +106,9 @@ void StudentTableModel::setSchoolData(SchoolData *schoolData)
 	}
 	connect(schoolData, SIGNAL(studentAdded(StudentDir*)), this,
 		SLOT(addStudent(StudentDir*)));
-	connect(schoolData->schoolDatabase(), SIGNAL(classAdded()), this, SLOT(addClass(const Class &)));
-	connect(schoolData->schoolDatabase(), SIGNAL(classUpdated(const Class &)), this, SLOT(updateClass(const Class &)));
-	connect(schoolData->schoolDatabase(), SIGNAL(classDeleted(const Class &)), this, SLOT(deleteClass(const Class &)));
+	connect(schoolData->schoolDatabase(), SIGNAL(classAdded(Class &)), this, SLOT(addClass(Class &)));
+	connect(schoolData->schoolDatabase(), SIGNAL(classUpdated(Class &)), this, SLOT(updateClass(Class &)));
+	connect(schoolData->schoolDatabase(), SIGNAL(classDeleted(Class &)), this, SLOT(deleteClass(Class &)));
 
 	reset();
 }

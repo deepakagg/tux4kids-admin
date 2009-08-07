@@ -19,9 +19,9 @@ SelectStudentWidget::~SelectStudentWidget()
 	delete m_ui;
 }
 
-StudentTableModel *SelectStudentWidget::studentTableModel()
+void SelectStudentWidget::setStudentTableModel(StudentTableModel *studentTableModel)
 {
-	return &m_studentTableModel;
+	m_studentTableProxyModel.setSourceModel(studentTableModel);
 }
 
 void SelectStudentWidget::searchEdited()

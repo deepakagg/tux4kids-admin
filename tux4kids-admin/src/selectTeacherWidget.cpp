@@ -7,7 +7,6 @@ SelectTeacherWidget::SelectTeacherWidget(QWidget *parent)
 {
 	m_ui->setupUi(this);
 
-	m_teacherTableProxyModel.setSourceModel(&m_teacherTableModel);
 	m_ui->teacherTable->setModel(&m_teacherTableProxyModel);
 	connect(m_ui->clearButton, SIGNAL(clicked()), m_ui->searchEdit, SLOT(clear()));
 	connect(m_ui->searchEdit, SIGNAL(textEdited(QString)), this, SLOT(searchEdited()));
@@ -19,9 +18,9 @@ SelectTeacherWidget::~SelectTeacherWidget()
 	delete m_ui;
 }
 
-TeacherTableModel *SelectTeacherWidget::teacherTableModel()
+void SelectTeacherWidget::setTeacherTableModel(TeacherTableModel *teacherTableModel)
 {
-	return &m_teacherTableModel;
+	m_teacherTableProxyModel.setSourceModel(teacherTableModel);
 }
 
 void SelectTeacherWidget::searchEdited()

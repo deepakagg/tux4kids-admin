@@ -18,7 +18,7 @@ public:
 	SelectStudentWidget(QWidget *parent = 0);
 	~SelectStudentWidget();
 
-	StudentTableModel *studentTableModel();
+	void setStudentTableModel(StudentTableModel *studentTableModel);
 
 private:
 	Ui::SelectStudentWidget *m_ui;

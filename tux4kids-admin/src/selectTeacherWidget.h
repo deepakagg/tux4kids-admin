@@ -17,12 +17,11 @@ class SelectTeacherWidget : public QWidget
 public:
 	SelectTeacherWidget(QWidget *parent = 0);
 	~SelectTeacherWidget();
-	TeacherTableModel *teacherTableModel();
+	void setTeacherTableModel(TeacherTableModel *teacherTableModel);
 
 private:
 	Ui::SelectTeacherWidget *m_ui;
 
-	TeacherTableModel m_teacherTableModel;
 	TeacherTableProxyModel m_teacherTableProxyModel;
 	QTimer m_searchTimer;
 

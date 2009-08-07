@@ -20,13 +20,12 @@ public:
 	SelectClassWidget(QWidget *parent = 0);
 	~SelectClassWidget();
 
-	ClassTableModel *classTableModel();
+	void setClassTableModel(ClassTableModel *classTableModel);
 	QTableView *classTable();
 
 private:
 	Ui::SelectClassWidget *m_ui;
 
-	ClassTableModel m_classTableModel;
 	ClassTableProxyModel m_classTableProxyModel;
 	QTimer m_searchTimer;
 

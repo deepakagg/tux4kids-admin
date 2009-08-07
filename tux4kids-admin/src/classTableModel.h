@@ -36,9 +36,9 @@ private:
 	QList<bool> m_classesSelection;
 
 private slots:
-	void addClass(const Class & newClass);
-	void updateClass(const Class &updatedClass);
-	void deleteClass(const Class &deletedClass);
+	void addClass(Class & newClass);
+	void updateClass(Class &updatedClass);
+	void deleteClass(Class &deletedClass);
 };
 
 #endif // CLASSTABLEMODEL_H

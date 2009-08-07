@@ -4,6 +4,7 @@
 #include <QtGui/QDialog>
 
 #include "studentTableModel.h"
+#include "teacherTableModel.h"
 
 
 namespace Ui {
@@ -30,6 +31,8 @@ private:
 	SelectStudentWidget *m_selectStudentWidget;
 	SelectTeacherWidget *m_selectTeacherWidget;
 	SchoolData *m_schoolData;
+	TeacherTableModel m_teacherTableModel;
+	StudentTableModel m_studentTableModel;
 
 	bool isValid() const;
 
