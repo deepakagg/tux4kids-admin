@@ -798,7 +798,7 @@ QStringList SchoolDatabasePrivate::studentList() const
 		return result;
 	}
 
-	result = studentList();
+	result = studentListNoJoin();
 
 	return result;
 }

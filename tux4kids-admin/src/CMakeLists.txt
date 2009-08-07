@@ -22,7 +22,8 @@ SET(TUX4KIDS-ADMIN_SOURCES
 	editClassDialog.cpp 
 	editTeacherDialog.cpp
 	selectStudentWidget.cpp
-	selectTeacherWidget.cpp )
+	selectTeacherWidget.cpp
+	selectClassWidget.cpp )
 
 SET(TUX4KIDS-ADMIN_MOC_HEADERS 
 	mainWindow.h
@@ -42,7 +43,8 @@ SET(TUX4KIDS-ADMIN_MOC_HEADERS
 	editClassDialog.h 
 	editTeacherDialog.h
 	selectStudentWidget.h
-	selectTeacherWidget.h )
+	selectTeacherWidget.h
+	selectClassWidget.h )
 
 SET(TUX4KIDS-ADMIN_UIS 
 	mainWindow.ui 
@@ -54,7 +56,8 @@ SET(TUX4KIDS-ADMIN_UIS
 	editClassDialog.ui 
 	editTeacherDialog.ui
 	selectStudentWidget.ui
-	selectTeacherWidget.ui )
+	selectTeacherWidget.ui
+	selectClassWidget.ui )
 
 # enable warnings
 ADD_DEFINITIONS( -Wall )

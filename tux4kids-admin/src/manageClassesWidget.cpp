@@ -4,8 +4,10 @@
 #include "mainController.h"
 #include "schoolData.h"
 #include "schoolDatabase.h"
+#include "selectClassWidget.h"
 
 #include <QDebug>
+#include <QTableView>
 
 ManageClassesWidget::ManageClassesWidget(MainController *mainController, QWidget *parent) :
 		QWidget(parent),
@@ -15,12 +17,15 @@ ManageClassesWidget::ManageClassesWidget(MainController *mainController, QWidget
 {
 	m_ui->setupUi(this);
 
-	m_classTableProxyModel.setSourceModel(m_mainController->classTableModel());
-	m_ui->classesTable->setModel(&m_classTableProxyModel);
+	m_selectClassWidget = new SelectClassWidget(this);
+	m_ui->verticalLayout->insertWidget(0, m_selectClassWidget);
+	m_selectClassWidget->classTableModel()->setSchoolDatabase(m_schoolDatabase);
 
 	connect(m_ui->addClassButton, SIGNAL(clicked()), this, SLOT(addClicked()));
 	connect(m_ui->editClassButton, SIGNAL(clicked()), this, SLOT(editClicked()));
-	connect(m_ui->classesTable->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(setEditButtons()));
+	connect(m_selectClassWidget->classTable()->selectionModel(),
+		SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+		this, SLOT(setEditButtons()));
 
 	setEditButtons();
 }
@@ -47,6 +52,7 @@ void ManageClassesWidget::editClicked()
 		connect(m_editClassDialog, SIGNAL(accepted()), this, SLOT(editAccepted()));
 		connect(m_editClassDialog, SIGNAL(rejected()), this, SLOT(editRejected()));
 	}
+	//m_editClassDialog->setClass(editedClass);
 	m_editClassDialog->showNormal();
 }
 
@@ -82,7 +88,8 @@ void ManageClassesWidget::editRejected()
 
 void ManageClassesWidget::setEditButtons()
 {
-	if (m_ui->classesTable->selectionModel()->selectedIndexes().isEmpty()) {
+	if (m_selectClassWidget->classTable()->selectionModel()
+		->selectedIndexes().isEmpty()) {
 		setEditButtonsEnabled(false);
 	} else {
 		setEditButtonsEnabled(true);

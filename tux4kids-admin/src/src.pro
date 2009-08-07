@@ -23,7 +23,8 @@ SOURCES += main.cpp \
     editTeacherDialog.cpp \
     editClassDialog.cpp \
     selectStudentWidget.cpp \
-    selectTeacherWidget.cpp
+    selectTeacherWidget.cpp \
+    selectClassWidget.cpp
 HEADERS += mainWindow.h \
     mainController.h \
     pluginManager.h \
@@ -43,7 +44,8 @@ HEADERS += mainWindow.h \
     editTeacherDialog.h \
     editClassDialog.h \
     selectStudentWidget.h \
-    selectTeacherWidget.h
+    selectTeacherWidget.h \
+    selectClassWidget.h
 FORMS += mainWindow.ui \
     pluginManagerDialog.ui \
     manageStudentsWidget.ui \
@@ -53,6 +55,7 @@ FORMS += mainWindow.ui \
     editTeacherDialog.ui \
     editClassDialog.ui \
     selectStudentWidget.ui \
-    selectTeacherWidget.ui
+    selectTeacherWidget.ui \
+    selectClassWidget.ui
 LIBS += -ltux4kidsadmin \
     -L../../libtux4kidsadmin
