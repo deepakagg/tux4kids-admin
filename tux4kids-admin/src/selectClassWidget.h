@@ -22,6 +22,7 @@ public:
 
 	void setClassTableModel(ClassTableModel *classTableModel);
 	QTableView *classTable();
+	QModelIndex selectedClassIndex();
 
 private:
 	Ui::SelectClassWidget *m_ui;

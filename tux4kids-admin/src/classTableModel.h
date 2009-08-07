@@ -22,7 +22,7 @@ public:
 	QList<Class> selectedClasses() const;
 	void setSelectedClasses(const QList<Class> &selectedClasses);
 	void clearSelection();
-	const Class &at(int i);
+	Class &at(int i);
 
 	void setSchoolDatabase(SchoolDatabase *schoolDatabase);
 

@@ -535,7 +535,7 @@ QList<Class> SchoolDatabasePrivate::classList() const
 	if (error) {
 		return QList<Class>();
 	}
-qDebug() << "aaaa";
+
 	QSqlQuery classTeachers;
 	classTeachers.prepare("SELECT id_class, id_teacher FROM class_teachers ORDER BY id_class ASC;");
 	classTeachers.exec();
@@ -544,7 +544,7 @@ qDebug() << "aaaa";
 		lastError = classTeachers.lastError().text();
 		return QList<Class>();
 	}
-qDebug() << "bbb";
+
 	QSqlRecord classTeachersRecord = classTeachers.record();
 	int oldClassId = -1;
 	int classIndex = 0;
@@ -570,7 +570,7 @@ qDebug() << "bbb";
 			}
 		}
 	}
-qDebug() << "cccc";
+
 	QSqlQuery students;
 	students.prepare("SELECT id, profile_name FROM students;");
 	students.exec();
@@ -579,7 +579,7 @@ qDebug() << "cccc";
 		lastError = students.lastError().text();
 		return QList<Class>();
 	}
-qDebug() << "dddd";
+
 	QSqlQuery classStudents;
 	classStudents.prepare("SELECT id_class, id_student FROM class_students ORDER BY id_class ASC;");
 	classStudents.exec();
@@ -588,7 +588,7 @@ qDebug() << "dddd";
 		lastError = classStudents.lastError().text();
 		return QList<Class>();
 	}
-qDebug() << "eeee";
+
 	QSqlRecord classStudentsRecord = classStudents.record();
 	QSqlRecord studentsRecord = students.record();
 	oldClassId = -1;
@@ -665,7 +665,7 @@ QList<Teacher> SchoolDatabasePrivate::teacherList() const
 	if (error) {
 		return QList<Teacher>();
 	}
-qDebug() << "AAA";
+
 	QSqlQuery classTeachers;
 	classTeachers.prepare("SELECT id_class, id_teacher FROM class_teachers ORDER BY id_teacher ASC;");
 	classTeachers.exec();
@@ -674,7 +674,7 @@ qDebug() << "AAA";
 		lastError = classTeachers.lastError().text();
 		return QList<Teacher>();
 	}
-qDebug() << "BBBB";
+
 	QSqlRecord classTeachersRecord = classTeachers.record();
 
 	int oldTeacherId = -1;

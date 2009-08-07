@@ -53,7 +53,9 @@ void ManageClassesWidget::editClicked()
 		connect(m_editClassDialog, SIGNAL(accepted()), this, SLOT(editAccepted()));
 		connect(m_editClassDialog, SIGNAL(rejected()), this, SLOT(editRejected()));
 	}
-	//m_editClassDialog->setClass(editedClass);
+
+	QModelIndex classIndex = m_selectClassWidget->selectedClassIndex();
+	m_editClassDialog->setClass(m_mainController->classTableModel()->at(classIndex.row()));
 	m_editClassDialog->showNormal();
 }
 

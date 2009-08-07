@@ -38,3 +38,9 @@ void SelectClassWidget::updateFilter()
 	m_classTableProxyModel.setFilterRegExp(m_ui->searchEdit->text());
 }
 
+QModelIndex SelectClassWidget::selectedClassIndex()
+{
+	QModelIndex proxyIndex = m_ui->classTable->selectionModel()->selectedIndexes().first();
+	return m_classTableProxyModel.mapToSource(proxyIndex);
+}
+

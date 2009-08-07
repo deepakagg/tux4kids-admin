@@ -161,8 +161,8 @@ void ClassTableModel::clearSelection()
 	emit dataChanged(index(0, ClassSelected), index(rowCount() - 1, ClassSelected));
 }
 
-const Class &ClassTableModel::at(int i)
+Class &ClassTableModel::at(int i)
 {
-	return m_classes.at(i);
+	return m_classes[i];
 }
 

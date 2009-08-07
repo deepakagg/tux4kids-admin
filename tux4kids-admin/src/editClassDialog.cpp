@@ -5,6 +5,7 @@
 #include "schoolData.h"
 #include "class.h"
 
+#include <QDebug>
 #include <QPushButton>
 
 EditClassDialog::EditClassDialog(SchoolData *schoolData, QWidget *parent) :
@@ -62,8 +63,15 @@ Class EditClassDialog::getClass() const
 	return result;
 }
 
-void EditClassDialog::setClass(Class & newClass)
+void EditClassDialog::setClass(Class &newClass)
 {
+	qDebug() << "setting" << newClass.name();
+	foreach(Teacher t, *newClass.teachers()) {
+		qDebug() << t.firstName();
+	}
+	foreach(QString s, *newClass.students()) {
+		qDebug() << s;
+	}
 	m_ui->nameEdit->setText(newClass.name());
 	m_teacherTableModel.setSelectedTeachers(*newClass.teachers());
 	m_studentTableModel.setSelectedStudents(*newClass.students());
