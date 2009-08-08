@@ -449,7 +449,9 @@ void SchoolDatabasePrivate::addTeacher(Teacher &newTeacher)
 
 	error = false;
 
-	insertTeacher.prepare("INSERT INTO teacher(first_name, last_name) VALUES(:first_name, :last_name);");
+	db.transaction();
+
+	insertTeacher.prepare("INSERT INTO teachers(first_name, last_name) VALUES(:first_name, :last_name);");
 	insertTeacher.bindValue(":first_name", newTeacher.firstName());
 	insertTeacher.bindValue(":last_name", newTeacher.lastName());
 	insertTeacher.exec();
@@ -475,6 +477,13 @@ void SchoolDatabasePrivate::addTeacher(Teacher &newTeacher)
 			return;
 		} else {
 			newTeacher.setId(getTeacherId.value(0).toInt());
+			getTeacherId.finish();
+			addTeacherClasses(newTeacher);
+			if (error) {
+				return;
+			}
+			db.commit();
+
 			Q_Q(SchoolDatabase);
 			emit q->teacherAdded(newTeacher);
 		}
@@ -493,6 +502,8 @@ void SchoolDatabasePrivate::updateTeacher(Teacher &updatedTeacher)
 
 	error = false;
 
+	db.transaction();
+
 	updateTeacher.prepare("UPDATE teachers SET first_name = :first_name, last_name = :last_name WHERE id = :id;");
 	updateTeacher.bindValue(":first_name", updatedTeacher.firstName());
 	updateTeacher.bindValue(":last_name", updatedTeacher.lastName());
@@ -504,6 +515,18 @@ void SchoolDatabasePrivate::updateTeacher(Teacher &updatedTeacher)
 		lastError = updateTeacher.lastError().text();
 		return;
 	}
+
+	deleteTeacherClasses(updatedTeacher.id());
+	if (error) {
+		return;
+	}
+
+	addTeacherClasses(updatedTeacher);
+	if (error) {
+		return;
+	}
+
+	db.commit();
 
 	Q_Q(SchoolDatabase);
 	emit q->teacherUpdated(updatedTeacher);
@@ -533,6 +556,34 @@ void SchoolDatabasePrivate::deleteTeacher(Teacher &deletedTeacher)
 
 	Q_Q(SchoolDatabase);
 	emit q->teacherDeleted(deletedTeacher);
+}
+
+void SchoolDatabasePrivate::deleteTeacherClasses(int teacherId)
+{
+	QSqlQuery deleteClasses;
+	deleteClasses.prepare("DELETE FROM class_teachers WHERE id_teacher = :id_teacher;");
+	deleteClasses.bindValue(":id_teacher", teacherId);
+	deleteClasses.exec();
+	if (!deleteClasses.isActive()) {
+		error = true;
+		lastError = deleteClasses.lastError().text();
+	}
+}
+
+void SchoolDatabasePrivate::addTeacherClasses(Teacher &teacher)
+{
+	foreach(Class teacherClass, *teacher.classes()) {
+		QSqlQuery addTeacherClass;
+		addTeacherClass.prepare("INSERT INTO class_teachers(id_class, id_teacher) VALUES (:id_class, :id_teacher);");
+		addTeacherClass.bindValue(":id_class", teacherClass.id());
+		addTeacherClass.bindValue(":id_teacher", teacher.id());
+		addTeacherClass.exec();
+		if (!addTeacherClass.isActive()) {
+			error = true;
+			lastError = addTeacherClass.lastError().text();
+			break;
+		}
+	}
 }
 
 QList<Class> SchoolDatabasePrivate::classList() const
@@ -915,6 +966,7 @@ bool SchoolDatabase::open(QString dbFilePath)
 		if (result) {
 			d->createTables();
 			d->createTriggers();
+			qDebug() << d->lastError;
 		}
 		return result;
 	}

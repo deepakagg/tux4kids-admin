@@ -21,6 +21,7 @@ public:
 	~SelectTeacherWidget();
 	void setTeacherTableModel(TeacherTableModel *teacherTableModel);
 	QTableView *teacherTable();
+	QModelIndex selectedTeacherIndex();
 
 private:
 	Ui::SelectTeacherWidget *m_ui;

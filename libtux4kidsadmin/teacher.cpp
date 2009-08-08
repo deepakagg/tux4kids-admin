@@ -14,12 +14,19 @@ TeacherPrivate::~TeacherPrivate()
 
 /***************************** Teacher *********************/
 
+Teacher::Teacher()
+		: d_ptr(new TeacherPrivate())
+{
+	d_ptr->q_ptr = this;
+}
+
 Teacher::Teacher(QString firstName, QString lastName)
 		: d_ptr(new TeacherPrivate())
 {
 	Q_D(Teacher);
 	d->firstName = firstName;
 	d->lastName = lastName;
+	d_ptr->q_ptr = this;
 }
 
 Teacher::Teacher(TeacherPrivate &dd)

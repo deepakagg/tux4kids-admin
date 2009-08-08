@@ -28,8 +28,10 @@ public:
 
 	bool addClassTeachers(Class &newClass);
 	bool addClassStudents(Class &newClass);
+	void addTeacherClasses(Teacher &teacher);
 	bool deleteClassStudents(int classId);
 	bool deleteClassTeachers(int classId);
+	void deleteTeacherClasses(int teacherId);
 
 	QList<Class> classList() const;
 	QList<Class> classListNoJoin() const;

@@ -24,6 +24,7 @@ public:
 	QList<Teacher> selectedTeachers() const;
 	void setSelectedTeachers(const QList<Teacher> &selectedTeachers);
 	void clearSelection();
+	Teacher &at(int i);
 
 	enum TeacherField {
 		TeacherSelected = 0,

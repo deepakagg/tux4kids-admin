@@ -3,6 +3,7 @@
 #include "mainController.h"
 #include "editTeacherDialog.h"
 #include "selectTeacherWidget.h"
+#include "schoolData.h"
 
 #include <QDebug>
 #include <QTableView>
@@ -10,7 +11,8 @@
 ManageTeachersWidget::ManageTeachersWidget(MainController *mainController, QWidget *parent) :
 		QWidget(parent),
 		m_ui(new Ui::ManageTeachersWidget),
-		m_mainController(mainController)
+		m_mainController(mainController),
+		m_schoolDatabase(mainController->schoolData()->schoolDatabase())
 
 {
 	m_ui->setupUi(this);
@@ -37,9 +39,12 @@ ManageTeachersWidget::~ManageTeachersWidget()
 void ManageTeachersWidget::addClicked()
 {
 	if (m_addTeacherDialog == 0) {
-		m_addTeacherDialog = new EditTeacherDialog(this);
+		m_addTeacherDialog = new EditTeacherDialog(m_schoolDatabase, this);
 		connect(m_addTeacherDialog, SIGNAL(accepted()), this, SLOT(addAccepted()));
 		connect(m_addTeacherDialog, SIGNAL(rejected()), this, SLOT(addRejected()));
+	}
+	if (m_addTeacherDialog->isHidden()) {
+		m_addTeacherDialog->clear();
 	}
 	m_addTeacherDialog->showNormal();
 }
@@ -47,21 +52,27 @@ void ManageTeachersWidget::addClicked()
 void ManageTeachersWidget::editClicked()
 {
 	if (m_editTeacherDialog == 0) {
-		m_editTeacherDialog = new EditTeacherDialog(this);
+		m_editTeacherDialog = new EditTeacherDialog(m_schoolDatabase, this);
 		connect(m_editTeacherDialog, SIGNAL(accepted()), this, SLOT(editAccepted()));
 		connect(m_editTeacherDialog, SIGNAL(rejected()), this, SLOT(editRejected()));
 	}
+
+	QModelIndex teacherIndex = m_selectTeacherWidget->selectedTeacherIndex();
+	m_editTeacherDialog->setTeacher(m_mainController->teacherTableModel()->at(teacherIndex.row()));
 	m_editTeacherDialog->showNormal();
 }
 
 void ManageTeachersWidget::deleteClicked()
 {
-
+	QModelIndex teacherIndex = m_selectTeacherWidget->selectedTeacherIndex();
+	m_schoolDatabase->deleteTeacher(m_mainController->teacherTableModel()->at(teacherIndex.row()));
 }
 
 void ManageTeachersWidget::addAccepted()
 {
 	qDebug() << "add accepted";
+	Teacher addedTeacher = m_addTeacherDialog->teacher();
+	m_schoolDatabase->addTeacher(addedTeacher);
 }
 
 void ManageTeachersWidget::addRejected()
@@ -72,6 +83,8 @@ void ManageTeachersWidget::addRejected()
 void ManageTeachersWidget::editAccepted()
 {
 	qDebug() << "edit accepted";
+	Teacher updatedTeacher = m_editTeacherDialog->teacher();
+	m_schoolDatabase->updateTeacher(updatedTeacher);
 }
 
 void ManageTeachersWidget::editRejected()

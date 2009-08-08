@@ -13,6 +13,7 @@ namespace Ui {
 class MainController;
 class EditTeacherDialog;
 class SelectTeacherWidget;
+class SchoolDatabase;
 
 class ManageTeachersWidget : public QWidget
 {
@@ -27,6 +28,7 @@ private:
 	QPointer<EditTeacherDialog> m_addTeacherDialog;
 	QPointer<EditTeacherDialog> m_editTeacherDialog;
 	QPointer<SelectTeacherWidget> m_selectTeacherWidget;
+	QPointer<SchoolDatabase> m_schoolDatabase;
 
 	void setEditButtonsEnabled(bool enable);
 

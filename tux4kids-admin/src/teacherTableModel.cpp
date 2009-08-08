@@ -199,3 +199,8 @@ void TeacherTableModel::deleteClass(Class &deletedClass)
 	}
 }
 
+Teacher &TeacherTableModel::at(int i)
+{
+	return m_teachers[i];
+}
+
