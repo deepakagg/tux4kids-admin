@@ -52,28 +52,29 @@ void EditClassDialog::validate()
 	}
 }
 
-Class EditClassDialog::getClass() const
+Class EditClassDialog::getClass()
 {
-	Class result;
+	editedClass.setName(m_ui->nameEdit->text());
+	*editedClass.students() = m_studentTableModel.selectedStudentsDirNames();
+	*editedClass.teachers() = m_teacherTableModel.selectedTeachers();
 
-	result.setName(m_ui->nameEdit->text());
-	*result.students() = m_studentTableModel.selectedStudentsDirNames();
-	*result.teachers() = m_teacherTableModel.selectedTeachers();
-
-	return result;
+	return editedClass;
 }
 
 void EditClassDialog::setClass(Class &newClass)
 {
-	qDebug() << "setting" << newClass.name();
-	foreach(Teacher t, *newClass.teachers()) {
-		qDebug() << t.firstName();
-	}
-	foreach(QString s, *newClass.students()) {
-		qDebug() << s;
-	}
-	m_ui->nameEdit->setText(newClass.name());
-	m_teacherTableModel.setSelectedTeachers(*newClass.teachers());
-	m_studentTableModel.setSelectedStudents(*newClass.students());
+	editedClass = newClass;
+	m_ui->nameEdit->setText(editedClass.name());
+	m_teacherTableModel.setSelectedTeachers(*editedClass.teachers());
+	m_studentTableModel.setSelectedStudents(*editedClass.students());
+	validate();
+}
+
+void EditClassDialog::clear()
+{
+	m_ui->nameEdit->clear();
+	m_teacherTableModel.clearSelection();
+	m_studentTableModel.clearSelection();
+	validate();
 }
 

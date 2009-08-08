@@ -87,13 +87,9 @@ void ClassTableModel::setSchoolDatabase(SchoolDatabase *schoolDatabase)
 	m_schoolDatabase = schoolDatabase;
 	m_classes = m_schoolDatabase->classList();
 	m_classesSelection.clear();
-	for (int i = 0; i < m_classes.size(); i++) {
+	for (int i = 0; i < m_classes.size(); ++i) {
 		m_classesSelection.append(false);
 	}
-
-	void classAdded(const Class &newClass);
-	void classUpdated(const Class &updatedClass);
-	void classDeleted(const Class &deletedClass);
 
 	connect(m_schoolDatabase, SIGNAL(classAdded(Class &)), this, SLOT(addClass(Class &)));
 	connect(m_schoolDatabase, SIGNAL(classUpdated(Class &)), this, SLOT(updateClass(Class &)));

@@ -24,6 +24,7 @@ ManageClassesWidget::ManageClassesWidget(MainController *mainController, QWidget
 
 	connect(m_ui->addClassButton, SIGNAL(clicked()), this, SLOT(addClicked()));
 	connect(m_ui->editClassButton, SIGNAL(clicked()), this, SLOT(editClicked()));
+	connect(m_ui->deleteClassButton, SIGNAL(clicked()), this, SLOT(deleteClicked()));
 	connect(m_selectClassWidget->classTable()->selectionModel(),
 		SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
 		this, SLOT(setEditButtons()));
@@ -43,6 +44,9 @@ void ManageClassesWidget::addClicked()
 		connect(m_addClassDialog, SIGNAL(accepted()), this, SLOT(addAccepted()));
 		connect(m_addClassDialog, SIGNAL(rejected()), this, SLOT(addRejected()));
 	}
+	if (m_addClassDialog->isHidden()) {
+		m_addClassDialog->clear();
+	}
 	m_addClassDialog->showNormal();
 }
 
@@ -61,7 +65,8 @@ void ManageClassesWidget::editClicked()
 
 void ManageClassesWidget::deleteClicked()
 {
-
+	QModelIndex classIndex = m_selectClassWidget->selectedClassIndex();
+	m_schoolDatabase->deleteClass(m_mainController->classTableModel()->at(classIndex.row()));
 }
 
 void ManageClassesWidget::addAccepted()
@@ -82,6 +87,8 @@ void ManageClassesWidget::addRejected()
 void ManageClassesWidget::editAccepted()
 {
 	qDebug() << "edit accepted";
+	Class editedClass = m_editClassDialog->getClass();
+	m_schoolDatabase->updateClass(editedClass);
 }
 
 void ManageClassesWidget::editRejected()

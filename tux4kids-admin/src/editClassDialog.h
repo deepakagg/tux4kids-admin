@@ -23,8 +23,9 @@ public:
 	EditClassDialog(SchoolData *schoolData, QWidget *parent = 0);
 	~EditClassDialog();
 
-	Class getClass() const;
+	Class getClass();
 	void setClass(Class & newClass);
+	void clear();
 
 private:
 	Ui::EditClassDialog *m_ui;
@@ -33,6 +34,7 @@ private:
 	SchoolData *m_schoolData;
 	TeacherTableModel m_teacherTableModel;
 	StudentTableModel m_studentTableModel;
+	Class editedClass;
 
 	bool isValid() const;
 

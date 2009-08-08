@@ -28,12 +28,14 @@ Class::Class(QString name)
 Class::Class(ClassPrivate &dd)
 		: d_ptr(&dd)
 {
+	d_ptr->q_ptr = this;
 }
 
 Class::Class(const Class& other)
 		: d_ptr(new ClassPrivate())
 {
 	*d_ptr = *other.d_ptr;
+	d_ptr->q_ptr = this;
 }
 
 Class::~Class()
@@ -93,18 +95,15 @@ QList<Teacher> *Class::teachers()
 Class &Class::operator=(const Class &other)
 {
 	if (this != &other) {
-		ClassPrivate *tmp = new ClassPrivate();
-		*tmp = *d_ptr;
-		tmp->q_ptr = this;
-		delete d_ptr;
-		d_ptr = tmp;
+		*d_ptr = *other.d_ptr;
+		d_ptr->q_ptr = this;
 	}
-
 	return *this;
 }
 
 bool Class::operator==(const Class &other) const
 {
+
 	Q_D(const Class);
 
 	if (d->id >= 0 && other.d_ptr->id >= 0) {

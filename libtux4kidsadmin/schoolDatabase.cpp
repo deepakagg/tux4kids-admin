@@ -382,6 +382,7 @@ void SchoolDatabasePrivate::updateClass(Class &updatedClass)
 
 	error = false;
 
+	db.transaction();
 	updateClass.prepare("UPDATE classes SET name = :name WHERE id = :id;");
 	updateClass.bindValue(":name", updatedClass.name());
 	updateClass.bindValue(":id", updatedClass.id());
@@ -393,12 +394,26 @@ void SchoolDatabasePrivate::updateClass(Class &updatedClass)
 		return;
 	}
 
+	if (!deleteClassStudents(updatedClass.id()))
+		return;
+
+	if (!deleteClassTeachers(updatedClass.id()))
+		return;
+
+	if (!addClassStudents(updatedClass))
+		return;
+
+	if (!addClassTeachers(updatedClass))
+		return;
+	db.commit();
+
 	Q_Q(SchoolDatabase);
 	emit q->classUpdated(updatedClass);
 }
 
 void SchoolDatabasePrivate::deleteClass(Class &deletedClass)
 {
+
 	if (!db.isOpen()) {
 		error = true;
 		lastError = QObject::tr("Database is not open");
@@ -531,9 +546,28 @@ QList<Class> SchoolDatabasePrivate::classList() const
 	}
 
 	result = classListNoJoin();
-	QList<Teacher> teachers = teacherListNoJoin();
+	joinStudentsToClass(result);
 	if (error) {
 		return QList<Class>();
+	}
+
+	joinTeachersToClass(result);
+	if (error) {
+		return QList<Class>();
+	}
+
+	return result;
+}
+
+void SchoolDatabasePrivate::joinTeachersToClass(QList<Class> &classes) const
+{
+	if (classes.empty()) {
+		return;
+	}
+
+	QList<Teacher> teachers = teacherListNoJoin();
+	if (error || teachers.empty()) {
+		return;
 	}
 
 	QSqlQuery classTeachers;
@@ -542,7 +576,7 @@ QList<Class> SchoolDatabasePrivate::classList() const
 	if (!classTeachers.isActive()) {
 		error = true;
 		lastError = classTeachers.lastError().text();
-		return QList<Class>();
+		return;
 	}
 
 	QSqlRecord classTeachersRecord = classTeachers.record();
@@ -552,22 +586,30 @@ QList<Class> SchoolDatabasePrivate::classList() const
 		int classId = classTeachers.value(classTeachersRecord.indexOf("id_class")).toInt();
 		if (oldClassId != classId) {
 			oldClassId = classId;
-			while(result.at(classIndex).id() != classId
-			      && classIndex < result.size() - 1) {
+			while(classes.at(classIndex).id() != classId
+			      && classIndex < classes.size() - 1) {
 				++classIndex;
 			}
-			if (result.at(classIndex).id() != classId) {
+			if (classes.at(classIndex).id() != classId) {
 				break;
 			}
 		}
+
 		int teacherId = classTeachers.value(classTeachersRecord.indexOf("id_teacher")).toInt();
 		int teacherIndex = 0;
-		while (teachers[teacherIndex].id() != teacherId) {
+		while (teachers.at(teacherIndex).id() != teacherId && teacherIndex < teachers.size() - 1) {
 			++teacherIndex;
 		}
 		if (teachers[teacherIndex].id() == teacherId) {
-			result[classIndex].teachers()->append(teachers.at(teacherIndex));
+			classes[classIndex].teachers()->append(teachers.at(teacherIndex));
 		}
+	}
+}
+
+void SchoolDatabasePrivate::joinStudentsToClass(QList<Class> &classes) const
+{
+	if (classes.empty()) {
+		return;
 	}
 
 	QSqlQuery students;
@@ -576,7 +618,7 @@ QList<Class> SchoolDatabasePrivate::classList() const
 	if (!students.isActive()) {
 		error = true;
 		lastError = students.lastError().text();
-		return QList<Class>();
+		return;
 	}
 
 	QSqlQuery classStudents;
@@ -585,22 +627,22 @@ QList<Class> SchoolDatabasePrivate::classList() const
 	if (!classStudents.isActive()) {
 		error = true;
 		lastError = classStudents.lastError().text();
-		return QList<Class>();
+		return;
 	}
 
 	QSqlRecord classStudentsRecord = classStudents.record();
 	QSqlRecord studentsRecord = students.record();
-	oldClassId = -1;
-	classIndex = 0;
+	int oldClassId = -1;
+	int classIndex = 0;
 	while(classStudents.next()) {
 		int classId = classStudents.value(classStudentsRecord.indexOf("id_class")).toInt();
 		if (oldClassId != classId) {
 			oldClassId = classId;
-			while(result.at(classIndex).id() != classId
-			      && classIndex < result.size() - 1) {
+			while(classes.at(classIndex).id() != classId
+			      && classIndex < classes.size() - 1) {
 				++classIndex;
 			}
-			if (result.at(classIndex).id() != classId) {
+			if (classes.at(classIndex).id() != classId) {
 				break;
 			}
 		}
@@ -610,13 +652,12 @@ QList<Class> SchoolDatabasePrivate::classList() const
 		while (students.next()) {
 			if (students.value(studentsRecord.indexOf("id")).toInt()
 				== studentId) {
-				result[classIndex].students()->append(students.value(studentsRecord.indexOf("profile_name")).toString());
+				classes[classIndex].students()->append(students.value(studentsRecord.indexOf("profile_name")).toString());
 			}
 		}
 	}
-
-	return result;
 }
+
 
 QList<Class> SchoolDatabasePrivate::classListNoJoin() const
 {
@@ -658,9 +699,23 @@ QList<Teacher> SchoolDatabasePrivate::teacherList() const
 	}
 
 	result = teacherListNoJoin();
-	QList<Class> classes = classListNoJoin();
+	joinClassesToTeachers(result);
 	if (error) {
 		return QList<Teacher>();
+	}
+
+	return result;
+}
+
+void SchoolDatabasePrivate::joinClassesToTeachers(QList<Teacher> &teachers) const
+{
+	if (teachers.empty()) {
+		return;
+	}
+
+	QList<Class> classes = classListNoJoin();
+	if (error || classes.empty()) {
+		return;
 	}
 
 	QSqlQuery classTeachers;
@@ -669,7 +724,7 @@ QList<Teacher> SchoolDatabasePrivate::teacherList() const
 	if (!classTeachers.isActive()) {
 		error = true;
 		lastError = classTeachers.lastError().text();
-		return QList<Teacher>();
+		return;
 	}
 
 	QSqlRecord classTeachersRecord = classTeachers.record();
@@ -680,25 +735,23 @@ QList<Teacher> SchoolDatabasePrivate::teacherList() const
 		int teacherId = classTeachers.value(classTeachersRecord.indexOf("id_teacher")).toInt();
 		if (oldTeacherId != teacherId) {
 			oldTeacherId = teacherId;
-			while(result.at(teacherIndex).id() != teacherId
-			      && teacherIndex < result.size() - 1) {
+			while(teachers.at(teacherIndex).id() != teacherId
+			      && teacherIndex < teachers.size() - 1) {
 				++teacherIndex;
 			}
-			if (result.at(teacherIndex).id() != teacherId) {
+			if (teachers.at(teacherIndex).id() != teacherId) {
 				break;
 			}
 		}
 		int classId = classTeachers.value(classTeachersRecord.indexOf("id_class")).toInt();
 		int classIndex = 0;
-		while (classes[classIndex].id() != classId) {
+		while (classes[classIndex].id() != classId && classIndex < classes.size() - 1) {
 			++classIndex;
 		}
 		if (classes[classIndex].id() == classId) {
-			result[teacherIndex].classes()->append(classes.at(classIndex));
+			teachers[teacherIndex].classes()->append(classes.at(classIndex));
 		}
 	}
-
-	return result;
 }
 
 QList<Teacher> SchoolDatabasePrivate::teacherListNoJoin() const
@@ -746,7 +799,7 @@ void SchoolDatabasePrivate::synchronizeStudents(const QList< QPointer<StudentDir
 	foreach(QString profileName, databaseStudents) {
 		toAddStudents.removeOne(profileName);
 	}
-	qDebug() << toAddStudents;
+
 	QStringList toDeleteStudents = databaseStudents;
 	foreach(QString profileName, existingStudents) {
 		toDeleteStudents.removeOne(profileName);

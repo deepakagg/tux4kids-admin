@@ -25,12 +25,14 @@ Teacher::Teacher(QString firstName, QString lastName)
 Teacher::Teacher(TeacherPrivate &dd)
 		: d_ptr(&dd)
 {
+	d_ptr->q_ptr = this;
 }
 
 Teacher::Teacher(const Teacher& other)
 		: d_ptr(new TeacherPrivate())
 {
 	*d_ptr = *other.d_ptr;
+	d_ptr->q_ptr = this;
 }
 
 Teacher::~Teacher()
@@ -78,13 +80,9 @@ void Teacher::setId(int id)
 Teacher &Teacher::operator=(const Teacher &other)
 {
 	if (this != &other) {
-		TeacherPrivate *tmp = new TeacherPrivate();
-		*tmp = *d_ptr;
-		tmp->q_ptr = this;
-		delete d_ptr;
-		d_ptr = tmp;
+		*d_ptr = *other.d_ptr;
+		d_ptr->q_ptr = this;
 	}
-
 	return *this;
 }
 

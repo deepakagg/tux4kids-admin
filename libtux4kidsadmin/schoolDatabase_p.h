@@ -38,6 +38,9 @@ public:
 	void synchronizeStudents(const QList< QPointer<StudentDir> > &studentList);
 	QStringList studentList() const;
 	QStringList studentListNoJoin() const;
+	void joinStudentsToClass(QList<Class> &classes) const;
+	void joinTeachersToClass(QList<Class> &classes) const;
+	void joinClassesToTeachers(QList<Teacher> &teachers) const;
 
 	SchoolDatabase *q_ptr;
 
