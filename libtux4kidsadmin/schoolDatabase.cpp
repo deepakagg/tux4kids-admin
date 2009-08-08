@@ -559,15 +559,14 @@ QList<Class> SchoolDatabasePrivate::classList() const
 			if (result.at(classIndex).id() != classId) {
 				break;
 			}
-		} else {
-			int teacherId = classTeachers.value(classTeachersRecord.indexOf("id_teacher")).toInt();
-			int teacherIndex = 0;
-			while (teachers[teacherIndex].id() != teacherId) {
-				++teacherIndex;
-			}
-			if (teachers[teacherIndex].id() == teacherId) {
-				result[classIndex].teachers()->append(teachers.at(teacherIndex));
-			}
+		}
+		int teacherId = classTeachers.value(classTeachersRecord.indexOf("id_teacher")).toInt();
+		int teacherIndex = 0;
+		while (teachers[teacherIndex].id() != teacherId) {
+			++teacherIndex;
+		}
+		if (teachers[teacherIndex].id() == teacherId) {
+			result[classIndex].teachers()->append(teachers.at(teacherIndex));
 		}
 	}
 
@@ -604,16 +603,14 @@ QList<Class> SchoolDatabasePrivate::classList() const
 			if (result.at(classIndex).id() != classId) {
 				break;
 			}
-		} else {
-			int studentId = classStudents.value(classStudentsRecord.indexOf("id_student")).toInt();
+		}
+		int studentId = classStudents.value(classStudentsRecord.indexOf("id_student")).toInt();
 
-			students.seek(-1);
-			while (students.next()) {
-				if (students.value(studentsRecord.indexOf("id")).toInt()
-					== studentId) {
-					result[classIndex].students()->append(
-				students.value(studentsRecord.indexOf("profile_name")).toString());
-				}
+		students.seek(-1);
+		while (students.next()) {
+			if (students.value(studentsRecord.indexOf("id")).toInt()
+				== studentId) {
+				result[classIndex].students()->append(students.value(studentsRecord.indexOf("profile_name")).toString());
 			}
 		}
 	}
@@ -690,16 +687,14 @@ QList<Teacher> SchoolDatabasePrivate::teacherList() const
 			if (result.at(teacherIndex).id() != teacherId) {
 				break;
 			}
-		} else {
-
-			int classId = classTeachers.value(classTeachersRecord.indexOf("id_class")).toInt();
-			int classIndex = 0;
-			while (classes[classIndex].id() != classId) {
-				++classIndex;
-			}
-			if (classes[classIndex].id() == classId) {
-				result[teacherIndex].classes()->append(classes.at(classIndex));
-			}
+		}
+		int classId = classTeachers.value(classTeachersRecord.indexOf("id_class")).toInt();
+		int classIndex = 0;
+		while (classes[classIndex].id() != classId) {
+			++classIndex;
+		}
+		if (classes[classIndex].id() == classId) {
+			result[teacherIndex].classes()->append(classes.at(classIndex));
 		}
 	}
 
