@@ -1,5 +1,8 @@
 #include "classTableModel.h"
 #include "schoolDatabase.h"
+#include "teacher.h"
+
+#include <QDebug>
 
 ClassTableModel::ClassTableModel(QObject *parent)
 		: QAbstractTableModel(parent)
@@ -94,6 +97,10 @@ void ClassTableModel::setSchoolDatabase(SchoolDatabase *schoolDatabase)
 	connect(m_schoolDatabase, SIGNAL(classAdded(Class &)), this, SLOT(addClass(Class &)));
 	connect(m_schoolDatabase, SIGNAL(classUpdated(Class &)), this, SLOT(updateClass(Class &)));
 	connect(m_schoolDatabase, SIGNAL(classDeleted(Class &)), this, SLOT(deleteClass(Class &)));
+	connect(m_schoolDatabase, SIGNAL(teacherAdded(Teacher &)), this, SLOT(addTeacher(Teacher &)));
+	connect(m_schoolDatabase, SIGNAL(teacherUpdated(Teacher &)), this, SLOT(updateTeacher(Teacher &)));
+	connect(m_schoolDatabase, SIGNAL(teacherDeleted(Teacher &)), this, SLOT(deleteTeacher(Teacher &)));
+
 
 	reset();
 }
@@ -160,5 +167,31 @@ void ClassTableModel::clearSelection()
 Class &ClassTableModel::at(int i)
 {
 	return m_classes[i];
+}
+
+void ClassTableModel::addTeacher(Teacher &teacher)
+{
+	for (int i = 0; i < m_classes.size(); ++i) {
+		if (teacher.classes()->contains(m_classes.at(i))) {
+			m_classes[i].teachers()->append(teacher);
+		}
+	}
+}
+
+void ClassTableModel::updateTeacher(Teacher &teacher)
+{
+	for (int i = 0; i < m_classes.size(); ++i) {
+		m_classes[i].teachers()->removeOne(teacher);
+		if (teacher.classes()->contains(m_classes.at(i))) {
+			m_classes[i].teachers()->append(teacher);
+		}
+	}
+}
+
+void ClassTableModel::deleteTeacher(Teacher &teacher)
+{
+	for (int i = 0; i < m_classes.size(); ++i) {
+		m_classes[i].teachers()->removeOne(teacher);
+	}
 }
 

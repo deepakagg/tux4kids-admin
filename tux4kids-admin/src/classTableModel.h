@@ -39,6 +39,10 @@ private slots:
 	void addClass(Class & newClass);
 	void updateClass(Class &updatedClass);
 	void deleteClass(Class &deletedClass);
+	void addTeacher(Teacher &teacher);
+	void updateTeacher(Teacher &teacher);
+	void deleteTeacher(Teacher &teacher);
+
 };
 
 #endif // CLASSTABLEMODEL_H
