@@ -1,10 +1,14 @@
 #include <QDebug>
 
 #include "tuxmathPlugin.h"
+#include "tuxmathOptions.h"
+
 
 TuxmathPlugin::TuxmathPlugin(QObject *parent) : QObject(parent)
 {
 	qDebug() << "tux math plugin constructed";
+	TuxmathOptions *tmp = new TuxmathOptions("/home/swistak/options");
+
 }
 
 TuxmathPlugin::~TuxmathPlugin()
