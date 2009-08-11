@@ -9,8 +9,10 @@
 ProfileDirPrivate::ProfileDirPrivate(QString path)
 		: status(ProfileDir::NoError)
 {
+	qDebug() << "PD" << path;
 	mainDir.setPath(path);
 	if (!mainDir.exists()) {
+		qDebug() << "nie istnieje";
 		if (!QDir::root().mkpath(path)) {
 			status = ProfileDir::InitializationError;
 			return;
@@ -22,7 +24,11 @@ ProfileDirPrivate::ProfileDirPrivate(QString path)
 		status = ProfileDir::InitializationError;
 		return;
 	}*/
-	dataDir = QDir(mainDir.absolutePath() + "/data");
+	if (!mainDir.mkdir("data")) {
+		status = ProfileDir::InitializationError;
+		return;
+	}
+	dataDir = QDir(mainDir.absoluteFilePath("data"));
 
 	attributes = new QSettings(mainDir.absolutePath() + "/attributes.ini", QSettings::IniFormat);
 	if (attributes->status() != QSettings::NoError) {

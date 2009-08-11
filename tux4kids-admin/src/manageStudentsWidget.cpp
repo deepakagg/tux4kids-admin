@@ -57,7 +57,9 @@ void ManageStudentsWidget::addStudent()
 	StudentDir *studentDir = m_mainController->schoolData()->addStudent();
 	studentDir->setFirstName(m_addStudentDialog->firstName());
 	studentDir->setLastName(m_addStudentDialog->lastName());
-
+	foreach (QString profileType, m_addStudentDialog->checkedApplicationNames()) {
+		studentDir->addProfileDir(profileType);
+	}
 }
 
 void ManageStudentsWidget::setEditButtons()

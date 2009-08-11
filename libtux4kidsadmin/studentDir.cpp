@@ -117,7 +117,7 @@ ProfileDir *StudentDir::addProfileDir(QString profileType)
 {
 	Q_D(StudentDir);
 
-	ProfileDir *tmp = ProfileDirFactory::instance().create(profileType, profileType, this);
+	ProfileDir *tmp = ProfileDirFactory::instance().create(profileType, d->mainDir.absoluteFilePath(profileType), this);
 	if (tmp != 0) {
 		d->profiles.append(tmp);
 		return tmp;

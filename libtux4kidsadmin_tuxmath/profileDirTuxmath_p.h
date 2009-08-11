@@ -3,6 +3,8 @@
 
 #include "profileDir_p.h"
 
+class TuxmathOptions;
+
 class ProfileDirTuxmathPrivate : public ProfileDirPrivate
 {
 public:
@@ -10,6 +12,8 @@ public:
 
 	ProfileDirTuxmathPrivate(QString path);
 	virtual ~ProfileDirTuxmathPrivate();
+
+	TuxmathOptions *tuxmathOptions;
 };
 
 #endif // PROFILEDIRTUXMATHPRIVATE_H

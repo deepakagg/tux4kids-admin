@@ -1,5 +1,6 @@
 #include "profileDirTuxmath.h"
 #include "profileDirTuxmath_p.h"
+#include "tuxmathOptions.h"
 
 #include <QString>
 #include <QDebug>
@@ -9,7 +10,11 @@
 ProfileDirTuxmathPrivate::ProfileDirTuxmathPrivate(QString path)
 		: ProfileDirPrivate(path)
 {
+	if (status != ProfileDir::NoError) {
+		return;
+	}
 	attributes->setValue("profile_type", "tuxmath");
+	tuxmathOptions = new TuxmathOptions(dataDir.absoluteFilePath("options"));
 }
 
 ProfileDirTuxmathPrivate::~ProfileDirTuxmathPrivate()
