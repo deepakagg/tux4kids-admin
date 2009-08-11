@@ -19,7 +19,7 @@ public:
 	void setSubstractionAllowed(bool allow);
 
 protected:
-	TuxmathOptionsPrivate *d_ptr;
+	TuxmathOptionsPrivate * const d_ptr;
 	TuxmathOptions(TuxmathOptionsPrivate &dd);
 
 private:

@@ -28,7 +28,7 @@ public:
 	StudentDir::Status status;
 	QSettings *attributes;
 	QDir mainDir;
-	QList< QPointer<ProfileDir> > profiles;
+	QList<ProfileDir *> profiles;
 	QList<Class> classes;
 };
 

@@ -22,9 +22,11 @@ ProfileDirPrivate::ProfileDirPrivate(QString path)
 		status = ProfileDir::InitializationError;
 		return;
 	}*/
-	if (!mainDir.mkdir("data")) {
-		status = ProfileDir::InitializationError;
-		return;
+	if (!mainDir.exists("data")) {
+		if (!mainDir.mkdir("data")) {
+			status = ProfileDir::InitializationError;
+			return;
+		}
 	}
 	dataDir = QDir(mainDir.absoluteFilePath("data"));
 
@@ -54,6 +56,7 @@ ProfileDir::ProfileDir(QString path, QObject *parent) :
 ProfileDir::ProfileDir(ProfileDirPrivate &dd, QObject *parent)
 		: QObject(parent), d_ptr(&dd)
 {
+	d_ptr->q_ptr = this;
 }
 
 ProfileDir::~ProfileDir()
@@ -70,7 +73,7 @@ ProfileDir::Status ProfileDir::status() const
 
 QString ProfileDir::profileType(QString path)
 {
-	QSettings tmp(path + "/attributes.ini");
+	QSettings tmp(path + "/attributes.ini", QSettings::IniFormat);
 	return tmp.value("profile_type", "unknown").toString();
 }
 

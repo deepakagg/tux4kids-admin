@@ -25,6 +25,8 @@ StudentDirPrivate::StudentDirPrivate(QString path) :
 		status = StudentDir::InitializationError;
 		return;
 	}
+
+	loadProfileDirs();
 }
 
 StudentDirPrivate::~StudentDirPrivate()
@@ -41,7 +43,8 @@ void StudentDirPrivate::loadProfileDirs()
 
 		QString path = mainDir.filePath(dirName);
 		QString profileType = ProfileDir::profileType(path);
-		profiles.append(ProfileDirFactory::instance().create(profileType, path, q));
+		qDebug() << path << profileType;
+		profiles.append(ProfileDirFactory::instance().create(profileType, path, 0));
 	}
 }
 
@@ -136,6 +139,12 @@ QList<Class> *StudentDir::classes()
 {
 	Q_D(StudentDir);
 	return &d->classes;
+}
+
+QList<ProfileDir *> StudentDir::profiles()
+{
+	Q_D(StudentDir);
+	return d->profiles;
 }
 
 /*void StudentDir::setClasses(const QList<Class> &classes)

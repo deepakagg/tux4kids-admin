@@ -23,6 +23,7 @@ public:
 	Qt::ItemFlags flags(const QModelIndex &index) const;
 	bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
 	QStringList selectedStudentsDirNames() const;
+	QList<StudentDir *> selectedStudents() const;
 	void setSelectedStudents(const QStringList &selectedStudentsDirNames);
 	void clearSelection();
 

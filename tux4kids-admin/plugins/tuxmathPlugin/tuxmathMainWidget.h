@@ -25,6 +25,9 @@ private:
 	StudentTableModel m_studentTableModel;
 	QPointer<SelectStudentWidget> m_selectStudentWidget;
 
+private slots:
+	void setOptionsClicked();
+
 };
 
 #endif // TUXMATHMAINWIDGET_H

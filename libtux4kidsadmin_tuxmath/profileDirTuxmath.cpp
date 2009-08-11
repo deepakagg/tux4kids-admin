@@ -36,3 +36,9 @@ ProfileDirTuxmath::ProfileDirTuxmath(ProfileDirTuxmathPrivate &dd, QObject *pare
 ProfileDirTuxmath::~ProfileDirTuxmath()
 {
 }
+
+TuxmathOptions *ProfileDirTuxmath::tuxmathOptions()
+{
+	Q_D(ProfileDirTuxmath);
+	return d->tuxmathOptions;
+}

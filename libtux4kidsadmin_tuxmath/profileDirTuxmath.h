@@ -5,6 +5,7 @@
 #include "libtux4kidsadmin_tuxmath_global.h"
 
 class ProfileDirTuxmathPrivate;
+class TuxmathOptions;
 
 class LIBTUX4KIDSADMIN_TUXMATH_SHARED_EXPORT ProfileDirTuxmath : public ProfileDir
 {
@@ -12,6 +13,9 @@ class LIBTUX4KIDSADMIN_TUXMATH_SHARED_EXPORT ProfileDirTuxmath : public ProfileD
 public:
 	ProfileDirTuxmath(QString path, QObject *parent = 0);
 	~ProfileDirTuxmath();
+
+	TuxmathOptions *tuxmathOptions();
+
 protected:
 	ProfileDirTuxmath(ProfileDirTuxmathPrivate &dd, QObject *parent);
 

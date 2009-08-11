@@ -21,7 +21,6 @@ MainWindow::MainWindow(MainController *mainController, QWidget *parent) : QMainW
 	foreach (QPluginLoader *pluginLoader, m_mainController->pluginManager()->plugins()) {
 		PluginInterface *plugin = qobject_cast<PluginInterface *>(pluginLoader->instance());
 		if (plugin != 0) {
-			qDebug() << "AAA" << plugin->name();
 			QWidget *widget = plugin->mainWidget();
 			if (widget != 0) {
 				m_ui->tabWidget->insertTab(3, widget, plugin->name());

@@ -32,6 +32,7 @@ public:
 	void addProfileDir(ProfileDir *profileDir);
 	ProfileDir *addProfileDir(QString profileType);
 	QList<Class> *classes();
+	QList<ProfileDir *> profiles();
 	//void setClasses(const QList<Class>& classes);
 
 protected:

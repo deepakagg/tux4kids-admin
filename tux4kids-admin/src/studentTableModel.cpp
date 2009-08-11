@@ -131,6 +131,17 @@ QStringList StudentTableModel::selectedStudentsDirNames() const
 	return result;
 }
 
+QList<StudentDir *> StudentTableModel::selectedStudents() const
+{
+	QList<StudentDir *> result;
+	for(int i = 0; i < m_studentsSelection.size(); i++) {
+		if (m_studentsSelection.at(i)) {
+			result.append(m_students.at(i));
+		}
+	}
+	return result;
+}
+
 void StudentTableModel::setSelectedStudents(const QStringList &selectedStudentsDirNames)
 {
 	for (int i = 0; i < m_students.size(); ++i) {

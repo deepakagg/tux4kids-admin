@@ -33,8 +33,10 @@ void TuxmathOptionsPrivate::loadFile()
 		if (!line.startsWith("#") && !line.isEmpty()) {
 			line = line.simplified();
 			QStringList fields = line.split("=", QString::SkipEmptyParts);
-			fields[0] = fields[0].simplified();
-			linePos[fields[0]] = lines.size();
+			if (fields.size() == 2) {
+				fields[0] = fields[0].simplified();
+				linePos[fields[0]] = lines.size();
+			}
 			//qDebug() << "found" << fields[0] << fields[1];
 		}
 		lines.append(line);

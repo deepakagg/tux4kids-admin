@@ -10,14 +10,17 @@ ADD_DEFINITIONS(-Wall -DQT_PLUGIN -DQT_SHARED)
 
 SET(TUXMATH_PLUGIN_MOC_HEADERS 
 	tuxmathPlugin.h
-	tuxmathMainWidget.h )
+	tuxmathMainWidget.h
+	editTuxmathOptions.h )
 
 SET(TUXMATH_PLUGIN_SOURCES 
 	tuxmathPlugin.cpp 
-	tuxmathMainWidget.cpp )
+	tuxmathMainWidget.cpp
+	editTuxmathOptions.cpp )
 
 SET(TUXMATH_PLUGIN_UIS 
-	tuxmathMainWidget.ui )
+	tuxmathMainWidget.ui
+	editTuxmathOptions.ui )
 
 FIND_PACKAGE( Qt4 REQUIRED )
 INCLUDE( ${QT_USE_FILE} )
