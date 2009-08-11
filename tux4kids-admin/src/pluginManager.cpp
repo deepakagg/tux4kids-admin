@@ -100,3 +100,8 @@ QStringList PluginManager::loadedPluginNames() const
 	return result;
 }
 
+QList<QPluginLoader *> PluginManager::plugins()
+{
+	return m_plugins;
+}
+

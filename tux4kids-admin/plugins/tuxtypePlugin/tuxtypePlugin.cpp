@@ -24,7 +24,12 @@ QString TuxtypePlugin::version() const
 
 QWidget *TuxtypePlugin::mainWidget()
 {
-	return m_mainWidget;
+	return 0;
+}
+
+void TuxtypePlugin::setSchoolData(SchoolData *schoolData)
+{
+	m_schoolData = schoolData;
 }
 
 Q_EXPORT_PLUGIN2(TuxtypePlugin, TuxtypePlugin);

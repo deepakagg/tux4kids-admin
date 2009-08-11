@@ -20,7 +20,12 @@ QString DummyPlugin::version() const
 
 QWidget *DummyPlugin::mainWidget()
 {
-	return m_mainWidget;
+	return 0;
+}
+
+void DummyPlugin::setSchoolData(SchoolData *schoolData)
+{
+	m_schoolData = schoolData;
 }
 
 Q_EXPORT_PLUGIN2(DummyPlugin, DummyPlugin);

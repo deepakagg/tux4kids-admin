@@ -3,12 +3,13 @@
 #include "tuxmathPlugin.h"
 #include "tuxmathOptions.h"
 
+#include "schoolData.h"
+#include "tuxmathMainWidget.h"
+
 
 TuxmathPlugin::TuxmathPlugin(QObject *parent) : QObject(parent)
 {
 	qDebug() << "tux math plugin constructed";
-	TuxmathOptions *tmp = new TuxmathOptions("/home/swistak/options");
-
 }
 
 TuxmathPlugin::~TuxmathPlugin()
@@ -28,7 +29,12 @@ QString TuxmathPlugin::version() const
 
 QWidget *TuxmathPlugin::mainWidget()
 {
-	return m_mainWidget;
+	return (new TuxmathMainWidget(m_schoolData));
+}
+
+void TuxmathPlugin::setSchoolData(SchoolData *schoolData)
+{
+	m_schoolData = schoolData;
 }
 
 Q_EXPORT_PLUGIN2(TuxmathPlugin, TuxmathPlugin);

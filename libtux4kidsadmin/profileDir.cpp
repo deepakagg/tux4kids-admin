@@ -9,10 +9,8 @@
 ProfileDirPrivate::ProfileDirPrivate(QString path)
 		: status(ProfileDir::NoError)
 {
-	qDebug() << "PD" << path;
 	mainDir.setPath(path);
 	if (!mainDir.exists()) {
-		qDebug() << "nie istnieje";
 		if (!QDir::root().mkpath(path)) {
 			status = ProfileDir::InitializationError;
 			return;

@@ -24,6 +24,7 @@ public:
 	bool unload(int pluginIndex);
 	QPluginLoader &operator[](int i);
 	QStringList loadedPluginNames() const;
+	QList<QPluginLoader *> plugins();
 
 private:
 	QString m_pluginsPath;

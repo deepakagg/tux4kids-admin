@@ -20,6 +20,13 @@ MainController::MainController(QObject *parent)
 	m_studentTableModel.setSchoolData(m_schoolData);
 	m_classTableModel.setSchoolDatabase(m_schoolData->schoolDatabase());
 	m_teacherTableModel.setSchoolDatabase(m_schoolData->schoolDatabase());
+
+	foreach (QPluginLoader *pluginLoader, m_pluginManager.plugins()) {
+		PluginInterface *plugin = qobject_cast<PluginInterface *>(pluginLoader->instance());
+		if (plugin != 0) {
+			plugin->setSchoolData(m_schoolData);
+		}
+	}
 }
 
 MainController::~MainController()

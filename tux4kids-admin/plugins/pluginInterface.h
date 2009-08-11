@@ -4,7 +4,8 @@
 #include <QString>
 #include <QtPlugin>
 
-class ProfileDir;
+//class ProfileDir;
+class SchoolData;
 
 class PluginInterface
 {
@@ -15,12 +16,14 @@ public:
 	virtual QString version() const = 0;
 
 //	virtual ProfileDir *newProfileDir(QString path) const = 0;
+	virtual void setSchoolData(SchoolData *schoolData) = 0;
 
 	virtual QWidget *mainWidget() = 0;
 
 protected:
 
-	QWidget *m_mainWidget;
+	SchoolData *m_schoolData;
+
 };
 
 Q_DECLARE_INTERFACE(PluginInterface, "org.Tux4Kids.Tux4KidsPluginInterface/0.0.2");

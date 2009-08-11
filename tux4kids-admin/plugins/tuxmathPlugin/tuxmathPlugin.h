@@ -5,6 +5,8 @@
 
 #include "pluginInterface.h"
 
+class SchoolData;
+
 class TuxmathPlugin : public QObject, PluginInterface
 {
 	Q_OBJECT
@@ -17,7 +19,7 @@ public:
 	QString name() const;
 	QString version() const;
 	QWidget *mainWidget();
-
+	void setSchoolData(SchoolData *schoolData);
 };
 
 #endif
