@@ -1,6 +1,7 @@
 #include <QDebug>
 
 #include "tuxtypePlugin.h"
+#include "tuxtypeMainWidget.h"
 
 TuxtypePlugin::TuxtypePlugin(QObject *parent) : QObject(parent)
 {
@@ -24,7 +25,7 @@ QString TuxtypePlugin::version() const
 
 QWidget *TuxtypePlugin::mainWidget()
 {
-	return 0;
+	return new TuxtypeMainWidget(m_schoolData);
 }
 
 void TuxtypePlugin::setSchoolData(SchoolData *schoolData)

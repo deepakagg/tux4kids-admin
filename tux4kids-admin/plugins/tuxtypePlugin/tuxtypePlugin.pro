@@ -2,7 +2,8 @@ TEMPLATE = lib
 CONFIG += plugin
 INCLUDEPATH += ../ \
 	       ../../../libtux4kidsadmin \
-	       ../../../libtux4kidsadmin_tuxtype
+	       ../../../libtux4kidsadmin_tuxtype \
+	       ../../src
 HEADERS = tuxtypePlugin.h \
     tuxtypeMainWidget.h
 SOURCES = tuxtypePlugin.cpp \
