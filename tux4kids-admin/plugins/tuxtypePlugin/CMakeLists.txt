@@ -10,14 +10,17 @@ ADD_DEFINITIONS(-Wall -DQT_PLUGIN -DQT_SHARED)
 
 SET(TUXTYPE_PLUGIN_MOC_HEADERS 
 	tuxtypePlugin.h
-	tuxtypeMainWidget.h )
+	tuxtypeMainWidget.h
+	editWordListDialog.h )
 
 SET(TUXTYPE_PLUGIN_SOURCES 
 	tuxtypePlugin.cpp 
-	tuxtypeMainWidget.cpp )
+	tuxtypeMainWidget.cpp
+	editWordListDialog.cpp )
 
 SET(TUXTYPE_PLUGIN_UIS 
-	tuxtypeMainWidget.ui )
+	tuxtypeMainWidget.ui
+	editWordListDialog.ui )
 
 FIND_PACKAGE( Qt4 REQUIRED )
 INCLUDE( ${QT_USE_FILE} )

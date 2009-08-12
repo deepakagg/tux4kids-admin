@@ -2,6 +2,7 @@
 #include "ui_tuxtypeMainWidget.h"
 #include "studentTableModel.h"
 #include "selectStudentWidget.h"
+#include "editWordListDialog.h"
 
 TuxtypeMainWidget::TuxtypeMainWidget(SchoolData *schoolData, QWidget *parent) :
 		QWidget(parent),
@@ -24,5 +25,7 @@ TuxtypeMainWidget::~TuxtypeMainWidget()
 
 void TuxtypeMainWidget::setWordListClicked()
 {
+	EditWordListDialog editWordList;
+	editWordList.exec();
 }
 
