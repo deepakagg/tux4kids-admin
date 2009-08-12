@@ -30,6 +30,7 @@ private:
 private slots:
 	void searchEdited();
 	void updateFilter();
+	void filterKeyColumnChanged(int index);
 
 };
 

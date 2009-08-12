@@ -189,3 +189,8 @@ void StudentTableModel::deleteClass(Class &deletedClass)
 	}
 }
 
+StudentDir *StudentTableModel::studentAt(int i)
+{
+	return m_students.at(i);
+}
+

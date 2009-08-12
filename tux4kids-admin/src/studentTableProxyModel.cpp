@@ -1,6 +1,9 @@
 #include "studentTableProxyModel.h"
 #include "studentTableModel.h"
 #include "studentDir.h"
+#include "class.h"
+
+#include <QList>
 
 StudentTableProxyModel::StudentTableProxyModel(QObject *parent)
 		: QSortFilterProxyModel(parent)
@@ -25,11 +28,33 @@ bool StudentTableProxyModel::lessThan(const QModelIndex &left, const QModelIndex
 
 bool StudentTableProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
 {
-	QModelIndex indexFirstName = sourceModel()->index(sourceRow, StudentTableModel::StudentFirstName, sourceParent);
-	QModelIndex indexLastName = sourceModel()->index(sourceRow, StudentTableModel::StudentLastName, sourceParent);
+	StudentTableModel *tableModel =
+			qobject_cast<StudentTableModel *>(sourceModel());
+	if (tableModel == 0) {
+		return true;
+	}
+	StudentDir *student = tableModel->studentAt(sourceRow);
 
-	return sourceModel()->data(indexFirstName).toString().contains(filterRegExp())
-			|| sourceModel()->data(indexLastName).toString().contains(filterRegExp());
+	if (filterKeyColumn() == Everything) {
+		foreach (Class c, *student->classes()) {
+			if (c.name().contains(filterRegExp())) {
+				return true;
+			}
+		}
+		return student->firstName().contains(filterRegExp())
+			|| student->lastName().contains(filterRegExp());
+	} else if (filterKeyColumn() == FirstName) {
+		return student->firstName().contains(filterRegExp());
+	} else if (filterKeyColumn() == LastName) {
+		return student->lastName().contains(filterRegExp());
+	} else if (filterKeyColumn() == ClassName) {
+		foreach (Class c, *student->classes()) {
+			if (c.name().contains(filterRegExp())) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }
 

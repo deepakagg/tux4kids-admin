@@ -28,6 +28,9 @@
        <item>
         <widget class="QLineEdit" name="searchEdit"/>
        </item>
+       <item>
+        <widget class="QComboBox" name="filterKeyCombo"/>
+       </item>
       </layout>
      </item>
      <item>

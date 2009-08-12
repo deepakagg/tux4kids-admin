@@ -26,6 +26,7 @@ public:
 	QList<StudentDir *> selectedStudents() const;
 	void setSelectedStudents(const QStringList &selectedStudentsDirNames);
 	void clearSelection();
+	StudentDir *studentAt(int i);
 
 	void setSchoolData(SchoolData *schoolData);
 
