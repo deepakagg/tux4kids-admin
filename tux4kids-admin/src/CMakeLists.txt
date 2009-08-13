@@ -7,6 +7,8 @@ SET(TUX4KIDS-ADMIN_SOURCES
 	main.cpp
 	mainWindow.cpp
 	mainController.cpp
+	applicationInfo.cpp
+	errorLog.cpp
 	pluginManager.cpp 
 	pluginManagerDialog.cpp 
 	manageStudentsWidget.cpp

@@ -45,7 +45,6 @@ void ErrorLog::log(const QString &message, const QString &userMessage)
 {
 	instance = ErrorLog::Instance();
 
-	//qDebug() << message << " message for user: " << userMessage;
 	if (!userMessage.isEmpty()) {
 		QMessageBox *msgBox = new QMessageBox(QMessageBox::Warning, "Tux4kids-admin", userMessage, QMessageBox::Ok);
 		msgBox->setAttribute(Qt::WA_DeleteOnClose, true);
@@ -56,7 +55,7 @@ void ErrorLog::log(const QString &message, const QString &userMessage)
 		qDebug() << QObject::tr("Failed to open log file for writing");
 	} else {
 		QDataStream out(instance->logFile);
-		out << message;
+		out << message << "\n";
 		instance->logFile->close();
 	}
 }

@@ -5,6 +5,7 @@
 #include "schoolData.h"
 #include "schoolDatabase.h"
 #include "selectClassWidget.h"
+#include "errorLog.h"
 
 #include <QDebug>
 #include <QTableView>
@@ -67,15 +68,17 @@ void ManageClassesWidget::deleteClicked()
 {
 	QModelIndex classIndex = m_selectClassWidget->selectedClassIndex();
 	m_schoolDatabase->deleteClass(m_mainController->classTableModel()->at(classIndex.row()));
+	if (m_schoolDatabase->error()) {
+		ErrorLog::log(m_schoolDatabase->lastError(), tr("Error occured during deleting class. \n %1").arg(m_schoolDatabase->lastError()));
+	}
 }
 
 void ManageClassesWidget::addAccepted()
 {
-	qDebug() << "add accepted";
 	Class newClass = m_addClassDialog->getClass();
 	m_schoolDatabase->addClass(newClass);
 	if (m_schoolDatabase->error()) {
-		qDebug() << m_schoolDatabase->lastError();
+		ErrorLog::log(m_schoolDatabase->lastError(), tr("Error occured during adding class. \n %1").arg(m_schoolDatabase->lastError()));
 	}
 }
 
@@ -86,9 +89,11 @@ void ManageClassesWidget::addRejected()
 
 void ManageClassesWidget::editAccepted()
 {
-	qDebug() << "edit accepted";
 	Class editedClass = m_editClassDialog->getClass();
 	m_schoolDatabase->updateClass(editedClass);
+	if (m_schoolDatabase->error()) {
+		ErrorLog::log(m_schoolDatabase->lastError(), tr("Error occured during editing class. \n %1").arg(m_schoolDatabase->lastError()));
+	}
 }
 
 void ManageClassesWidget::editRejected()

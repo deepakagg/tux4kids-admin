@@ -108,7 +108,6 @@ void SchoolDatabasePrivate::createTriggers()
 	if (!createTrigger1.isActive()) {
 		error = true;
 		lastError = createTrigger1.lastError().text();
-		qDebug() << 1 << lastError;
 		return;
 	}
 
@@ -121,7 +120,6 @@ void SchoolDatabasePrivate::createTriggers()
 	if (!createTrigger2.isActive()) {
 		error = true;
 		lastError = createTrigger2.lastError().text();
-		qDebug() << 2 << lastError;
 		return;
 	}
 
@@ -133,7 +131,6 @@ void SchoolDatabasePrivate::createTriggers()
 	if (!createTrigger3.isActive()) {
 		error = true;
 		lastError = createTrigger3.lastError().text();
-		qDebug() << 3 << lastError;
 		return;
 	}
 
@@ -146,7 +143,6 @@ void SchoolDatabasePrivate::createTriggers()
 	if (!createTrigger4.isActive()) {
 		error = true;
 		lastError = createTrigger4.lastError().text();
-		qDebug() << 4 << lastError;
 		return;
 	}
 
@@ -159,7 +155,6 @@ void SchoolDatabasePrivate::createTriggers()
 	if (!createTrigger5.isActive()) {
 		error = true;
 		lastError = createTrigger5.lastError().text();
-		qDebug() << 5 << lastError;
 		return;
 	}
 
@@ -171,7 +166,6 @@ void SchoolDatabasePrivate::createTriggers()
 	if (!createTrigger6.isActive()) {
 		error = true;
 		lastError = createTrigger6.lastError().text();
-		qDebug() << 6 << lastError;
 		return;
 	}
 

@@ -43,7 +43,6 @@ void StudentDirPrivate::loadProfileDirs()
 
 		QString path = mainDir.filePath(dirName);
 		QString profileType = ProfileDir::profileType(path);
-		qDebug() << path << profileType;
 		profiles.append(ProfileDirFactory::instance().create(profileType, path, 0));
 	}
 }

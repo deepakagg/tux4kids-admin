@@ -4,6 +4,7 @@
 #include "editTeacherDialog.h"
 #include "selectTeacherWidget.h"
 #include "schoolData.h"
+#include "errorLog.h"
 
 #include <QDebug>
 #include <QTableView>
@@ -66,13 +67,18 @@ void ManageTeachersWidget::deleteClicked()
 {
 	QModelIndex teacherIndex = m_selectTeacherWidget->selectedTeacherIndex();
 	m_schoolDatabase->deleteTeacher(m_mainController->teacherTableModel()->at(teacherIndex.row()));
+	if (m_schoolDatabase->error()) {
+		ErrorLog::log(m_schoolDatabase->lastError(), tr("Error occured during deleting teacher. \n %1").arg(m_schoolDatabase->lastError()));
+	}
 }
 
 void ManageTeachersWidget::addAccepted()
 {
-	qDebug() << "add accepted";
 	Teacher addedTeacher = m_addTeacherDialog->teacher();
 	m_schoolDatabase->addTeacher(addedTeacher);
+	if (m_schoolDatabase->error()) {
+		ErrorLog::log(m_schoolDatabase->lastError(), tr("Error occured during adding teacher. \n %1").arg(m_schoolDatabase->lastError()));
+	}
 }
 
 void ManageTeachersWidget::addRejected()
@@ -82,9 +88,11 @@ void ManageTeachersWidget::addRejected()
 
 void ManageTeachersWidget::editAccepted()
 {
-	qDebug() << "edit accepted";
 	Teacher updatedTeacher = m_editTeacherDialog->teacher();
 	m_schoolDatabase->updateTeacher(updatedTeacher);
+	if (m_schoolDatabase->error()) {
+		ErrorLog::log(m_schoolDatabase->lastError(), tr("Error occured during editing teacher. \n %1").arg(m_schoolDatabase->lastError()));
+	}
 }
 
 void ManageTeachersWidget::editRejected()
