@@ -83,90 +83,103 @@ void SchoolDatabasePrivate::createTriggers()
 		return;
 	}
 
-	QSqlQuery createTrigger1("DROP TRIGGER fki_class_teachers_id_class_classes_id;"
-				 "CREATE TRIGGER fki_class_teachers_id_class_classes_id"
-				 "BEFORE INSERT ON [class_teachers]"
-				 "FOR EACH ROW BEGIN"
-				 "SELECT RAISE(ROLLBACK, \'insert on table"
-				 "class_teachers\" violates foreign key constraint"
-				 "fki_class_teachers_id_class_classes_id\"')"
-	"WHERE NEW.id_class IS NOT NULL AND (SELECT id FROM classes WHERE id = NEW.id_class) IS NULL;" \
+	QSqlQuery dropTriggers("DROP TRIGGER fki_class_teachers_id_class_classes_id; "
+	"DROP TRIGGER fku_class_teachers_id_class_classes_id; "
+	"DROP TRIGGER fkdc_class_teachers_id_class_classes_id; "
+	"DROP TRIGGER fki_class_teachers_id_teacher_teachers_id; "
+	"DROP TRIGGER fku_class_teachers_id_teacher_teachers_id; "
+	"DROP TRIGGER fkdc_class_teachers_id_teacher_teachers_id; "
+	"DROP TRIGGER fki_class_students_id_class_classes_id; "
+	"DROP TRIGGER fku_class_students_id_class_classes_id; "
+	"DROP TRIGGER fkdc_class_students_id_class_classes_id; "
+	"DROP TRIGGER fki_class_students_id_student_students_id; "
+	"DROP TRIGGER	fku_class_students_id_student_students_id; "
+	"DROP TRIGGER fkdc_class_students_id_student_students_id; "
+	, db);
+
+	QSqlQuery createTrigger1("CREATE TRIGGER fki_class_teachers_id_class_classes_id "
+				 "BEFORE INSERT ON [class_teachers] "
+				 "FOR EACH ROW BEGIN "
+				 "SELECT RAISE(ROLLBACK, \'insert on table "
+				 "class_teachers\" violates foreign key constraint "
+				 "fki_class_teachers_id_class_classes_id\"') "
+	"WHERE NEW.id_class IS NOT NULL AND (SELECT id FROM classes WHERE id = NEW.id_class) IS NULL; " \
 		"END;", db);
 	if (!createTrigger1.isActive()) {
 		error = true;
 		lastError = createTrigger1.lastError().text();
+		qDebug() << 1 << lastError;
 		return;
 	}
 
-	QSqlQuery createTrigger2("DROP TRIGGER fku_class_teachers_id_class_classes_id;"
-				"CREATE TRIGGER fku_class_teachers_id_class_classes_id"
-				"BEFORE UPDATE ON [class_teachers]"
-				"FOR EACH ROW BEGIN"
-				"SELECT RAISE(ROLLBACK, 'update on table\" class_teachers\" violates foreign key constraint \"fku_class_teachers_id_class_classes_id\"')"
-				"WHERE NEW.id_class IS NOT NULL AND (SELECT id FROM classes WHERE id = NEW.id_class) IS NULL;"
+	QSqlQuery createTrigger2("CREATE TRIGGER fku_class_teachers_id_class_classes_id "
+				"BEFORE UPDATE ON [class_teachers] "
+				"FOR EACH ROW BEGIN "
+				"SELECT RAISE(ROLLBACK, 'update on table\" class_teachers\" violates foreign key constraint \"fku_class_teachers_id_class_classes_id\"') "
+				"WHERE NEW.id_class IS NOT NULL AND (SELECT id FROM classes WHERE id = NEW.id_class) IS NULL; "
 				"END;", db);
 	if (!createTrigger2.isActive()) {
 		error = true;
 		lastError = createTrigger2.lastError().text();
+		qDebug() << 2 << lastError;
 		return;
 	}
 
-	QSqlQuery createTrigger3("DROP TRIGGER fkdc_class_teachers_id_class_classes_id;"
-				"CREATE TRIGGER fkdc_class_teachers_id_class_classes_id"
-				"BEFORE DELETE ON classes"
-				"FOR EACH ROW BEGIN"
-				"DELETE FROM class_teachers WHERE class_teachers.id_class = OLD.id;"
+	QSqlQuery createTrigger3("CREATE TRIGGER fkdc_class_teachers_id_class_classes_id "
+				"BEFORE DELETE ON classes "
+				"FOR EACH ROW BEGIN "
+				"DELETE FROM class_teachers WHERE class_teachers.id_class = OLD.id; "
 				"END;", db);
 	if (!createTrigger3.isActive()) {
 		error = true;
 		lastError = createTrigger3.lastError().text();
+		qDebug() << 3 << lastError;
 		return;
 	}
 
-	QSqlQuery createTrigger4("DROP TRIGGER fki_class_teachers_id_teacher_teachers_id;"
-			"CREATE TRIGGER fki_class_teachers_id_teacher_teachers_id"
-			"BEFORE INSERT ON [class_teachers]"
-			"FOR EACH ROW BEGIN"
-			"SELECT RAISE(ROLLBACK, 'insert on table \"class_teachers\" violates foreign key constraint \"fki_class_teachers_id_teacher_teachers_id\"')"
-			"WHERE NEW.id_teacher IS NOT NULL AND (SELECT id FROM teachers WHERE id = NEW.id_teacher) IS NULL;"
+	QSqlQuery createTrigger4("CREATE TRIGGER fki_class_teachers_id_teacher_teachers_id "
+			"BEFORE INSERT ON [class_teachers] "
+			"FOR EACH ROW BEGIN "
+			"SELECT RAISE(ROLLBACK, 'insert on table \"class_teachers\" violates foreign key constraint \"fki_class_teachers_id_teacher_teachers_id\"') "
+			"WHERE NEW.id_teacher IS NOT NULL AND (SELECT id FROM teachers WHERE id = NEW.id_teacher) IS NULL; "
 			"END;", db);
 	if (!createTrigger4.isActive()) {
 		error = true;
 		lastError = createTrigger4.lastError().text();
+		qDebug() << 4 << lastError;
 		return;
 	}
 
-	QSqlQuery createTrigger5("DROP TRIGGER fku_class_teachers_id_teacher_teachers_id;"
-			"CREATE TRIGGER fku_class_teachers_id_teacher_teachers_id"
-			"BEFORE UPDATE ON [class_teachers]"
-			"FOR EACH ROW BEGIN"
-			"SELECT RAISE(ROLLBACK, 'update on table \"class_teachers\" violates foreign key constraint \"fku_class_teachers_id_teacher_teachers_id\"')"
-			"WHERE NEW.id_teacher IS NOT NULL AND (SELECT id FROM teachers WHERE id = NEW.id_teacher) IS NULL;"
+	QSqlQuery createTrigger5("CREATE TRIGGER fku_class_teachers_id_teacher_teachers_id "
+			"BEFORE UPDATE ON [class_teachers] "
+			"FOR EACH ROW BEGIN "
+			"SELECT RAISE(ROLLBACK, 'update on table \"class_teachers\" violates foreign key constraint \"fku_class_teachers_id_teacher_teachers_id\"') "
+			"WHERE NEW.id_teacher IS NOT NULL AND (SELECT id FROM teachers WHERE id = NEW.id_teacher) IS NULL; "
 			"END;", db);
 	if (!createTrigger5.isActive()) {
 		error = true;
 		lastError = createTrigger5.lastError().text();
+		qDebug() << 5 << lastError;
 		return;
 	}
 
-	QSqlQuery createTrigger6("DROP TRIGGER fkdc_class_teachers_id_teacher_teachers_id;"
-			"CREATE TRIGGER fkdc_class_teachers_id_teacher_teachers_id"
-			"BEFORE DELETE ON teachers"
-			"FOR EACH ROW BEGIN"
-			"DELETE FROM class_teachers WHERE class_teachers.id_teacher = OLD.id;"
+	QSqlQuery createTrigger6("CREATE TRIGGER fkdc_class_teachers_id_teacher_teachers_id "
+			"BEFORE DELETE ON teachers "
+			"FOR EACH ROW BEGIN "
+			"DELETE FROM class_teachers WHERE class_teachers.id_teacher = OLD.id; "
 			"END;", db);
 	if (!createTrigger6.isActive()) {
 		error = true;
 		lastError = createTrigger6.lastError().text();
+		qDebug() << 6 << lastError;
 		return;
 	}
 
-	QSqlQuery createTrigger7("DROP TRIGGER fki_class_students_id_class_classes_id;"
-			"CREATE TRIGGER fki_class_students_id_class_classes_id"
-			"BEFORE INSERT ON [class_students]"
-			"FOR EACH ROW BEGIN"
-			"SELECT RAISE(ROLLBACK, 'insert on table \"class_students\" violates foreign key" "constraint \"fki_class_students_id_class_classes_id\"')"
-			"WHERE NEW.id_class IS NOT NULL AND (SELECT id FROM classes WHERE id = NEW.id_class) IS NULL;"
+	QSqlQuery createTrigger7("CREATE TRIGGER fki_class_students_id_class_classes_id "
+			"BEFORE INSERT ON [class_students] "
+			"FOR EACH ROW BEGIN "
+			"SELECT RAISE(ROLLBACK, 'insert on table \"class_students\" violates foreign key" "constraint \"fki_class_students_id_class_classes_id\"') "
+			"WHERE NEW.id_class IS NOT NULL AND (SELECT id FROM classes WHERE id = NEW.id_class) IS NULL; "
 			"END;", db);
 	if (!createTrigger7.isActive()) {
 		error = true;
@@ -174,12 +187,11 @@ void SchoolDatabasePrivate::createTriggers()
 		return;
 	}
 
-	QSqlQuery createTrigger8("DROP TRIGGER fku_class_students_id_class_classes_id;"
-			"CREATE TRIGGER fku_class_students_id_class_classes_id"
-			"BEFORE UPDATE ON [class_students]"
-			"FOR EACH ROW BEGIN"
-			"SELECT RAISE(ROLLBACK, 'update on table \"class_students\" violates foreign key constraint \"fku_class_students_id_class_classes_id\"')"
-			"WHERE NEW.id_class IS NOT NULL AND (SELECT id FROM classes WHERE id = NEW.id_class) IS NULL;"
+	QSqlQuery createTrigger8("CREATE TRIGGER fku_class_students_id_class_classes_id "
+			"BEFORE UPDATE ON [class_students] "
+			"FOR EACH ROW BEGIN "
+			"SELECT RAISE(ROLLBACK, 'update on table \"class_students\" violates foreign key constraint \"fku_class_students_id_class_classes_id\"') "
+			"WHERE NEW.id_class IS NOT NULL AND (SELECT id FROM classes WHERE id = NEW.id_class) IS NULL; "
 			"END;", db);
 	if (!createTrigger8.isActive()) {
 		error = true;
@@ -187,11 +199,10 @@ void SchoolDatabasePrivate::createTriggers()
 		return;
 	}
 
-	QSqlQuery createTrigger9("DROP TRIGGER fkdc_class_students_id_class_classes_id;"
-			"CREATE TRIGGER fkdc_class_students_id_class_classes_id"
-			"BEFORE DELETE ON classes"
-			"FOR EACH ROW BEGIN"
-			"DELETE FROM class_students WHERE class_students.id_class =OLD.id;"
+	QSqlQuery createTrigger9("CREATE TRIGGER fkdc_class_students_id_class_classes_id "
+			"BEFORE DELETE ON classes "
+			"FOR EACH ROW BEGIN "
+			"DELETE FROM class_students WHERE class_students.id_class =OLD.id; "
 			"END;", db);
 	if (!createTrigger9.isActive()) {
 		error = true;
@@ -199,12 +210,11 @@ void SchoolDatabasePrivate::createTriggers()
 		return;
 	}
 
-	QSqlQuery createTrigger10("DROP TRIGGER fki_class_students_id_student_students_id;"
-			"CREATE TRIGGER fki_class_students_id_student_students_id"
-			"BEFORE INSERT ON [class_students]"
-			"FOR EACH ROW BEGIN"
-			"SELECT RAISE(ROLLBACK, 'insert on table \"class_students\" violates foreign key constraint \"fki_class_students_id_student_students_id\"')"
-			"WHERE NEW.id_student IS NOT NULL AND (SELECT id FROM students WHERE id = NEW.id_student) IS NULL;"
+	QSqlQuery createTrigger10("CREATE TRIGGER fki_class_students_id_student_students_id "
+			"BEFORE INSERT ON [class_students] "
+			"FOR EACH ROW BEGIN "
+			"SELECT RAISE(ROLLBACK, 'insert on table \"class_students\" violates foreign key constraint \"fki_class_students_id_student_students_id\"') "
+			"WHERE NEW.id_student IS NOT NULL AND (SELECT id FROM students WHERE id = NEW.id_student) IS NULL; "
 			"END;", db);
 	if (!createTrigger10.isActive()) {
 		error = true;
@@ -212,12 +222,11 @@ void SchoolDatabasePrivate::createTriggers()
 		return;
 	}
 
-	QSqlQuery createTrigger11("DROP TRIGGER	fku_class_students_id_student_students_id;"
-			"CREATE TRIGGER fku_class_students_id_student_students_id"
-			"BEFORE UPDATE ON [class_students]"
-			"FOR EACH ROW BEGIN"
-			"SELECT RAISE(ROLLBACK, 'update on table \"class_students\" violates foreign key constraint \"fku_class_students_id_student_students_id\"')"
-			"WHERE NEW.id_student IS NOT NULL AND (SELECT id FROM students WHERE id = NEW.id_student) IS NULL;"
+	QSqlQuery createTrigger11("CREATE TRIGGER fku_class_students_id_student_students_id "
+			"BEFORE UPDATE ON [class_students] "
+			"FOR EACH ROW BEGIN "
+			"SELECT RAISE(ROLLBACK, 'update on table \"class_students\" violates foreign key constraint \"fku_class_students_id_student_students_id\"') "
+			"WHERE NEW.id_student IS NOT NULL AND (SELECT id FROM students WHERE id = NEW.id_student) IS NULL; "
 			"END;", db);
 	if (!createTrigger11.isActive()) {
 		error = true;
@@ -225,11 +234,10 @@ void SchoolDatabasePrivate::createTriggers()
 		return;
 	}
 
-	QSqlQuery createTrigger12("DROP TRIGGER fkdc_class_students_id_student_students_id;"
-			"CREATE TRIGGER fkdc_class_students_id_student_students_id"
-			"BEFORE DELETE ON students"
-			"FOR EACH ROW BEGIN"
-			"DELETE FROM class_students WHERE class_students.id_student = OLD.id;"
+	QSqlQuery createTrigger12("CREATE TRIGGER fkdc_class_students_id_student_students_id "
+			"BEFORE DELETE ON students "
+			"FOR EACH ROW BEGIN "
+			"DELETE FROM class_students WHERE class_students.id_student = OLD.id; "
 			"END;", db);
 	if (!createTrigger12.isActive()) {
 		error = true;
