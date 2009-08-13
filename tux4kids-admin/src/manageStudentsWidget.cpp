@@ -4,6 +4,7 @@
 #include "mainController.h"
 #include "schoolData.h"
 #include "studentDir.h"
+#include "studentTableDelegate.h"
 
 #include <QDebug>
 
@@ -14,6 +15,10 @@ ManageStudentsWidget::ManageStudentsWidget(MainController *mainController, QWidg
 {
 	m_ui->setupUi(this);
 
+	m_ui->studentsTable->setEditTriggers(QAbstractItemView::SelectedClicked
+					     | QAbstractItemView::EditKeyPressed);
+	m_ui->studentsTable->setItemDelegateForColumn(StudentTableModel::StudentComputer,
+						      new StudentTableDelegate(this));
 	m_studentTableProxyModel.setSourceModel(mainController->studentTableModel());
 	m_ui->studentsTable->setModel(&m_studentTableProxyModel);
 

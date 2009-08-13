@@ -24,7 +24,7 @@ int StudentTableModel::rowCount(const QModelIndex &parent) const
 
 int StudentTableModel::columnCount(const QModelIndex &parent) const
 {
-	return 3;
+	return 4;
 }
 
 QVariant StudentTableModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -40,6 +40,8 @@ QVariant StudentTableModel::headerData(int section, Qt::Orientation orientation,
 			return tr("Name");
 		case StudentLastName:
 			return tr("Surname");
+		case StudentComputer:
+			return tr("Computer");
 		}
 	}
 
@@ -63,6 +65,8 @@ QVariant StudentTableModel::data(const QModelIndex &index, int role) const
 			return m_students.at(index.row())->firstName();
 		case StudentLastName:
 			return m_students.at(index.row())->lastName();
+		case StudentComputer:
+			return tr("None");
 		}
 	} else if (role == Qt::CheckStateRole) {
 		if (index.column() == StudentSelected) {
@@ -82,7 +86,10 @@ Qt::ItemFlags StudentTableModel::flags(const QModelIndex &index) const
 	result = Qt::ItemIsEnabled
 			| Qt::ItemIsSelectable;
 	if (index.column() == StudentSelected) {
-		result |= (Qt::ItemIsUserCheckable | Qt::ItemIsEditable);
+		result |= Qt::ItemIsUserCheckable;
+	}
+	if (index.column() == StudentComputer) {
+		result |= Qt::ItemIsEditable;
 	}
 	return result;
 }

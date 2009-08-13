@@ -24,7 +24,8 @@ SOURCES += main.cpp \
     editClassDialog.cpp \
     selectStudentWidget.cpp \
     selectTeacherWidget.cpp \
-    selectClassWidget.cpp
+    selectClassWidget.cpp \
+    studentTableDelegate.cpp
 HEADERS += mainWindow.h \
     mainController.h \
     pluginManager.h \
@@ -45,7 +46,8 @@ HEADERS += mainWindow.h \
     editClassDialog.h \
     selectStudentWidget.h \
     selectTeacherWidget.h \
-    selectClassWidget.h
+    selectClassWidget.h \
+    studentTableDelegate.h
 FORMS += mainWindow.ui \
     pluginManagerDialog.ui \
     manageStudentsWidget.ui \

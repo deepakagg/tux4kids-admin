@@ -36,8 +36,6 @@ StudentDirPrivate::~StudentDirPrivate()
 
 void StudentDirPrivate::loadProfileDirs()
 {
-	Q_Q(StudentDir);
-
 	foreach(QString dirName,
 		mainDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name)) {
 

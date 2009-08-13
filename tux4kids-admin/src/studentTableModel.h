@@ -33,7 +33,8 @@ public:
 	enum StudentField {
 		StudentSelected = 0,
 		StudentFirstName = 1,
-		StudentLastName = 2
+		StudentLastName = 2,
+		StudentComputer = 3
 	};
 
 protected:

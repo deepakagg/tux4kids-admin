@@ -25,7 +25,8 @@ SET(TUX4KIDS-ADMIN_SOURCES
 	editTeacherDialog.cpp
 	selectStudentWidget.cpp
 	selectTeacherWidget.cpp
-	selectClassWidget.cpp )
+	selectClassWidget.cpp 
+	studentTableDelegate.cpp )
 
 SET(TUX4KIDS-ADMIN_MOC_HEADERS 
 	mainWindow.h
@@ -46,7 +47,8 @@ SET(TUX4KIDS-ADMIN_MOC_HEADERS
 	editTeacherDialog.h
 	selectStudentWidget.h
 	selectTeacherWidget.h
-	selectClassWidget.h )
+	selectClassWidget.h
+	studentTableDelegate.h )
 
 SET(TUX4KIDS-ADMIN_UIS 
 	mainWindow.ui 
