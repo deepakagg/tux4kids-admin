@@ -12,6 +12,7 @@
 class QString;
 class ProfileDir;
 class StudentDir;
+class QSettings;
 
 class SchoolDataPrivate
 {
@@ -30,6 +31,7 @@ public:
 	SchoolData::Status status;
 	QList< QPointer<StudentDir> > students;
 	QList< QPointer<ProfileDir> > profiles;
+	QSettings *attributes;
 
 	SchoolDatabase database;
 };

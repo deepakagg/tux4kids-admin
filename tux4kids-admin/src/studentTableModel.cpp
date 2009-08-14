@@ -106,6 +106,7 @@ bool StudentTableModel::setData(const QModelIndex &index, const QVariant &value,
 
 void StudentTableModel::setSchoolData(SchoolData *schoolData)
 {
+	m_schoolData = schoolData;
 	m_students = schoolData->students();
 
 	for (int i = 0; i < m_students.size(); i++) {
@@ -199,5 +200,10 @@ void StudentTableModel::deleteClass(Class &deletedClass)
 StudentDir *StudentTableModel::studentAt(int i)
 {
 	return m_students.at(i);
+}
+
+int StudentTableModel::computerCount() const
+{
+	return m_schoolData->computerCount();
 }
 

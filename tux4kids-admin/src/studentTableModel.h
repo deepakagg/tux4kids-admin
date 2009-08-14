@@ -29,6 +29,7 @@ public:
 	StudentDir *studentAt(int i);
 
 	void setSchoolData(SchoolData *schoolData);
+	int computerCount() const;
 
 	enum StudentField {
 		StudentSelected = 0,
@@ -41,6 +42,7 @@ protected:
 
 	QList< QPointer<StudentDir> > m_students;
 	QList<bool> m_studentsSelection;
+	QPointer<SchoolData> m_schoolData;
 
 private slots:
 	void addStudent(StudentDir *newStudent);

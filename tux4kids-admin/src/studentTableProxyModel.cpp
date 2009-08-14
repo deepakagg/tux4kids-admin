@@ -48,6 +48,9 @@ bool StudentTableProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &
 	} else if (filterKeyColumn() == LastName) {
 		return student->lastName().contains(filterRegExp());
 	} else if (filterKeyColumn() == ClassName) {
+		if (student->classes()->empty()) {
+			return true;
+		}
 		foreach (Class c, *student->classes()) {
 			if (c.name().contains(filterRegExp())) {
 				return true;
@@ -55,6 +58,6 @@ bool StudentTableProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &
 		}
 		return false;
 	}
-
+	return true;
 }
 

@@ -9,13 +9,15 @@ SET(LIBTUX4KIDSADMIN_SOURCES
 	profileDirFactory.cpp 
 	schoolDatabase.cpp 
 	class.cpp 
-	teacher.cpp )
+	teacher.cpp
+	computerDir.cpp )
 
 SET(LIBTUX4KIDSADMIN_MOC_HEADERS 
 	profileDir.h 
 	schoolData.h
 	studentDir.h 
-	schoolDatabase.h )
+	schoolDatabase.h 
+	computerDir.h )
 
 # enable warnings
 ADD_DEFINITIONS( -Wall -DLIBTUX4KIDSADMIN_LIBRARY )

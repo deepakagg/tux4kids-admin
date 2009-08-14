@@ -5,6 +5,7 @@
 #include <QString>
 #include <QDebug>
 #include <QSqlDatabase>
+#include <QSettings>
 
 /****************** SchoolDataPrivate *******************/
 
@@ -15,6 +16,7 @@ SchoolDataPrivate::SchoolDataPrivate(QString path)
 	if (!mainDir.exists()) {
 		if (!QDir::root().mkpath(path)) {
 			status = SchoolData::InitializationError;
+			return;
 		}
 	}
 	mainDir.setPath(path);
@@ -23,8 +25,14 @@ SchoolDataPrivate::SchoolDataPrivate(QString path)
 
 	if (!database.open(path + "/school_database.db")) {
 		status = SchoolData::InitializationError;
+		return;
 	} else {
 		database.synchronizeStudents(students);
+	}
+
+	attributes = new QSettings(mainDir.absoluteFilePath("attributes.ini"), QSettings::IniFormat);
+	if (attributes->status() != QSettings::NoError) {
+		status = SchoolData::InitializationError;
 	}
 }
 
@@ -32,6 +40,7 @@ SchoolDataPrivate::SchoolDataPrivate(QString path)
 
 SchoolDataPrivate::~SchoolDataPrivate()
 {
+	delete attributes;
 }
 
 QString SchoolDataPrivate::nextStudentDir() const
@@ -71,6 +80,8 @@ SchoolData::SchoolData(QString path, QObject *parent)
 SchoolData::SchoolData(SchoolDataPrivate &dd, QObject *parent)
 		: QObject(parent), d_ptr(&dd)
 {
+	Q_D(SchoolData);
+	d->q_ptr = this;
 }
 
 SchoolData::~SchoolData()
@@ -113,5 +124,16 @@ SchoolDatabase *SchoolData::schoolDatabase()
 {
 	Q_D(SchoolData);
 	return &(d->database);
+}
+
+int SchoolData::computerCount() const
+{
+	Q_D(const SchoolData);
+	return d->attributes->value("computer_count", 20).toInt();
+}
+
+int SchoolData::setComputerCount(int computerCount)
+{
+
 }
 

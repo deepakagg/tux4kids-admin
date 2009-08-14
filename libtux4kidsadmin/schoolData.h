@@ -28,6 +28,8 @@ public:
 	//const StudentDir & studentDirAt(int index);
 	QList< QPointer<StudentDir> > students() const;
 	SchoolDatabase *schoolDatabase();
+	int computerCount() const;
+	int setComputerCount(int computerCount);
 
 protected:
 	SchoolDataPrivate * const d_ptr;

@@ -16,7 +16,8 @@ ManageStudentsWidget::ManageStudentsWidget(MainController *mainController, QWidg
 	m_ui->setupUi(this);
 
 	m_ui->studentsTable->setEditTriggers(QAbstractItemView::SelectedClicked
-					     | QAbstractItemView::EditKeyPressed);
+					     | QAbstractItemView::EditKeyPressed
+					     | QAbstractItemView::DoubleClicked);
 	m_ui->studentsTable->setItemDelegateForColumn(StudentTableModel::StudentComputer,
 						      new StudentTableDelegate(this));
 	m_studentTableProxyModel.setSourceModel(mainController->studentTableModel());

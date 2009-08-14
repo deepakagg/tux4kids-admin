@@ -56,7 +56,8 @@ ProfileDir::ProfileDir(QString path, QObject *parent) :
 ProfileDir::ProfileDir(ProfileDirPrivate &dd, QObject *parent)
 		: QObject(parent), d_ptr(&dd)
 {
-	d_ptr->q_ptr = this;
+	Q_D(ProfileDir);
+	d->q_ptr = this;
 }
 
 ProfileDir::~ProfileDir()
