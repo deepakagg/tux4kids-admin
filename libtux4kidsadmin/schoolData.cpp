@@ -73,7 +73,7 @@ void SchoolDataPrivate::loadStudentDirs()
 void SchoolDataPrivate::createComputerDirs()
 {
 	int computerCount = attributes->value("computer_count", 0).toInt();
-	for (int i = 0; i <= computerCount; ++i) {
+	for (int i = 1; i <= computerCount; ++i) {
 		ComputerDir *computerDir = new ComputerDir(mainDir.absolutePath(), i);
 		computers.append(computerDir);
 		studentComputers[computerDir] = 0;

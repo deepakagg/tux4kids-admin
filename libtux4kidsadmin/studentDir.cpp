@@ -26,6 +26,11 @@ StudentDirPrivate::StudentDirPrivate(QString path) :
 		status = StudentDir::InitializationError;
 		return;
 	}
+	if (attributes->value("first_name").toString().isNull()
+		&& attributes->value("last_name").toString().isNull()) {
+		status = StudentDir::InitializationError;
+		return;
+	}
 
 	loadProfileDirs();
 }
