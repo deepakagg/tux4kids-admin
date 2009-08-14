@@ -37,7 +37,7 @@ public:
 	QList<Class> classListNoJoin() const;
 	QList<Teacher> teacherList() const;
 	QList<Teacher> teacherListNoJoin() const;
-	void synchronizeStudents(const QList< QPointer<StudentDir> > &studentList);
+	void synchronizeStudents(const QList<StudentDir *> &studentList);
 	QStringList studentList() const;
 	QStringList studentListNoJoin() const;
 	void joinStudentsToClass(QList<Class> &classes) const;

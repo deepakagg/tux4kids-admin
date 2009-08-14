@@ -26,7 +26,7 @@ public:
 	Status status() const;
 	StudentDir *addStudent();
 	//const StudentDir & studentDirAt(int index);
-	QList< QPointer<StudentDir> > students() const;
+	QList<StudentDir *> students() const;
 	SchoolDatabase *schoolDatabase();
 	int computerCount() const;
 	int setComputerCount(int computerCount);

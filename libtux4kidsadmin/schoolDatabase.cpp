@@ -838,7 +838,7 @@ QList<Teacher> SchoolDatabasePrivate::teacherListNoJoin() const
 	return result;
 }
 
-void SchoolDatabasePrivate::synchronizeStudents(const QList< QPointer<StudentDir> > &studentsList)
+void SchoolDatabasePrivate::synchronizeStudents(const QList<StudentDir *> &studentsList)
 {
 	QStringList existingStudents;
 
@@ -1040,7 +1040,7 @@ QList<Teacher>SchoolDatabase::teacherList() const
 	return d->teacherList();
 }
 
-void SchoolDatabase::synchronizeStudents(const QList< QPointer<StudentDir> > &studentList)
+void SchoolDatabase::synchronizeStudents(const QList<StudentDir *> &studentList)
 {
 	Q_D(SchoolDatabase);
 	d->synchronizeStudents(studentList);

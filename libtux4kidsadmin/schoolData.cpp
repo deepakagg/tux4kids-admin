@@ -2,6 +2,7 @@
 #include "schoolData_p.h"
 #include "studentDir.h"
 #include "studentDir_p.h"
+#include "computerDir.h"
 
 #include <QString>
 #include <QDebug>
@@ -35,6 +36,7 @@ SchoolDataPrivate::SchoolDataPrivate(QString path)
 	if (attributes->status() != QSettings::NoError) {
 		status = SchoolData::InitializationError;
 	}
+	createComputerDirs();
 }
 
 
@@ -65,6 +67,16 @@ void SchoolDataPrivate::loadStudentDirs()
 		} else {
 			delete studentDir;
 		}
+	}
+}
+
+void SchoolDataPrivate::createComputerDirs()
+{
+	int computerCount = attributes->value("computer_count", 0).toInt();
+	for (int i = 0; i <= computerCount; ++i) {
+		ComputerDir *computerDir = new ComputerDir(mainDir.absolutePath(), i);
+		computers.append(computerDir);
+		studentComputers[computerDir] = 0;
 	}
 }
 
@@ -115,7 +127,7 @@ StudentDir *SchoolData::addStudent()
 }
 */
 
-QList< QPointer<StudentDir> > SchoolData::students() const
+QList<StudentDir *> SchoolData::students() const
 {
 	Q_D(const SchoolData);
 	return d->students;
@@ -130,7 +142,7 @@ SchoolDatabase *SchoolData::schoolDatabase()
 int SchoolData::computerCount() const
 {
 	Q_D(const SchoolData);
-	return d->attributes->value("computer_count", 20).toInt();
+	return d->attributes->value("computer_count", 0).toInt();
 }
 
 int SchoolData::setComputerCount(int computerCount)

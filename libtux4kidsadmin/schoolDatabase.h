@@ -32,7 +32,7 @@ public:
 
 	QList<Class> classList() const;
 	QList<Teacher> teacherList() const;
-	void synchronizeStudents(const QList< QPointer<StudentDir> > &studentList);
+	void synchronizeStudents(const QList<StudentDir *> &studentList);
 
 protected:
 	SchoolDatabasePrivate * const d_ptr;

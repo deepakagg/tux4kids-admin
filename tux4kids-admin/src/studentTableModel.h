@@ -40,7 +40,7 @@ public:
 
 protected:
 
-	QList< QPointer<StudentDir> > m_students;
+	QList<StudentDir *> m_students;
 	QList<bool> m_studentsSelection;
 	QPointer<SchoolData> m_schoolData;
 

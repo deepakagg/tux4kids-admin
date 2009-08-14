@@ -5,6 +5,7 @@
 #include <QDir>
 #include <QList>
 #include <QPointer>
+#include <QHash>
 
 #include "schoolData.h"
 #include "schoolDatabase.h"
@@ -13,6 +14,7 @@ class QString;
 class ProfileDir;
 class StudentDir;
 class QSettings;
+class ComputerDir;
 
 class SchoolDataPrivate
 {
@@ -24,13 +26,16 @@ public:
 
 	QString nextStudentDir() const;
 	void loadStudentDirs();
+	void createComputerDirs();
 
 	SchoolData *q_ptr;
 
 	QDir mainDir;
 	SchoolData::Status status;
-	QList< QPointer<StudentDir> > students;
-	QList< QPointer<ProfileDir> > profiles;
+	QList<StudentDir *> students;
+	QList<ProfileDir *> profiles;
+	QList<ComputerDir *> computers;
+	QHash<ComputerDir *, StudentDir *> studentComputers;
 	QSettings *attributes;
 
 	SchoolDatabase database;

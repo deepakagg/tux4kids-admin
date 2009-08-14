@@ -6,7 +6,7 @@
 ComputerDirPrivate::ComputerDirPrivate(QString path, int num)
 {
 	QDir parentDir(path);
-	QString dirName = QString("computer_%1").arg(number);
+	QString dirName = QString("computer%1").arg(number);
 	if (!parentDir.exists(dirName)) {
 		if (!parentDir.mkdir(dirName)) {
 			//report error
