@@ -10,12 +10,13 @@ class LIBTUX4KIDSADMIN_SHARED_EXPORT ComputerDirPrivate
 public:
 	Q_DECLARE_PUBLIC(ComputerDir)
 
-	ComputerDirPrivate();
+	ComputerDirPrivate(QString path, int number);
 	virtual ~ComputerDirPrivate();
 
 	ComputerDir *q_ptr;
 
 	QDir mainDir;
+	int number;
 };
 
 

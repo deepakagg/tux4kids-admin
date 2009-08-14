@@ -65,8 +65,14 @@ QVariant StudentTableModel::data(const QModelIndex &index, int role) const
 			return m_students.at(index.row())->firstName();
 		case StudentLastName:
 			return m_students.at(index.row())->lastName();
-		case StudentComputer:
-			return tr("None");
+		case StudentComputer: {
+			int computerNumber = m_students.at(index.row())->computerNumber();
+			if (computerNumber <= 0) {
+				return tr("None");
+			} else {
+				return tr("Computer %1").arg(computerNumber);
+			}
+		}
 		}
 	} else if (role == Qt::CheckStateRole) {
 		if (index.column() == StudentSelected) {
@@ -75,6 +81,14 @@ QVariant StudentTableModel::data(const QModelIndex &index, int role) const
 			} else {
 				return Qt::Unchecked;
 			}
+		}
+	} else if (role == Qt::UserRole) {
+		if (index.column() == StudentComputer) {
+			return m_students.at(index.row())->computerNumber();
+		}
+	} else if (role == Qt::ToolTipRole) {
+		if (index.column() == StudentComputer) {
+			return tr("Double click to change");
 		}
 	}
 	return QVariant();
@@ -100,6 +114,8 @@ bool StudentTableModel::setData(const QModelIndex &index, const QVariant &value,
 		m_studentsSelection[index.row()] = !m_studentsSelection[index.row()];
 		emit dataChanged(index, index);
 		return true;
+	} else if (role == Qt::UserRole && index.column() == StudentComputer) {
+		m_schoolData->setStudentComputer(m_students.at(index.row()), value.toInt());
 	}
 	return false;
 }

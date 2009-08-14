@@ -1,6 +1,7 @@
 #include "schoolData.h"
 #include "schoolData_p.h"
 #include "studentDir.h"
+#include "studentDir_p.h"
 
 #include <QString>
 #include <QDebug>
@@ -134,6 +135,10 @@ int SchoolData::computerCount() const
 
 int SchoolData::setComputerCount(int computerCount)
 {
+}
 
+int SchoolData::setStudentComputer(StudentDir *student, int computerNumber)
+{
+	student->d_func()->computerNumber = computerNumber;
 }
 

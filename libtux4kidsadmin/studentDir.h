@@ -33,6 +33,7 @@ public:
 	ProfileDir *addProfileDir(QString profileType);
 	QList<Class> *classes();
 	QList<ProfileDir *> profiles();
+	int computerNumber() const;
 	//void setClasses(const QList<Class>& classes);
 
 protected:
@@ -41,6 +42,9 @@ protected:
 private:
 	Q_DECLARE_PRIVATE(StudentDir)
 	Q_DISABLE_COPY(StudentDir)
+
+	friend class SchoolData;
+	friend class ComputerDir;
 };
 
 #endif // STUDENTDIR_H

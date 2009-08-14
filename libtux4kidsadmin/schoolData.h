@@ -30,6 +30,7 @@ public:
 	SchoolDatabase *schoolDatabase();
 	int computerCount() const;
 	int setComputerCount(int computerCount);
+	int setStudentComputer(StudentDir *student, int computerNumber);
 
 protected:
 	SchoolDataPrivate * const d_ptr;

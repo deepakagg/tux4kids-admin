@@ -30,6 +30,7 @@ public:
 	QDir mainDir;
 	QList<ProfileDir *> profiles;
 	QList<Class> classes;
+	int computerNumber;
 };
 
 #endif // STUDENTDIR_P_H

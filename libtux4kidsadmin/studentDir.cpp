@@ -9,7 +9,8 @@
 /****************** StudentDirPrivate *******************/
 
 StudentDirPrivate::StudentDirPrivate(QString path) :
-		status(StudentDir::NoError)
+		status(StudentDir::NoError),
+		computerNumber(-1)
 {
 	mainDir.setPath(path);
 	if (!mainDir.exists()) {
@@ -142,6 +143,12 @@ QList<ProfileDir *> StudentDir::profiles()
 {
 	Q_D(StudentDir);
 	return d->profiles;
+}
+
+int StudentDir::computerNumber() const
+{
+	Q_D(const StudentDir);
+	return d->computerNumber;
 }
 
 /*void StudentDir::setClasses(const QList<Class> &classes)

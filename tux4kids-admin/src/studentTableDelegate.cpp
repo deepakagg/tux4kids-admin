@@ -28,7 +28,7 @@ void StudentTableDelegate::setEditorData(QWidget *editor, const QModelIndex &ind
 			int computerCount = model->computerCount();
 			comboBox->addItem(data);
 			for (int i = 1; i <= computerCount; ++i) {
-				comboBox->addItem(tr("Computer %1").arg(i));
+				comboBox->addItem(tr("Computer %1").arg(i), i);
 			}
 		} else {
 			const StudentTableProxyModel *proxyModel = qobject_cast<const StudentTableProxyModel *>(index.model());
@@ -37,7 +37,7 @@ void StudentTableDelegate::setEditorData(QWidget *editor, const QModelIndex &ind
 				int computerCount = model->computerCount();
 				comboBox->addItem(data);
 				for (int i = 1; i <= computerCount; ++i) {
-					comboBox->addItem(tr("Computer %1").arg(i));
+					comboBox->addItem(tr("Computer %1").arg(i), i);
 				}
 			}
 		}
@@ -49,7 +49,7 @@ void StudentTableDelegate::setModelData(QWidget *editor, QAbstractItemModel *mod
 {
 	QComboBox *comboBox = static_cast<QComboBox *>(editor);
 	if (comboBox != 0) {
-		qDebug() << "data set to" << comboBox->currentText();
+		model->setData(index, comboBox->itemData(comboBox->currentIndex(), Qt::UserRole), Qt::UserRole);
 	}
 }
 
