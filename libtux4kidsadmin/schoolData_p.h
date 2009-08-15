@@ -31,6 +31,8 @@ public:
 	SchoolData *q_ptr;
 
 	QDir mainDir;
+	QDir studentsDir;
+	QDir computersDir;
 	SchoolData::Status status;
 	QList<StudentDir *> students;
 	QList<ProfileDir *> profiles;

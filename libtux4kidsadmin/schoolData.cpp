@@ -22,6 +22,21 @@ SchoolDataPrivate::SchoolDataPrivate(QString path)
 		}
 	}
 	mainDir.setPath(path);
+	if (!mainDir.exists("students")) {
+		if (!mainDir.mkdir("students")) {
+			status = SchoolData::InitializationError;
+			return;
+		}
+	}
+	studentsDir.setPath(mainDir.absoluteFilePath("students"));
+
+	if (!mainDir.exists("computers")) {
+		if (!mainDir.mkdir("computers")) {
+			status = SchoolData::InitializationError;
+			return;
+		}
+	}
+	computersDir.setPath(mainDir.absoluteFilePath("computers"));
 
 	loadStudentDirs();
 
@@ -59,9 +74,9 @@ QString SchoolDataPrivate::nextStudentDir() const
 void SchoolDataPrivate::loadStudentDirs()
 {
 	foreach(QString dirName,
-		mainDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name)) {
+		studentsDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name)) {
 
-		StudentDir *studentDir = new StudentDir(mainDir.absoluteFilePath(dirName));
+		StudentDir *studentDir = new StudentDir(studentsDir.absoluteFilePath(dirName));
 		if (studentDir->status() == StudentDir::NoError) {
 			students.append(studentDir);
 		} else {
@@ -74,7 +89,7 @@ void SchoolDataPrivate::createComputerDirs()
 {
 	int computerCount = attributes->value("computer_count", 0).toInt();
 	for (int i = 1; i <= computerCount; ++i) {
-		ComputerDir *computerDir = new ComputerDir(mainDir.absolutePath(), i);
+		ComputerDir *computerDir = new ComputerDir(computersDir.absolutePath(), i);
 		computers.append(computerDir);
 		studentComputers[computerDir] = 0;
 	}
@@ -113,7 +128,7 @@ StudentDir *SchoolData::addStudent()
 {
 	Q_D(SchoolData);
 
-	StudentDir *studentDir = new StudentDir(d->mainDir.absoluteFilePath(d->nextStudentDir()));
+	StudentDir *studentDir = new StudentDir(d->studentsDir.absoluteFilePath(d->nextStudentDir()));
 	d->students.append(studentDir);
 	emit studentAdded(studentDir);
 
