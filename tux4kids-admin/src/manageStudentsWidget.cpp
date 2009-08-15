@@ -62,8 +62,10 @@ void ManageStudentsWidget::addStudent()
 	studentDir->setFirstName(m_addStudentDialog->firstName());
 	studentDir->setLastName(m_addStudentDialog->lastName());
 	foreach (QString profileType, m_addStudentDialog->checkedApplicationNames()) {
+		qDebug() << profileType;
 		studentDir->addProfileDir(profileType);
 	}
+	qDebug() << "po";
 }
 
 void ManageStudentsWidget::setEditButtons()

@@ -141,6 +141,7 @@ void StudentTableModel::addStudent(StudentDir *newStudent)
 {
 	beginInsertRows(QModelIndex(), m_students.size(), m_students.size());
 	m_students.append(newStudent);
+	m_studentsSelection.append(false);
 	endInsertRows();
 }
 

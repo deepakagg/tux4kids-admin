@@ -57,7 +57,9 @@ void ComputerDir::clear()
 	}
 	d->studentDir = 0;
 
-	foreach (QString fileName, d->mainDir.entryList(QDir::Files)) {
+	foreach (QString fileName, d->mainDir.entryList(QDir::Files
+							| QDir::Dirs
+							| QDir::NoDotAndDotDot)) {
 		d->mainDir.remove(d->mainDir.absoluteFilePath(fileName));
 	}
 
