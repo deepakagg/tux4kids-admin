@@ -37,7 +37,6 @@ public:
 	QList<StudentDir *> students;
 	QList<ProfileDir *> profiles;
 	QList<ComputerDir *> computers;
-	QHash<ComputerDir *, StudentDir *> studentComputers;
 	QSettings *attributes;
 
 	SchoolDatabase database;

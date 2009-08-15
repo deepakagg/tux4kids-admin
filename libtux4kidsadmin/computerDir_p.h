@@ -16,6 +16,7 @@ public:
 	ComputerDir *q_ptr;
 
 	QDir mainDir;
+	StudentDir *studentDir;
 	int number;
 };
 

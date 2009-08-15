@@ -14,12 +14,13 @@ public:
 	ComputerDir(QString path, int num, QObject *parent = 0);
 	~ComputerDir();
 
+	void clear();
+	void setStudentDir(StudentDir *studentDir);
+	StudentDir *studentDir();
+
 protected:
 	ComputerDirPrivate * const d_ptr;
 	ComputerDir(ComputerDirPrivate &dd, QObject *parent = 0);
-
-	QDir mainDir;
-	StudentDir *studentDir;
 
 private:
 	Q_DECLARE_PRIVATE(ComputerDir)

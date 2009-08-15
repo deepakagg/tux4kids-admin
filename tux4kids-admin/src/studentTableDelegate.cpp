@@ -20,24 +20,34 @@ QWidget *StudentTableDelegate::createEditor(QWidget *parent,
 
 void StudentTableDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
-	QString data = index.data(Qt::DisplayRole).toString();
+	int computerNum = index.data(Qt::UserRole).toInt();
 	QComboBox *comboBox = static_cast<QComboBox *>(editor);
 	if (comboBox != 0) {
 		const StudentTableModel *model = qobject_cast<const StudentTableModel *>( index.model());
 		if (model != 0) {
 			int computerCount = model->computerCount();
-			comboBox->addItem(data);
+			if (computerNum > 0) {
+				comboBox->addItem(tr("Computer %1").arg(computerNum), computerNum);
+			}
+			comboBox->addItem(tr("None"), -1);
 			for (int i = 1; i <= computerCount; ++i) {
-				comboBox->addItem(tr("Computer %1").arg(i), i);
+				if (i != computerNum) {
+					comboBox->addItem(tr("Computer %1").arg(i), i);
+				}
 			}
 		} else {
 			const StudentTableProxyModel *proxyModel = qobject_cast<const StudentTableProxyModel *>(index.model());
 			const StudentTableModel *model = qobject_cast<const StudentTableModel *> (proxyModel->sourceModel());
 			if (model != 0) {
 				int computerCount = model->computerCount();
-				comboBox->addItem(data);
+				if (computerNum > 0) {
+				comboBox->addItem(tr("Computer %1").arg(computerNum), computerNum);
+				}
+				comboBox->addItem(tr("None"), -1);
 				for (int i = 1; i <= computerCount; ++i) {
-					comboBox->addItem(tr("Computer %1").arg(i), i);
+					if (i != computerNum) {
+						comboBox->addItem(tr("Computer %1").arg(i), i);
+					}
 				}
 			}
 		}

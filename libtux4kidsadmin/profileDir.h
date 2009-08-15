@@ -30,6 +30,8 @@ protected:
 private:
 	Q_DECLARE_PRIVATE(ProfileDir)
 	Q_DISABLE_COPY(ProfileDir)
+
+	friend class ComputerDir;
 };
 
 #endif // PROFILEDIR_H

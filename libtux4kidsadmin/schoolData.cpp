@@ -91,7 +91,6 @@ void SchoolDataPrivate::createComputerDirs()
 	for (int i = 1; i <= computerCount; ++i) {
 		ComputerDir *computerDir = new ComputerDir(computersDir.absolutePath(), i);
 		computers.append(computerDir);
-		studentComputers[computerDir] = 0;
 	}
 }
 
@@ -160,12 +159,20 @@ int SchoolData::computerCount() const
 	return d->attributes->value("computer_count", 0).toInt();
 }
 
-int SchoolData::setComputerCount(int computerCount)
+void SchoolData::setComputerCount(int computerCount)
 {
+	//TODO
 }
 
-int SchoolData::setStudentComputer(StudentDir *student, int computerNumber)
+void SchoolData::setStudentComputer(StudentDir *student, int computerNumber)
 {
-	student->d_func()->computerNumber = computerNumber;
+	Q_D(const SchoolData);
+	if (computerNumber <= 0) {
+		if (student->computerNumber() > 0) {
+			d->computers[student->computerNumber() - 1]->clear();
+		}
+	} else {
+		d->computers[computerNumber - 1]->setStudentDir(student);
+	}
 }
 

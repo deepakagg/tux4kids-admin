@@ -29,8 +29,8 @@ public:
 	QList<StudentDir *> students() const;
 	SchoolDatabase *schoolDatabase();
 	int computerCount() const;
-	int setComputerCount(int computerCount);
-	int setStudentComputer(StudentDir *student, int computerNumber);
+	void setComputerCount(int computerCount);
+	void setStudentComputer(StudentDir *student, int computerNumber);
 
 protected:
 	SchoolDataPrivate * const d_ptr;
