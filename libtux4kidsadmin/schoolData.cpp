@@ -65,7 +65,7 @@ QString SchoolDataPrivate::nextStudentDir() const
 {
 	QString baseName = "student_";
 	int number = 1;
-	while(mainDir.exists(baseName + QString::number(number)))
+	while(studentsDir.exists(baseName + QString::number(number)))
 		++number;
 
 	return baseName + QString::number(number);

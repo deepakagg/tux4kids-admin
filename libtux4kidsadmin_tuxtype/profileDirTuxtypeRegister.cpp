@@ -1,13 +1,15 @@
 #include "profileDirFactory.h"
 #include "profileDirTuxtype.h"
+#include "libtux4kidsadmin_tuxtype_global.h"
 
 #include <QDebug>
 
-class ProfileDirTuxtypeRegister
+class LIBTUX4KIDSADMIN_TUXTYPE_SHARED_EXPORT ProfileDirTuxtypeRegister
 {
 public:
 	ProfileDirTuxtypeRegister()
 	{
+		qDebug() << "tuxtype register";
 		ProfileDirFactory::instance().registerType<ProfileDirTuxtype>("tuxtype");
 	}
 
@@ -17,4 +19,4 @@ public:
 	}
 };
 
-static const ProfileDirTuxtypeRegister reg;
+static const ProfileDirTuxtypeRegister regTuxtype;

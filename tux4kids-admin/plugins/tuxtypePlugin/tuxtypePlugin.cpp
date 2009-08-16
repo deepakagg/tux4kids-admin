@@ -5,6 +5,7 @@
 
 TuxtypePlugin::TuxtypePlugin(QObject *parent) : QObject(parent)
 {
+	
 	qDebug() << "tux type plugin constructed";
 }
 
