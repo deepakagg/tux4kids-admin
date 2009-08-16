@@ -19,11 +19,17 @@ public:
 	MainController(QObject *parent = 0);
 	~MainController();
 
+	enum Status {
+		NoError,
+		InitializtionError
+	};
+
 	PluginManager *pluginManager();
 	SchoolData *schoolData();
 	StudentTableModel *studentTableModel();
 	ClassTableModel *classTableModel();
 	TeacherTableModel *teacherTableModel();
+	Status status() const;
 
 private:
 
@@ -32,6 +38,7 @@ private:
 	ClassTableModel m_classTableModel;
 	TeacherTableModel m_teacherTableModel;
 	QPointer<SchoolData> m_schoolData;
+	mutable Status m_status;
 
 };
 

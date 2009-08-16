@@ -16,7 +16,11 @@ int main(int argc, char *argv[])
 	app.installTranslator(&translator);
 
 	MainController controller;
-	MainWindow mainWindow(&controller);
-	mainWindow.show();
-	return app.exec();
+	if (controller.status() == MainController::NoError) {
+		MainWindow mainWindow(&controller);
+		mainWindow.show();
+		return app.exec();
+	} else {
+		return 1;
+	}
 }
