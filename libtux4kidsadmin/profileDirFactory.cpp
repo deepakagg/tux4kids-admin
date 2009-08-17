@@ -14,7 +14,6 @@ public:
 	~ProfileDirFactoryCleaner()
 	{
 		ProfileDirFactory::destroy();
-		qDebug() << "destroying ProfileDirFactory";
 	}
 };
 

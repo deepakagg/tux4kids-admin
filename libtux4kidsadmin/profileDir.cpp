@@ -7,7 +7,8 @@
 /****************** ProfileDirPrivate *******************/
 
 ProfileDirPrivate::ProfileDirPrivate(QString path)
-		: status(ProfileDir::NoError)
+		: status(ProfileDir::NoError),
+		attributes(0)
 {
 	mainDir.setPath(path);
 	if (!mainDir.exists()) {

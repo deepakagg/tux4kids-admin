@@ -59,7 +59,17 @@ MainController::MainController(QObject *parent)
 		qDebug() << tr("Failed to load plugins");
 	}
 
+	if (schoolDataPath.isEmpty()) {
+		m_status = InitializtionError;
+		return;
+	}
+
 	m_schoolData = new SchoolData(schoolDataPath);
+	if (m_schoolData->status() != SchoolData::NoError) {
+		m_status = InitializtionError;
+		return;
+	}
+
 	m_studentTableModel.setSchoolData(m_schoolData);
 	m_classTableModel.setSchoolDatabase(m_schoolData->schoolDatabase());
 	m_teacherTableModel.setSchoolDatabase(m_schoolData->schoolDatabase());

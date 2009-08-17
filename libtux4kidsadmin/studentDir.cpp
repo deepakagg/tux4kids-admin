@@ -10,6 +10,7 @@
 
 StudentDirPrivate::StudentDirPrivate(QString path) :
 		status(StudentDir::NoError),
+		attributes(0),
 		computerNumber(-1)
 {
 	mainDir.setPath(path);

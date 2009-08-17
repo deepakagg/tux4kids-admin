@@ -12,7 +12,8 @@
 /****************** SchoolDataPrivate *******************/
 
 SchoolDataPrivate::SchoolDataPrivate(QString path)
-		: status(SchoolData::NoError)
+		: status(SchoolData::NoError),
+		attributes(0)
 {
 	mainDir.setPath(path);
 	if (!mainDir.exists()) {
