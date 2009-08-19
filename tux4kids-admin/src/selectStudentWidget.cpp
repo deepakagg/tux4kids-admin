@@ -9,11 +9,11 @@ SelectStudentWidget::SelectStudentWidget(QWidget *parent) :
 
 	m_studentTableProxyModel.setSourceModel(&m_studentTableModel);
 
-#if defined(Q_WS_WIN)
+	m_ui->studentTable->setModel(&m_studentTableProxyModel);
+	
+#ifdef Q_WS_WIN
 	m_ui->studentTable->hideColumn(StudentTableModel::StudentComputer);
 #endif
-
-	m_ui->studentTable->setModel(&m_studentTableProxyModel);
 
 	m_ui->filterKeyCombo->addItem(tr("Everything"),
 				      StudentTableProxyModel::Everything);
