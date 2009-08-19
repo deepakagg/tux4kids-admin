@@ -8,6 +8,11 @@ SelectStudentWidget::SelectStudentWidget(QWidget *parent) :
 	m_ui->setupUi(this);
 
 	m_studentTableProxyModel.setSourceModel(&m_studentTableModel);
+
+#if defined(Q_WS_WIN)
+	m_ui->studentTable->hideColumn(StudentTableModel::StudentComputer);
+#endif
+
 	m_ui->studentTable->setModel(&m_studentTableProxyModel);
 
 	m_ui->filterKeyCombo->addItem(tr("Everything"),
@@ -48,5 +53,10 @@ void SelectStudentWidget::updateFilter()
 void SelectStudentWidget::filterKeyColumnChanged(int index)
 {
 	m_studentTableProxyModel.setFilterKeyColumn(m_ui->filterKeyCombo->itemData(index).toInt());
+}
+
+QTableView *SelectStudentWidget::studentTable()
+{
+	return m_ui->studentTable;
 }
 

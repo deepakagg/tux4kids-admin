@@ -5,8 +5,10 @@
 #include "schoolData.h"
 #include "studentDir.h"
 #include "studentTableDelegate.h"
+#include "selectStudentWidget.h"
 
 #include <QDebug>
+#include <QTableView>
 
 ManageStudentsWidget::ManageStudentsWidget(MainController *mainController, QWidget *parent) :
 		QWidget(parent),
@@ -14,18 +16,31 @@ ManageStudentsWidget::ManageStudentsWidget(MainController *mainController, QWidg
 		m_addStudentDialog(0)
 {
 	m_ui->setupUi(this);
-
-	m_ui->studentsTable->setEditTriggers(QAbstractItemView::AllEditTriggers);
-	m_ui->studentsTable->setItemDelegateForColumn(StudentTableModel::StudentComputer,
-						      new StudentTableDelegate(this));
-	m_studentTableProxyModel.setSourceModel(mainController->studentTableModel());
-	m_ui->studentsTable->setModel(&m_studentTableProxyModel);
-
 	m_mainController = mainController;
-	connect(m_ui->addStudentButton, SIGNAL(clicked()), this, SLOT(addStudentClicked()));
-	connect(m_ui->editStudentButton, SIGNAL(clicked()), this, SLOT(editStudentClicked()));
-	connect(m_ui->deleteStudentButton, SIGNAL(clicked()), this, SLOT(deleteStudentClicked()));
-	connect(m_ui->studentsTable->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(setEditButtons()));
+
+	m_selectStudentWidget = new SelectStudentWidget(this);
+	m_ui->verticalLayout->insertWidget(0, m_selectStudentWidget);
+	m_selectStudentWidget->studentTable()->
+			setEditTriggers(QAbstractItemView::AllEditTriggers);
+
+	m_selectStudentWidget->studentTable()
+			->setItemDelegateForColumn(StudentTableModel::StudentComputer,
+						      new StudentTableDelegate(this));
+
+	m_selectStudentWidget->setStudentTableModel(m_mainController->studentTableModel());
+
+	m_selectStudentWidget->studentTable()
+			->hideColumn(StudentTableModel::StudentSelected);
+
+	connect(m_ui->addStudentButton, SIGNAL(clicked()),
+		this, SLOT(addStudentClicked()));
+	connect(m_ui->editStudentButton, SIGNAL(clicked()),
+		this, SLOT(editStudentClicked()));
+	connect(m_ui->deleteStudentButton, SIGNAL(clicked()),
+		this, SLOT(deleteStudentClicked()));
+	connect(m_selectStudentWidget->studentTable()->selectionModel(),
+		SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+		this, SLOT(setEditButtons()));
 
 	setEditButtons();
 }
@@ -65,12 +80,13 @@ void ManageStudentsWidget::addStudent()
 		qDebug() << profileType;
 		studentDir->addProfileDir(profileType);
 	}
-	qDebug() << "po";
 }
 
 void ManageStudentsWidget::setEditButtons()
 {
-	if (m_ui->studentsTable->selectionModel()->selectedIndexes().isEmpty()) {
+	if (m_selectStudentWidget->studentTable()
+		->selectionModel()->selectedIndexes().isEmpty()) {
+
 		setEditButtonsEnabled(false);
 	} else {
 		setEditButtonsEnabled(true);

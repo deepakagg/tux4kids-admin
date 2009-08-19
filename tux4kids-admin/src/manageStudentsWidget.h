@@ -9,6 +9,7 @@
 
 class AddStudentDialog;
 class MainController;
+class SelectStudentWidget;
 
 namespace Ui {
 	class ManageStudentsWidget;
@@ -25,7 +26,7 @@ private:
 	Ui::ManageStudentsWidget *m_ui;
 	QPointer<AddStudentDialog> m_addStudentDialog;
 	QPointer<MainController> m_mainController;
-	StudentTableProxyModel m_studentTableProxyModel;
+	QPointer<SelectStudentWidget> m_selectStudentWidget;
 
 	void setEditButtonsEnabled(bool enable);
 

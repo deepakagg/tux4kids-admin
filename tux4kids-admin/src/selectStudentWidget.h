@@ -7,6 +7,8 @@
 #include "studentTableModel.h"
 #include "studentTableProxyModel.h"
 
+class QTableView;
+
 namespace Ui {
 	class SelectStudentWidget;
 }
@@ -19,6 +21,7 @@ public:
 	~SelectStudentWidget();
 
 	void setStudentTableModel(StudentTableModel *studentTableModel);
+	QTableView *studentTable();
 
 private:
 	Ui::SelectStudentWidget *m_ui;
