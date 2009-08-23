@@ -52,10 +52,9 @@ SchoolDataPrivate::SchoolDataPrivate(QString path)
 	if (attributes->status() != QSettings::NoError) {
 		status = SchoolData::InitializationError;
 	}
+	attributes->setValue("computer_count", 8);
 	createComputerDirs();
 }
-
-
 
 SchoolDataPrivate::~SchoolDataPrivate()
 {
