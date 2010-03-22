@@ -1,0 +1,12 @@
+COMPILING:
+
+mkdir build
+cd build
+cmake ../
+make
+
+RUNNING:
+
+cd tux4kids-admin
+./tux4kids-admin --school_data_path <path to school_data directory> 
+eg. ./tux4kids-admin --school_data_path /home/john/school_data
