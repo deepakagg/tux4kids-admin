@@ -22,11 +22,12 @@ Author: Michał Świtakowski <tux4kids at_here switakowski.com>, Copyright (C) 2
 #include <QApplication>
 #include <QDir>
 #include <QTextStream>
+#include <iostream>
+#include <getopt.h>
 
 #include "mainController.h"
 #include "schoolData.h"
 #include "profileDirFactory.h"
-#include <getopt.h>
 
 MainController::MainController(QObject *parent)
 		: QObject(parent),
@@ -66,6 +67,12 @@ MainController::MainController(QObject *parent)
 		default:
 			break;
 		}
+	}
+
+	if (schoolDataPath.isEmpty()) {
+	    std::cerr << "Usage:\n"
+		    << "tux4kids-admin --school_data_path <path to school data directory>\n";
+	    m_status = InitializtionError;
 	}
 
 	if (m_status != NoError) {
